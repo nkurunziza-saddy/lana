@@ -9,21 +9,12 @@ catalogs:
     '@base-ui/react':
       specifier: ^1.4.0
       version: 1.4.1
-    '@excalidraw/excalidraw':
-      specifier: ^0.18.0
-      version: 0.18.0
     '@hugeicons/core-free-icons':
       specifier: ^4.1.1
       version: 4.1.1
     '@hugeicons/react':
       specifier: ^1.1.6
       version: 1.1.6
-    '@lexical/html':
-      specifier: ^0.43.0
-      version: 0.43.0
-    '@types/katex':
-      specifier: ^0.16.8
-      version: 0.16.8
     '@types/node':
       specifier: ^24
       version: 24.12.2
@@ -107,7 +98,7 @@ importers:
   packages/editor:
     dependencies:
       '@excalidraw/excalidraw':
-        specifier: 'catalog:'
+        specifier: ^0.18.0
         version: 0.18.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@lana/ui':
         specifier: workspace:*
@@ -128,7 +119,7 @@ importers:
         specifier: ^0.43.0
         version: 0.43.0
       '@lexical/html':
-        specifier: 'catalog:'
+        specifier: ^0.43.0
         version: 0.43.0
       '@lexical/link':
         specifier: ^0.43.0
@@ -192,7 +183,7 @@ importers:
         version: 3.5.0
     devDependencies:
       '@types/katex':
-        specifier: 'catalog:'
+        specifier: ^0.16.8
         version: 0.16.8
       '@types/node':
         specifier: 'catalog:'

@@ -138,9 +138,9 @@ export function Editor({
 
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null);
 
-  const onRef = (_floatingAnchorElem: HTMLDivElement) => {
-    if (_floatingAnchorElem !== null) {
-      setFloatingAnchorElem(_floatingAnchorElem);
+  const onRef = (floatingAnchorElem: HTMLDivElement) => {
+    if (floatingAnchorElem !== null) {
+      setFloatingAnchorElem(floatingAnchorElem);
     }
   };
   const initialConfig = useMemo(() => {

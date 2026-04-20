@@ -8,7 +8,7 @@ import { ThemeProvider } from "next-themes";
 function App() {
   return (
     <div className="min-h-screen bg-background p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="mx-2.5 space-y-8">
         <header className="space-y-2">
           <h1 className="text-4xl font-bold tracking-tight">Lana Editor</h1>
           <p className="text-muted-foreground text-lg">
@@ -16,7 +16,7 @@ function App() {
           </p>
         </header>
 
-        <main className="border rounded-xl shadow-sm bg-card overflow-hidden">
+        <main className="border">
           <Editor
             className="min-h-[500px]"
             placeholder="Start typing your story..."
@@ -24,10 +24,6 @@ function App() {
             showFloatingToolbar
           />
         </main>
-
-        <footer className="text-center text-sm text-muted-foreground pt-8">
-          Built with React 19, Tailwind CSS v4, and Lexical.
-        </footer>
       </div>
     </div>
   );
