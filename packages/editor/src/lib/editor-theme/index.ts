@@ -33,9 +33,9 @@ export const theme: EditorThemeClasses = {
     ul: "list-disc list-outside my-6 ml-6 space-y-1 first:mt-0",
     listitem: "pl-2 leading-relaxed",
     listitemChecked:
-      "relative flex items-center gap-2 list-none outline-none text-muted-foreground/50 line-through before:content-[''] before:flex-shrink-0 before:mt-1 before:size-4 before:rounded-[0.25rem] before:border before:border-foreground before:bg-foreground before:cursor-pointer before:flex before:items-center before:justify-center before:[content:'✓'] before:text-background before:text-xs before:font-bold",
+      "relative block pl-6 list-none outline-none text-muted-foreground/50 line-through before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:size-4 before:rounded-[0.25rem] before:border before:border-foreground before:bg-foreground before:cursor-pointer before:flex before:items-center before:justify-center before:[content:'✓'] before:text-background before:text-xs before:font-bold",
     listitemUnchecked:
-      "relative flex items-center gap-2 list-none outline-none before:content-[''] before:flex-shrink-0 before:mt-1 before:size-4 before:rounded-[0.25rem] before:border before:border-border before:bg-muted before:cursor-pointer hover:before:border-foreground/50 transition-colors duration-80",
+      "relative block pl-6 list-none outline-none before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:size-4 before:rounded-[0.25rem] before:border before:border-border before:bg-muted before:cursor-pointer hover:before:border-foreground/50 transition-colors duration-80",
     checklist: "my-6 space-y-2 pl-1 first:mt-0",
   },
 

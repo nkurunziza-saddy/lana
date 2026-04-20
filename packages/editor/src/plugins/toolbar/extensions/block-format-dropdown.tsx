@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
-import { $createParagraphNode, $getRoot, $getSelection } from "lexical";
+import { $createParagraphNode, $getSelection } from "lexical";
 import { Check, Heading, Heading1, Heading2, Heading3, Heading4 } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import { ToolbarButton } from "./toolbar-button";
@@ -13,15 +13,7 @@ export function BlockFormatDropDown({ blockType }: { blockType: string }) {
     if (blockType !== headingSize) {
       editor.update(() => {
         const selection = $getSelection();
-        const root = $getRoot();
-        if (root.getChildrenSize() === 0) {
-          // Empty editor — create the heading node directly
-          const headingNode = $createHeadingNode(headingSize);
-          root.append(headingNode);
-          headingNode.selectEnd();
-        } else {
-          $setBlocksType(selection, () => $createHeadingNode(headingSize));
-        }
+        $setBlocksType(selection, () => $createHeadingNode(headingSize));
       });
     }
   };
@@ -30,14 +22,7 @@ export function BlockFormatDropDown({ blockType }: { blockType: string }) {
     if (blockType !== "paragraph") {
       editor.update(() => {
         const selection = $getSelection();
-        const root = $getRoot();
-        if (root.getChildrenSize() === 0) {
-          const paragraphNode = $createParagraphNode();
-          root.append(paragraphNode);
-          paragraphNode.selectEnd();
-        } else {
-          $setBlocksType(selection, () => $createParagraphNode());
-        }
+        $setBlocksType(selection, () => $createParagraphNode());
       });
     }
   };
