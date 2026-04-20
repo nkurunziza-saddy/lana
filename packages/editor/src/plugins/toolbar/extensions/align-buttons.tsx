@@ -13,7 +13,7 @@ export function AlignButtons() {
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger render={<ToolbarButton icon={AlignLeft} title="Text Alignment" />} />
 
       <DropdownMenuContent align="start" className="animate-in slide-in-from-top-2 duration-200">

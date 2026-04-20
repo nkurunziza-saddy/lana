@@ -6,28 +6,34 @@ import {
   type LexicalEditor,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
-import { Palette, Check } from "lucide-react";
+import { Highlighter, Check } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
-import { FONT_COLORS } from "../../../lib/colors";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@lana/ui";
+import { HIGHLIGHT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
 
-export function ColorPicker({
+export function HighlightPicker({
   editor,
   disabled = false,
 }: {
   editor: LexicalEditor;
   disabled?: boolean;
 }) {
-  const [color, setColor] = useState("hsl(var(--foreground))");
+  const [color, setColor] = useState("");
 
   const applyColor = useCallback(
     (newColor: string) => {
       editor.update(() => {
         const selection = $getSelection();
         if ($isRangeSelection(selection)) {
-          $patchStyleText(selection, { color: newColor });
+          $patchStyleText(selection, { "background-color": newColor });
         }
       });
     },
@@ -41,9 +47,7 @@ export function ColorPicker({
         editor.read(() => {
           const selection = $getSelection();
           if ($isRangeSelection(selection)) {
-            setColor(
-              $getSelectionStyleValueForProperty(selection, "color", "hsl(var(--foreground))"),
-            );
+            setColor($getSelectionStyleValueForProperty(selection, "background-color", ""));
           }
         });
         return false;
@@ -56,20 +60,21 @@ export function ColorPicker({
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         render={
-          <ToolbarButton disabled={disabled} title="Text Color">
-            <Palette className="size-4" style={{ color }} />
+          <ToolbarButton
+            disabled={disabled}
+            title="Highlight"
+            isActive={!!color && color !== "transparent"}
+          >
+            <Highlighter className="size-4" style={{ color: color || undefined }} />
           </ToolbarButton>
         }
       />
       <DropdownMenuContent
         align="start"
-        className="animate-in slide-in-from-top-2 duration-200 min-w-[140px]"
+        className="animate-in slide-in-from-top-2 duration-200 min-w-[150px]"
       >
-        {FONT_COLORS.map((c) => {
-          // Some basic matching for hsl/hex to show active state
-          const isActive =
-            color === c.value ||
-            (color === "var(--foreground)" && c.value.includes("--foreground"));
+        {HIGHLIGHT_COLORS.map((c) => {
+          const isActive = color === c.value;
 
           return (
             <DropdownMenuItem
@@ -88,6 +93,10 @@ export function ColorPicker({
             </DropdownMenuItem>
           );
         })}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="flex items-center" onClick={() => applyColor("")}>
+          Remove Highlight
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -33,7 +33,6 @@ export function TextCaseMenu({ toolbarState }: { toolbarState: ToolbarState }) {
         editor.dispatchCommand(FORMAT_TEXT_COMMAND, "lowercase");
       }
       editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
-      editor.focus();
     },
     [editor, toolbarState.isCapitalized, toolbarState.isUppercase, toolbarState.isLowercase],
   );
@@ -50,7 +49,7 @@ export function TextCaseMenu({ toolbarState }: { toolbarState: ToolbarState }) {
         : null;
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         render={<ToolbarButton icon={CaseUpper} isActive={isActive} title="Text Case" />}
       />

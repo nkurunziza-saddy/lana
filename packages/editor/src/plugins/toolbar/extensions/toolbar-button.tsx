@@ -41,6 +41,10 @@ export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonPr
         size={size as any}
         variant={variant ?? (isActive ? "secondary" : "ghost")}
         {...props}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          props.onMouseDown?.(e);
+        }}
       >
         {children}
         {Icon && <Icon className="size-4" />}

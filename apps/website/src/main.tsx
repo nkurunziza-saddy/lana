@@ -9,13 +9,6 @@ function App() {
   return (
     <div className="min-h-screen bg-background p-8">
       <div className="mx-2.5 space-y-8">
-        <header className="space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">Lana Editor</h1>
-          <p className="text-muted-foreground text-lg">
-            A powerful rich-text editor built with Lexical and shadcn/ui.
-          </p>
-        </header>
-
         <main className="border">
           <Editor
             className="min-h-[500px]"

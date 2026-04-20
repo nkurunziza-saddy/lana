@@ -3,7 +3,7 @@ import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
 import { $isListNode, ListNode } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $isHeadingNode, $isQuoteNode } from "@lexical/rich-text";
-import { $patchStyleText } from "@lexical/selection";
+
 import { $isTableCellNode, INSERT_TABLE_COMMAND } from "@lexical/table";
 import {
   $findMatchingParent,
@@ -24,15 +24,8 @@ import {
   SELECTION_CHANGE_COMMAND,
   type TextNode,
 } from "lexical";
-import { Highlighter, LinkIcon, Mic, MicOff } from "lucide-react";
+import { LinkIcon, Mic, MicOff } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@lana/ui";
 import { ImageDialog, LayoutDialog, LinkPopover, TableDialog } from "../../components";
 import { INSERT_LAYOUT_COMMAND } from "../layout";
 import { InsertEquationDialog } from "../../plugins/equations";
@@ -40,12 +33,12 @@ import ExcalidrawModal from "../../components/excalidraw-modal";
 import type { AppState } from "@excalidraw/excalidraw/types";
 import { $createExcalidrawNode } from "../../nodes/excalidraw";
 import { Separator } from "../../components/toolbar-separator";
-import { HIGHLIGHT_COLORS } from "../../lib/colors";
 import { $createImageNode } from "../../nodes/image";
 import { AlignButtons } from "./extensions/align-buttons";
 import { BlockFormatDropDown } from "./extensions/block-format-dropdown";
 import { BlockTypeButtons } from "./extensions/block-type-buttons";
 import { ColorPicker } from "./extensions/color-picker";
+import { HighlightPicker } from "./extensions/highlight-picker";
 import { FileActions } from "./extensions/file-actions";
 import { HistoryButtons } from "./extensions/history-buttons";
 import { InsertDropDown } from "./extensions/insert-actions";
@@ -63,7 +56,6 @@ const initialState = {
   isStrikethrough: false,
   isCode: false,
   isLink: false,
-  isHighlight: false,
   isSubscript: false,
   isSuperscript: false,
   isCapitalized: false,
@@ -112,94 +104,100 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
   const { isListening: isSpeechToTextActive } = useSpeechToTextState();
 
   const updateToolbar = useCallback(() => {
-    editor.read(() => {
-      const selection = $getSelection();
-      const newToolbarState = {
-        isBulletedList: false,
-        isNumberedList: false,
-        isCheckList: false,
-        isQuote: false,
-        isCodeBlock: false,
-        isStrikethrough: false,
-        isBold: false,
-        isItalic: false,
-        isUnderline: false,
-        isCode: false,
-        isLink: false,
-        isHighlight: false,
-        isSubscript: false,
-        isSuperscript: false,
-        isCapitalized: false,
-        isUppercase: false,
-        isLowercase: false,
-        isTable: false,
-        linkUrl: "",
-        blockType: "paragraph",
-      };
+    const selection = $getSelection();
+    const newToolbarState = {
+      isBulletedList: false,
+      isNumberedList: false,
+      isCheckList: false,
+      isQuote: false,
+      isCodeBlock: false,
+      isStrikethrough: false,
+      isBold: false,
+      isItalic: false,
+      isUnderline: false,
+      isCode: false,
+      isLink: false,
+      isSubscript: false,
+      isSuperscript: false,
+      isCapitalized: false,
+      isUppercase: false,
+      isLowercase: false,
+      isTable: false,
+      linkUrl: "",
+      blockType: "paragraph",
+    };
 
-      if ($isRangeSelection(selection)) {
-        const anchorNode = selection.anchor.getNode();
-        const element =
-          anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
+    if ($isRangeSelection(selection)) {
+      const anchorNode = selection.anchor.getNode();
+      const element =
+        anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
 
-        let blockType = "paragraph";
-        if ($isListNode(element)) {
-          const parentList = $getNearestNodeOfType(anchorNode, ListNode);
-          blockType = parentList ? parentList.getListType() : element.getListType();
-        } else {
-          if ($isHeadingNode(element)) {
-            blockType = element.getTag();
-          } else if ($isQuoteNode(element)) {
-            blockType = "quote";
-          } else if ($isCodeNode(element)) {
-            blockType = "code";
-          }
+      let blockType = "paragraph";
+      if ($isListNode(element)) {
+        const parentList = $getNearestNodeOfType(anchorNode, ListNode);
+        blockType = parentList ? parentList.getListType() : element.getListType();
+      } else {
+        if ($isHeadingNode(element)) {
+          blockType = element.getTag();
+        } else if ($isQuoteNode(element)) {
+          blockType = "quote";
+        } else if ($isCodeNode(element)) {
+          blockType = "code";
         }
-        newToolbarState.blockType = blockType;
-
-        const cell = $findMatchingParent(anchorNode, (node) => $isTableCellNode(node));
-        newToolbarState.isTable = cell !== null;
-
-        let isLink = false;
-        let node: ElementNode | TextNode | null = anchorNode;
-        while (node) {
-          if ($isLinkNode(node)) {
-            isLink = true;
-            break;
-          }
-          const parent: ElementNode | null = node.getParent();
-          if (parent === node) break;
-          node = parent;
-        }
-        newToolbarState.isLink = isLink;
-        newToolbarState.linkUrl = isLink && $isLinkNode(node) ? node.getURL() : "";
-
-        newToolbarState.isBulletedList = blockType === "bullet";
-        newToolbarState.isNumberedList = blockType === "number";
-        newToolbarState.isCheckList = blockType === "check";
-        newToolbarState.isQuote = blockType === "quote";
-        newToolbarState.isCodeBlock = blockType === "code";
-
-        newToolbarState.isBold = selection.hasFormat("bold");
-        newToolbarState.isItalic = selection.hasFormat("italic");
-        newToolbarState.isUnderline = selection.hasFormat("underline");
-        newToolbarState.isStrikethrough = selection.hasFormat("strikethrough");
-        newToolbarState.isCode = selection.hasFormat("code");
-        newToolbarState.isHighlight = selection.hasFormat("highlight");
-        newToolbarState.isSubscript = selection.hasFormat("subscript");
-        newToolbarState.isSuperscript = selection.hasFormat("superscript");
-        newToolbarState.isCapitalized = selection.hasFormat("capitalize");
-        newToolbarState.isUppercase = selection.hasFormat("uppercase");
-        newToolbarState.isLowercase = selection.hasFormat("lowercase");
       }
+      newToolbarState.blockType = blockType;
 
-      dispatch({ type: "UPDATE", payload: newToolbarState });
+      const cell = $findMatchingParent(anchorNode, (node) => $isTableCellNode(node));
+      newToolbarState.isTable = cell !== null;
+
+      let isLink = false;
+      let node: ElementNode | TextNode | null = anchorNode;
+      while (node) {
+        if ($isLinkNode(node)) {
+          isLink = true;
+          break;
+        }
+        const parent: ElementNode | null = node.getParent();
+        if (parent === node) break;
+        node = parent;
+      }
+      newToolbarState.isLink = isLink;
+      newToolbarState.linkUrl = isLink && $isLinkNode(node) ? node.getURL() : "";
+
+      newToolbarState.isBulletedList = blockType === "bullet";
+      newToolbarState.isNumberedList = blockType === "number";
+      newToolbarState.isCheckList = blockType === "check";
+      newToolbarState.isQuote = blockType === "quote";
+      newToolbarState.isCodeBlock = blockType === "code";
+
+      newToolbarState.isBold = selection.hasFormat("bold");
+      newToolbarState.isItalic = selection.hasFormat("italic");
+      newToolbarState.isUnderline = selection.hasFormat("underline");
+      newToolbarState.isStrikethrough = selection.hasFormat("strikethrough");
+      newToolbarState.isCode = selection.hasFormat("code");
+      newToolbarState.isSubscript = selection.hasFormat("subscript");
+      newToolbarState.isSuperscript = selection.hasFormat("superscript");
+      newToolbarState.isCapitalized = selection.hasFormat("capitalize");
+      newToolbarState.isUppercase = selection.hasFormat("uppercase");
+      newToolbarState.isLowercase = selection.hasFormat("lowercase");
+    }
+
+    dispatch({ type: "UPDATE", payload: newToolbarState });
+  }, []);
+
+  useEffect(() => {
+    editor.getEditorState().read(() => {
+      updateToolbar();
     });
-  }, [editor]);
+  }, [editor, updateToolbar]);
 
   useEffect(() => {
     return mergeRegister(
-      editor.registerUpdateListener(updateToolbar),
+      editor.registerUpdateListener(({ editorState }) => {
+        editorState.read(() => {
+          updateToolbar();
+        });
+      }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
         () => {
@@ -280,56 +278,8 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
       <TextCaseMenu toolbarState={toolbarState} />
       <Separator />
       <ColorPicker editor={editor} />
+      <HighlightPicker editor={editor} />
 
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          render={
-            <ToolbarButton
-              icon={Highlighter}
-              isActive={toolbarState.isHighlight}
-              title="Highlight"
-            />
-          }
-        />
-        <DropdownMenuContent className="animate-in slide-in-from-top-2 duration-200">
-          {HIGHLIGHT_COLORS.map((color) => (
-            <DropdownMenuItem
-              className="hover:bg-accent/80 transition-colors"
-              key={color.value}
-              onClick={() => {
-                editor.update(() => {
-                  const selection = $getSelection();
-                  if ($isRangeSelection(selection)) {
-                    $patchStyleText(selection, {
-                      "background-color": color.value,
-                    });
-                  }
-                });
-              }}
-            >
-              <div
-                className="size-4 rounded-sm mr-2 border shadow-sm"
-                style={{ backgroundColor: color.value }}
-              />
-              {color.name}
-            </DropdownMenuItem>
-          ))}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="hover:bg-accent/80 transition-colors"
-            onClick={() => {
-              editor.update(() => {
-                const selection = $getSelection();
-                if ($isRangeSelection(selection)) {
-                  $patchStyleText(selection, { "background-color": "" });
-                }
-              });
-            }}
-          >
-            Remove Highlight
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
       <Separator />
       <LinkPopover
         isOpen={showLinkDialog}

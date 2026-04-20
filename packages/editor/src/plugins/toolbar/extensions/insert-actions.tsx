@@ -20,7 +20,7 @@ export function InsertDropDown({
   const [editor] = useLexicalComposerContext();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger render={<ToolbarButton icon={Plus} title="Insert" />} />
       <DropdownMenuContent align="start" className="animate-in slide-in-from-top-2 duration-200">
         <DropdownMenuItem

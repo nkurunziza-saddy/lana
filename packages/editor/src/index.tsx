@@ -12,7 +12,7 @@ import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPl
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-import type { EditorState, LexicalEditor } from "lexical";
+import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } from "lexical";
 import type React from "react";
 import { useMemo, useRef, useState } from "react";
 import { cn } from "@lana/utils";
@@ -57,6 +57,7 @@ function EditorContent({
               "w-full",
               "min-h-[inherit]",
               "will-change-auto",
+              "cursor-text",
               className,
             )}
             readOnly={readOnly}
@@ -68,7 +69,7 @@ function EditorContent({
         }
         ErrorBoundary={LexicalErrorBoundary}
         placeholder={
-          <div className="absolute top-6 md:top-8 left-12 md:left-16 text-muted-foreground/60 pointer-events-none select-none text-base md:text-lg">
+          <div className="absolute top-6 md:top-8 left-12 text-muted-foreground/60 pointer-events-none select-none text-base md:text-lg leading-relaxed">
             {placeholder}
           </div>
         }
@@ -144,7 +145,7 @@ export function Editor({
     }
   };
   const initialConfig = useMemo(() => {
-    let editorState = null;
+    let editorState: string | (() => void) | null = null;
     if (initialValue && typeof initialValue === "string" && initialValue.trim() !== "") {
       try {
         const parsed = JSON.parse(initialValue);
@@ -159,6 +160,17 @@ export function Editor({
       } catch (e) {
         console.warn("Invalid initialValue JSON, falling back to default.", e);
       }
+    }
+
+    // When no initial state is provided, ensure the editor starts with
+    // a paragraph node so toolbar actions work immediately on first click.
+    if (editorState === null) {
+      editorState = () => {
+        const root = $getRoot();
+        if (root.getChildrenSize() === 0) {
+          root.append($createParagraphNode());
+        }
+      };
     }
 
     return {
