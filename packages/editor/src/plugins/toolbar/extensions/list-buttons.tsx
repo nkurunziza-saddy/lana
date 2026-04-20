@@ -1,3 +1,4 @@
+import { REMOVE_LIST_COMMAND } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import type { ToolbarState } from "..";
 import { BLOCK_FORMAT_ITEMS } from "../toolbar-items";
@@ -18,7 +19,13 @@ export function ListButtons({ toolbarState }: { toolbarState: ToolbarState }) {
             icon={item.icon}
             isActive={toolbarState.blockType === item.name}
             key={item.name}
-            onClick={() => editor.dispatchCommand(item.command!, undefined)}
+            onClick={() => {
+              if (toolbarState.blockType === item.name) {
+                editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+              } else {
+                editor.dispatchCommand(item.command!, undefined);
+              }
+            }}
             title={item.name}
           />
         );

@@ -30,10 +30,8 @@ export function LinkPopover({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (url.trim()) {
-      onSubmit(url.trim());
-      onClose();
-    }
+    onSubmit(url.trim());
+    onClose();
   };
 
   return (
@@ -64,7 +62,7 @@ export function LinkPopover({
               Cancel
             </Button>
             <Button size="sm" type="submit">
-              Insert Link
+              {initialUrl ? (url.trim() ? "Update Link" : "Remove Link") : "Insert Link"}
             </Button>
           </div>
         </form>

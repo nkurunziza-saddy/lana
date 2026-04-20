@@ -234,6 +234,8 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
   const handleLinkSubmit = (url: string) => {
     if (url) {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, url);
+    } else {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
   };
 

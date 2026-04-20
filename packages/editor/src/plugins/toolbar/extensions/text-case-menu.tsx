@@ -23,10 +23,19 @@ export function TextCaseMenu({ toolbarState }: { toolbarState: ToolbarState }) {
 
   const handleCaseChange = useCallback(
     (format: "capitalize" | "uppercase" | "lowercase") => {
+      if (toolbarState.isCapitalized && format !== "capitalize") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "capitalize");
+      }
+      if (toolbarState.isUppercase && format !== "uppercase") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "uppercase");
+      }
+      if (toolbarState.isLowercase && format !== "lowercase") {
+        editor.dispatchCommand(FORMAT_TEXT_COMMAND, "lowercase");
+      }
       editor.dispatchCommand(FORMAT_TEXT_COMMAND, format);
       editor.focus();
     },
-    [editor],
+    [editor, toolbarState.isCapitalized, toolbarState.isUppercase, toolbarState.isLowercase],
   );
 
   const isActive =
