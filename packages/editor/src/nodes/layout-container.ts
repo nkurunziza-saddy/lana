@@ -50,6 +50,14 @@ export class LayoutContainerNode extends ElementNode {
     return false;
   }
 
+  isShadowRoot(): boolean {
+    return true;
+  }
+
+  canBeEmpty(): boolean {
+    return false;
+  }
+
   static importJSON(json: SerializedLayoutContainerNode): LayoutContainerNode {
     return new LayoutContainerNode(json.templateColumns);
   }

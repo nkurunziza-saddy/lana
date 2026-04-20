@@ -4,9 +4,18 @@ import {
   type NodeKey,
   type SerializedElementNode,
   type EditorConfig,
+  $isParagraphNode,
 } from "lexical";
 
 export type SerializedLayoutItemNode = SerializedElementNode;
+
+export function $isEmptyLayoutItemNode(node: LexicalNode): boolean {
+  if (!$isLayoutItemNode(node) || node.getChildrenSize() !== 1) {
+    return false;
+  }
+  const firstChild = node.getFirstChild();
+  return $isParagraphNode(firstChild) && firstChild.isEmpty();
+}
 
 export class LayoutItemNode extends ElementNode {
   constructor(key?: NodeKey) {
@@ -31,6 +40,19 @@ export class LayoutItemNode extends ElementNode {
 
   updateDOM(): boolean {
     return false;
+  }
+
+  collapseAtStart(): boolean {
+    const parent = this.getParentOrThrow();
+    if (this.is(parent.getFirstChild()) && parent.getChildren().every($isEmptyLayoutItemNode)) {
+      parent.remove();
+      return true;
+    }
+    return false;
+  }
+
+  isShadowRoot(): boolean {
+    return true;
   }
 
   static importJSON(): LayoutItemNode {
