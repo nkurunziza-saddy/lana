@@ -9,22 +9,18 @@ export function HistoryButtons({ canUndo, canRedo }: { canUndo: boolean; canRedo
 
   return (
     <>
-      <div>
-        <ToolbarButton
-          disabled={!canUndo}
-          icon={Undo}
-          onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)}
-          title="Undo"
-        />
-      </div>
-      <div>
-        <ToolbarButton
-          disabled={!canRedo}
-          icon={Redo}
-          onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)}
-          title="Redo"
-        />
-      </div>
+      <ToolbarButton
+        disabled={!canUndo}
+        icon={Undo}
+        onClick={() => editor.dispatchCommand(UNDO_COMMAND, undefined)}
+        title="Undo"
+      />
+      <ToolbarButton
+        disabled={!canRedo}
+        icon={Redo}
+        onClick={() => editor.dispatchCommand(REDO_COMMAND, undefined)}
+        title="Redo"
+      />
     </>
   );
 }

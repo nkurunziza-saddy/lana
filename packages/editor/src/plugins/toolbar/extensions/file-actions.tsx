@@ -25,14 +25,7 @@ export function FileActions() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger
-          render={
-            <ToolbarButton
-              className="hover:bg-accent/80 transition-colors"
-              icon={FileDown}
-              title="Export"
-              variant="ghost"
-            />
-          }
+          render={<ToolbarButton icon={FileDown} title="Export" variant="ghost" />}
         />
         <DropdownMenuContent align="start" className="animate-in slide-in-from-top-2 duration-200">
           <DropdownMenuItem

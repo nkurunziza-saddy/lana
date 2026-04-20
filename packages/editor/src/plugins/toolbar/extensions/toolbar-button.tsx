@@ -3,23 +3,36 @@ import * as React from "react";
 import { cn } from "@lana/utils";
 import { Button, Toggle } from "@lana/ui";
 
+// Shared token — change here to resize both button types together
+const BTN_SIZE = "size-8" as const;
+const ICON_SIZE = "size-4" as const;
+
 interface ToggleProps {
   onClick: () => void;
   isActive: boolean;
   icon: LucideIcon;
   title: string;
+  disabled?: boolean;
 }
 
-export function ToolbarToggleButton({ onClick, isActive, icon: Icon, title }: ToggleProps) {
+export function ToolbarToggleButton({
+  onClick,
+  isActive,
+  icon: Icon,
+  title,
+  disabled,
+}: ToggleProps) {
   return (
     <Toggle
+      className={BTN_SIZE}
+      disabled={disabled}
       onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
       onPressedChange={onClick}
       pressed={isActive}
       size="sm"
       title={title}
     >
-      <Icon className="size-4" />
+      <Icon className={ICON_SIZE} />
     </Toggle>
   );
 }
@@ -31,12 +44,12 @@ type ToolbarButtonProps = React.ComponentProps<typeof Button> & {
 };
 
 export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonProps>(
-  ({ className, isActive = false, children, icon: Icon, variant, size = "sm", ...props }, ref) => {
+  ({ className, isActive = false, children, icon: Icon, variant, ...props }, ref) => {
     return (
       <Button
-        className={cn("h-7 w-7 px-0", className)}
+        className={cn(BTN_SIZE, "px-0 shrink-0", className)}
         ref={ref}
-        size={size as any}
+        size="sm"
         variant={variant ?? (isActive ? "secondary" : "ghost")}
         {...props}
         onMouseDown={(e) => {
@@ -45,7 +58,7 @@ export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonPr
         }}
       >
         {children}
-        {Icon && <Icon className="size-4" />}
+        {Icon && <Icon className={ICON_SIZE} />}
       </Button>
     );
   },

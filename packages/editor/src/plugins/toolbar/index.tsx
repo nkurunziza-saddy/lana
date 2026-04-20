@@ -247,7 +247,7 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
   };
 
   return (
-    <div className="flex relative items-center gap-1 p-3 border-b flex-wrap">
+    <div className="flex relative items-center gap-0.5 px-2 py-1.5 border-b overflow-x-auto scrollbar-none">
       <HistoryButtons canRedo={toolbarState.canRedo} canUndo={toolbarState.canUndo} />
 
       <Separator />
