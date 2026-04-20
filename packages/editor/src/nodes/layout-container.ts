@@ -32,7 +32,6 @@ export class LayoutContainerNode extends ElementNode {
 
   createDOM(config: EditorConfig): HTMLElement {
     const dom = document.createElement("div");
-    dom.style.display = "grid";
     dom.style.gridTemplateColumns = this.__templateColumns;
 
     const theme = config.theme;

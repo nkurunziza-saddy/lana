@@ -21,7 +21,6 @@ import {
   CAN_UNDO_COMMAND,
   COMMAND_PRIORITY_CRITICAL,
   type ElementNode,
-  SELECTION_CHANGE_COMMAND,
   type TextNode,
 } from "lexical";
 import { LinkIcon, Mic, MicOff } from "lucide-react";
@@ -198,14 +197,6 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
           updateToolbar();
         });
       }),
-      editor.registerCommand(
-        SELECTION_CHANGE_COMMAND,
-        () => {
-          updateToolbar();
-          return false;
-        },
-        COMMAND_PRIORITY_CRITICAL,
-      ),
       editor.registerCommand(
         CAN_UNDO_COMMAND,
         (payload: boolean) => {

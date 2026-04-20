@@ -1,8 +1,7 @@
-import type { VariantProps } from "class-variance-authority";
 import type { LucideIcon } from "lucide-react";
 import * as React from "react";
 import { cn } from "@lana/utils";
-import { Button, buttonVariants, Toggle } from "@lana/ui";
+import { Button, Toggle } from "@lana/ui";
 
 interface ToggleProps {
   onClick: () => void;
@@ -25,12 +24,11 @@ export function ToolbarToggleButton({ onClick, isActive, icon: Icon, title }: To
   );
 }
 
-type ToolbarButtonProps = React.ComponentProps<typeof Button> &
-  Partial<VariantProps<typeof buttonVariants>> & {
-    isActive?: boolean;
-    icon?: LucideIcon;
-    children?: React.ReactNode;
-  };
+type ToolbarButtonProps = React.ComponentProps<typeof Button> & {
+  isActive?: boolean;
+  icon?: LucideIcon;
+  children?: React.ReactNode;
+};
 
 export const ToolbarButton = React.forwardRef<HTMLButtonElement, ToolbarButtonProps>(
   ({ className, isActive = false, children, icon: Icon, variant, size = "sm", ...props }, ref) => {
