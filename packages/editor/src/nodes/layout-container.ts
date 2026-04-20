@@ -4,6 +4,7 @@ import {
   type NodeKey,
   type SerializedElementNode,
   type Spread,
+  type EditorConfig,
 } from "lexical";
 
 export type SerializedLayoutContainerNode = Spread<
@@ -29,12 +30,17 @@ export class LayoutContainerNode extends ElementNode {
     return new LayoutContainerNode(node.__templateColumns, node.__key);
   }
 
-  createDOM(): HTMLElement {
+  createDOM(config: EditorConfig): HTMLElement {
     const dom = document.createElement("div");
     dom.style.display = "grid";
     dom.style.gridTemplateColumns = this.__templateColumns;
-    dom.style.gap = "8px";
-    dom.className = "lexical-layout-container";
+
+    const theme = config.theme;
+    const className = theme.layoutContainer;
+    if (className !== undefined) {
+      dom.className = className;
+    }
+
     return dom;
   }
 

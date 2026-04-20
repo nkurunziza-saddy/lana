@@ -1,4 +1,10 @@
-import { ElementNode, type LexicalNode, type NodeKey, type SerializedElementNode } from "lexical";
+import {
+  ElementNode,
+  type LexicalNode,
+  type NodeKey,
+  type SerializedElementNode,
+  type EditorConfig,
+} from "lexical";
 
 export type SerializedLayoutItemNode = SerializedElementNode;
 
@@ -15,10 +21,11 @@ export class LayoutItemNode extends ElementNode {
     return new LayoutItemNode(node.__key);
   }
 
-  createDOM(): HTMLElement {
+  createDOM(config: EditorConfig): HTMLElement {
     const dom = document.createElement("div");
-    dom.className = "lexical-layout-item";
-    dom.style.minWidth = "0";
+    if (typeof config.theme.layoutItem === "string") {
+      dom.className = config.theme.layoutItem;
+    }
     return dom;
   }
 

@@ -7,6 +7,7 @@ import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+import { ClickableLinkPlugin } from "@lexical/react/LexicalClickableLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
@@ -103,6 +104,7 @@ function EditorPlugins({
       <ListPlugin />
       <CheckListPlugin />
       <LinkPlugin />
+      <ClickableLinkPlugin newTab={true} />
       <HorizontalRulePlugin />
       {/* table plugins - order matters */}
       <TablePlugin hasCellBackgroundColor={true} hasCellMerge={true} hasTabHandler={true} />
