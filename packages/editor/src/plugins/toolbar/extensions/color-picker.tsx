@@ -6,6 +6,7 @@ import {
   type LexicalEditor,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
+import { mergeRegister } from "@lexical/utils";
 import { Palette, Check } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
@@ -34,23 +35,36 @@ export function ColorPicker({
     [editor],
   );
 
+  const updateColor = useCallback(() => {
+    const selection = $getSelection();
+    if ($isRangeSelection(selection)) {
+      setColor($getSelectionStyleValueForProperty(selection, "color", "hsl(var(--foreground))"));
+    }
+  }, []);
+
   useEffect(() => {
-    return editor.registerCommand(
-      SELECTION_CHANGE_COMMAND,
-      () => {
-        editor.read(() => {
-          const selection = $getSelection();
-          if ($isRangeSelection(selection)) {
-            setColor(
-              $getSelectionStyleValueForProperty(selection, "color", "hsl(var(--foreground))"),
-            );
-          }
+    editor.getEditorState().read(() => {
+      updateColor();
+    });
+  }, [editor, updateColor]);
+
+  useEffect(() => {
+    return mergeRegister(
+      editor.registerUpdateListener(({ editorState }) => {
+        editorState.read(() => {
+          updateColor();
         });
-        return false;
-      },
-      COMMAND_PRIORITY_CRITICAL,
+      }),
+      editor.registerCommand(
+        SELECTION_CHANGE_COMMAND,
+        () => {
+          updateColor();
+          return false;
+        },
+        COMMAND_PRIORITY_CRITICAL,
+      ),
     );
-  }, [editor]);
+  }, [editor, updateColor]);
 
   return (
     <DropdownMenu modal={false}>
