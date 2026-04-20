@@ -25,7 +25,7 @@ import {
 } from "lexical";
 import { LinkIcon, Mic, MicOff } from "lucide-react";
 import { useCallback, useEffect, useReducer, useState } from "react";
-import { ImageDialog, LayoutDialog, LinkPopover, TableDialog } from "../../components";
+import { ImageDialog, LayoutDialog, TableDialog } from "../../components";
 import { INSERT_LAYOUT_COMMAND } from "../layout";
 import { InsertEquationDialog } from "../../plugins/equations";
 import ExcalidrawModal from "../../components/excalidraw-modal";
@@ -94,7 +94,6 @@ const toolbarReducer = (state: ToolbarState, action: Action): ToolbarState => {
 export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: boolean }) {
   const [editor] = useLexicalComposerContext();
   const [toolbarState, dispatch] = useReducer(toolbarReducer, initialState);
-  const [showLinkDialog, setShowLinkDialog] = useState(false);
   const [showTableDialog, setShowTableDialog] = useState(false);
   const [showImageDialog, setShowImageDialog] = useState(false);
   const [showEquationDialog, setShowEquationDialog] = useState(false);
@@ -216,17 +215,13 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
     );
   }, [editor, updateToolbar]);
 
-  const insertLink = () => {
-    setShowLinkDialog(true);
-  };
-
-  const handleLinkSubmit = (url: string) => {
-    if (url) {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, url);
+  const insertLink = useCallback(() => {
+    if (!toolbarState.isLink) {
+      editor.dispatchCommand(TOGGLE_LINK_COMMAND, "https://");
     } else {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
-  };
+  }, [editor, toolbarState.isLink]);
 
   const handleTableSubmit = (rows: number, columns: number) => {
     const validRows = Math.max(1, Math.min(rows, 20));
@@ -272,19 +267,11 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
       <HighlightPicker editor={editor} />
 
       <Separator />
-      <LinkPopover
-        isOpen={showLinkDialog}
-        initialUrl={toolbarState.linkUrl}
-        onClose={() => setShowLinkDialog(false)}
-        onSubmit={handleLinkSubmit}
-        trigger={
-          <ToolbarButton
-            icon={LinkIcon}
-            isActive={toolbarState.isLink}
-            onClick={insertLink}
-            title="Insert Link"
-          />
-        }
+      <ToolbarButton
+        icon={LinkIcon}
+        isActive={toolbarState.isLink}
+        onClick={insertLink}
+        title="Insert Link"
       />
 
       <Separator />

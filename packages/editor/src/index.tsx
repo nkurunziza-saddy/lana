@@ -21,6 +21,7 @@ import { EDITOR_CONFIG } from "./lib/configs";
 import type { EditorProps } from "./lib/types/editor";
 import { FloatingToolbar } from "./plugins/floating-toolbar";
 import SlashCommandPlugin from "./plugins/slash-command";
+import { FloatingLinkEditorPlugin } from "./plugins/floating-link-editor";
 import TableHoverActionsPlugin from "./plugins/table-hover-actions";
 import SpeechToTextPlugin from "./plugins/speech-to-text";
 import { Toolbar } from "./plugins/toolbar";
@@ -117,7 +118,12 @@ function EditorPlugins({
       {enableSpeechToText && <SpeechToTextPlugin />}
       <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       <OnChangePlugin onChange={onChange} />
-      {showFloatingToolbar && <FloatingToolbar />}
+      {showFloatingToolbar && (
+        <>
+          <FloatingToolbar />
+          <FloatingLinkEditorPlugin />
+        </>
+      )}
       {pluginElements}
     </>
   );

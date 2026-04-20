@@ -66,7 +66,6 @@ export function FloatingToolbar() {
   const formatText = useCallback(
     (format: string) => {
       editor.dispatchCommand(FORMAT_TEXT_COMMAND, format as TextFormatType);
-      editor.focus();
     },
     [editor],
   );
@@ -81,7 +80,6 @@ export function FloatingToolbar() {
           });
         }
       });
-      editor.focus();
     },
     [editor],
   );
