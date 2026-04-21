@@ -31,6 +31,8 @@ import EquationsPlugin from "./plugins/equations";
 import ExcalidrawPlugin from "./plugins/excalidraw";
 import DraggableBlockPlugin from "./plugins/draggable-block";
 import { LayoutPlugin } from "./plugins/layout";
+import { type SlashCommand } from "./plugins/slash-command/slash-command-items";
+import AutosavePlugin from "./plugins/autosave";
 
 export const EditorContent = memo(function EditorContent({
   placeholder = "Start writing ...",
@@ -49,7 +51,7 @@ export const EditorContent = memo(function EditorContent({
   );
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full animate-in fade-in duration-300">
       <RichTextPlugin
         contentEditable={
           <ContentEditable
@@ -61,6 +63,7 @@ export const EditorContent = memo(function EditorContent({
               "min-h-[inherit]",
               "will-change-auto",
               "cursor-text",
+              "transition-colors duration-150",
               className,
             )}
             readOnly={readOnly}
@@ -72,7 +75,7 @@ export const EditorContent = memo(function EditorContent({
         }
         ErrorBoundary={LexicalErrorBoundary}
         placeholder={
-          <div className="absolute top-6 md:top-8 left-12 text-muted-foreground/60 pointer-events-none select-none text-base md:text-lg leading-relaxed">
+          <div className="absolute top-6 md:top-8 left-12 text-muted-foreground/30 pointer-events-none select-none text-base md:text-lg leading-relaxed animate-in fade-in duration-500">
             {placeholder}
           </div>
         }
@@ -85,15 +88,19 @@ export const EditorPlugins = memo(function EditorPlugins({
   showFloatingToolbar = true,
   enableSpeechToText = false,
   customPlugins = [],
+  slashCommands,
   anchorElem = document.body,
   onChange,
+  onSave,
   children,
 }: {
   showFloatingToolbar?: boolean;
   enableSpeechToText?: boolean;
   customPlugins?: React.ComponentType[];
+  slashCommands?: SlashCommand[];
   anchorElem?: HTMLElement;
   onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
+  onSave?: (editorStateString: string) => void;
   children?: React.ReactNode;
 }) {
   const pluginElements = useMemo(
@@ -113,13 +120,14 @@ export const EditorPlugins = memo(function EditorPlugins({
       {/* table plugins - order matters */}
       <TablePlugin hasCellBackgroundColor={true} hasCellMerge={true} hasTabHandler={true} />
       <TableHoverActionsPlugin anchorElem={anchorElem} />
-      <SlashCommandPlugin />
+      <SlashCommandPlugin commands={slashCommands} />
       <EquationsPlugin />
       <ExcalidrawPlugin />
       <LayoutPlugin />
       <DraggableBlockPlugin anchorElem={anchorElem} />
       {enableSpeechToText && <SpeechToTextPlugin anchorElem={anchorElem} />}
       <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+      {onSave && <AutosavePlugin onSave={onSave} />}
       {onChange && <OnChangePlugin onChange={onChange} />}
       {showFloatingToolbar && anchorElem && (
         <>
@@ -192,7 +200,7 @@ export function EditorRoot({
     <LexicalComposer initialConfig={initialConfig}>
       <div
         className={cn(
-          "relative overflow-hidden w-full flex flex-col h-full",
+          "relative overflow-hidden w-full flex flex-col h-full bg-background transition-colors duration-200",
           resolvedTheme === "dark" && "dark",
           className,
         )}
@@ -200,6 +208,7 @@ export function EditorRoot({
       >
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
+            // Pass the anchor element to children that might need it (like Plugins or Floating Toolbar)
             return React.cloneElement(child as React.ReactElement<any>, {
               anchorElem: floatingAnchorElem || undefined,
             });
@@ -222,10 +231,15 @@ export const Editor = (({
   enableSpeechToText = false,
   readOnly = false,
   onChange,
+  onSave,
   plugins = [],
+  slashCommands,
 }: EditorProps) => {
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
+
+  const onSaveRef = useRef(onSave);
+  onSaveRef.current = onSave;
 
   const handleEditorChange = useMemo(
     () =>
@@ -239,11 +253,11 @@ export const Editor = (({
 
   return (
     <EditorRoot initialValue={initialValue} readOnly={readOnly} className={className}>
-      <div className={cn(showToolbar && "order-last md:order-first")}>
+      <div className={cn(showToolbar && "order-last md:order-first transition-all duration-300")}>
         {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
       </div>
 
-      <div className="flex-1 w-full overflow-y-auto order-first md:order-none">
+      <div className="flex-1 w-full overflow-y-auto order-first md:order-none scroll-smooth">
         <EditorContent
           maxHeight={maxHeight}
           minHeight={minHeight}
@@ -255,7 +269,9 @@ export const Editor = (({
 
       <EditorPlugins
         customPlugins={plugins}
+        slashCommands={slashCommands}
         onChange={handleEditorChange}
+        onSave={onSave}
         showFloatingToolbar={showFloatingToolbar}
         enableSpeechToText={enableSpeechToText}
       />
@@ -263,6 +279,7 @@ export const Editor = (({
   );
 }) as EditorComponent;
 
+// Attach compound components
 Editor.Root = EditorRoot;
 Editor.Content = EditorContent;
 Editor.Plugins = EditorPlugins;

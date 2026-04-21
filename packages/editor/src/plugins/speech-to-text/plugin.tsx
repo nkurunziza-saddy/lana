@@ -25,7 +25,7 @@ export default function SpeechToTextPlugin({
     };
   }, [toggleListening]);
 
-  if (!isSupported) {
+  if (!isSupported || !isListening) {
     return null;
   }
 

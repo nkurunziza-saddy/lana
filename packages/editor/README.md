@@ -23,7 +23,7 @@ function MyPage() {
       showToolbar
       enableSpeechToText
       placeholder="Start typing..."
-      onChange={(val) => console.log(val)}
+      onSave={(json) => console.log("Autosaved:", json)}
     />
   );
 }
@@ -51,7 +51,7 @@ function CustomEditor() {
       <Editor.Content minHeight="500px" />
 
       {/* 3. Explicit Plugin Management */}
-      <Editor.Plugins showFloatingToolbar={true}>
+      <Editor.Plugins showFloatingToolbar={true} onSave={(json) => saveToDB(json)}>
         {/* Custom plugins can be added here as children */}
       </Editor.Plugins>
     </Editor.Root>
@@ -65,19 +65,33 @@ function CustomEditor() {
 
 ### `Editor` (Simple)
 
-| Prop                  | Type      | Default | Description                                  |
-| --------------------- | --------- | ------- | -------------------------------------------- |
-| `initialValue`        | `string`  | `""`    | Initial Lexical JSON state string.           |
-| `showToolbar`         | `boolean` | `false` | Whether to show the top toolbar.             |
-| `showFloatingToolbar` | `boolean` | `true`  | Whether to show the selection-based toolbar. |
-| `enableSpeechToText`  | `boolean` | `false` | Enables the microphone/dictation button.     |
-| `readOnly`            | `boolean` | `false` | Disables editing.                            |
+| Prop                  | Type       | Default | Description                                   |
+| --------------------- | ---------- | ------- | --------------------------------------------- |
+| `initialValue`        | `string`   | `""`    | Initial Lexical JSON state string.            |
+| `showToolbar`         | `boolean`  | `false` | Whether to show the top toolbar.              |
+| `showFloatingToolbar` | `boolean`  | `true`  | Whether to show the selection-based toolbar.  |
+| `enableSpeechToText`  | `boolean`  | `false` | Enables the microphone/dictation button.      |
+| `readOnly`            | `boolean`  | `false` | Disables editing.                             |
+| `onSave`              | `function` | -       | Callback triggered with debounced state JSON. |
+| `slashCommands`       | `array`    | -       | Custom list of slash command items.           |
 
 ### `Editor.Root`
 
 The provider component that initializes the Lexical context.
 
 - **Props**: `initialValue`, `readOnly`, `className`, `children`.
+
+### `Editor.Content`
+
+The main editable area.
+
+- **Props**: `placeholder`, `className`, `minHeight`, `maxHeight`, `readOnly`.
+
+### `Editor.Plugins`
+
+Manages core and custom Lexical plugins.
+
+- **Props**: `showFloatingToolbar`, `enableSpeechToText`, `customPlugins`, `slashCommands`, `onChange`, `onSave`, `children`.
 
 ### `Editor.Toolbar`
 
@@ -93,7 +107,7 @@ A composable container for editor actions. Can be used as a self-closing compone
 - `Toolbar.Color`: Text color picker.
 - `Toolbar.Highlight`: Text background color picker.
 - `Toolbar.Align`: Left, Center, Right, Justify.
-- `Toolbar.Insert`: Dropdown for Tables, Images, Excalidraw, Equations.
+- `Toolbar.Insert`: A cohesive Popover-based tool for inserting Tables, Images, Columns, drawings, and Equations.
 - `Toolbar.Separator`: Vertical divider.
 
 ---
@@ -111,7 +125,22 @@ No toolbars, just the text area.
 </Editor.Root>
 ```
 
-### Bottom Toolbar (Mobile Optimized)
+### Custom Slash Commands
+
+```tsx
+const myCommands = [
+  {
+    title: "Alert",
+    icon: Bell,
+    action: (editor) => alert("Hello!"),
+    keywords: ["alert", "notify"],
+  },
+];
+
+<Editor slashCommands={myCommands} />;
+```
+
+### Mobile Optimized Layout
 
 Place the toolbar after the content.
 
@@ -130,21 +159,11 @@ Place the toolbar after the content.
 </Editor.Root>
 ```
 
-### Theming
-
-The editor automatically detects and applies dark mode if a parent has the `.dark` class or via `next-themes` integration.
-
-```tsx
-// Ensure your globals.css includes the lana-editor theme variables
-<div className="dark">
-  <Editor />
-</div>
-```
-
 ---
 
 ## Best Practices
 
-1.  **Lazy Loading**: Heavy components like `Excalidraw` and `Katex` are automatically lazy-loaded. No extra config required.
+1.  **Lazy Loading**: Heavy components like `Excalidraw` and `Katex` are automatically lazy-loaded within the `Toolbar.Insert` tool.
 2.  **Performance**: Always wrap custom plugins in `React.memo` if they perform expensive operations during editor updates.
 3.  **Stability**: Use `Editor.Root` to wrap the editor if you need to access the Lexical context via `useLexicalComposerContext` in sibling components.
+4.  **UI Consistency**: Favor `Popover` patterns for compact forms (like the ones in `Toolbar.Insert`) to avoid distracting the user from the editing experience.

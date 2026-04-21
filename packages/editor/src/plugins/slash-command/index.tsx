@@ -19,7 +19,11 @@ class SlashCommandOption extends MenuOption {
   }
 }
 
-export default function SlashCommandPlugin() {
+export default function SlashCommandPlugin({
+  commands = SLASH_COMMANDS,
+}: {
+  commands?: SlashCommand[];
+}) {
   const [editor] = useLexicalComposerContext();
   const [query, setQuery] = useState<string | null>(null);
 
@@ -27,15 +31,15 @@ export default function SlashCommandPlugin() {
 
   const options = useMemo(() => {
     const filteredCommands = query
-      ? SLASH_COMMANDS.filter(
+      ? commands.filter(
           (cmd) =>
             cmd.title.toLowerCase().includes(query.toLowerCase()) ||
             cmd.keywords.some((keyword) => keyword.toLowerCase().includes(query.toLowerCase())),
         )
-      : SLASH_COMMANDS;
+      : commands;
 
     return filteredCommands.map((cmd) => new SlashCommandOption(cmd));
-  }, [query]);
+  }, [query, commands]);
 
   const onSelectOption = useCallback(
     (option: SlashCommandOption, nodeToRemove: TextNode | null, closeMenu: () => void) => {
@@ -62,7 +66,7 @@ export default function SlashCommandPlugin() {
 
         return createPortal(
           <div
-            className="absolute z-50 w-44 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md border bg-popover p-1 shadow-md"
+            className="absolute z-50 w-44 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg border border-border bg-popover p-1 shadow-md animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150"
             style={{
               top: anchorElement.offsetHeight - 4,
               left: 0,

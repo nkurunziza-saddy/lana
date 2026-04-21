@@ -4,7 +4,6 @@ import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_CRITICAL,
-  type LexicalEditor,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { mergeRegister } from "@lexical/utils";
@@ -14,14 +13,14 @@ import { useCallback, useEffect, useState } from "react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import { FONT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 export const ColorPicker = React.memo(function ColorPicker({
-  editor,
   disabled = false,
 }: {
-  editor: LexicalEditor;
   disabled?: boolean;
 }) {
+  const [editor] = useLexicalComposerContext();
   const [color, setColor] = useState("hsl(var(--foreground))");
 
   const applyColor = useCallback(
@@ -83,7 +82,6 @@ export const ColorPicker = React.memo(function ColorPicker({
         className="animate-in slide-in-from-top-2 duration-200 min-w-[140px]"
       >
         {FONT_COLORS.map((c) => {
-          // Some basic matching for hsl/hex to show active state
           const isActive =
             color === c.value ||
             (color === "var(--foreground)" && c.value.includes("--foreground"));

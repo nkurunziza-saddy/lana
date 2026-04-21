@@ -1,16 +1,13 @@
 import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import type { LexicalCommand } from "lexical";
-import type { ToolbarState } from "..";
 import { TEXT_FORMAT_ITEMS } from "../toolbar-items";
 import { ToolbarToggleButton } from "./toolbar-button";
+import { useToolbar, type ToolbarState } from "../context";
 
-export const TextFormatButtons = React.memo(function TextFormatButtons({
-  toolbarState,
-}: {
-  toolbarState: ToolbarState;
-}) {
+export const TextFormatButtons = React.memo(function TextFormatButtons() {
   const [editor] = useLexicalComposerContext();
+  const { state: toolbarState } = useToolbar();
 
   const handleClick = (command: LexicalCommand<string>, payload?: string) => {
     if (!payload) return;

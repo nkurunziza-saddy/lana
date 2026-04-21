@@ -25,17 +25,17 @@ export default function DraggableBlockPlugin({
       menuComponent={
         <div
           ref={menuRef}
-          className={`${DRAGGABLE_BLOCK_MENU_CLASSNAME} flex items-center gap-1 p-1 rounded-md bg-background border shadow-sm opacity-0 transition-opacity duration-200 cursor-grab active:cursor-grabbing hover:opacity-100 will-change-transform absolute left-0 top-0 z-50`}
+          className={`${DRAGGABLE_BLOCK_MENU_CLASSNAME} flex items-center size-7 rounded bg-background border border-border shadow-sm opacity-0 transition-opacity duration-200 cursor-grab active:cursor-grabbing hover:opacity-100 will-change-transform absolute left-0 top-0 z-50`}
         >
-          <div className="p-1 hover:bg-accent rounded-sm transition-colors">
-            <GripVertical className="size-3.5 text-muted-foreground/50" />
+          <div className="flex items-center justify-center w-full h-full hover:bg-accent transition-colors rounded-sm">
+            <GripVertical className="size-3.5 text-muted-foreground" />
           </div>
         </div>
       }
       targetLineComponent={
         <div
           ref={targetLineRef}
-          className="draggable-block-target-line pointer-events-none bg-primary h-[2px] absolute left-0 top-0 opacity-0 will-change-transform"
+          className="draggable-block-target-line pointer-events-none bg-primary/40 h-1 absolute left-0 top-0 opacity-0 will-change-transform rounded-full"
         />
       }
       isOnMenu={isOnMenu}

@@ -1,5 +1,6 @@
 import type { EditorState, LexicalEditor } from "lexical";
 import type React from "react";
+import { type SlashCommand } from "../../plugins/slash-command/slash-command-items";
 
 export interface EditorProps {
   initialValue?: string;
@@ -13,9 +14,11 @@ export interface EditorProps {
   readOnly?: boolean;
   autoFocus?: boolean;
   onChange?: (value: string) => void;
+  onSave?: (value: string) => void;
   onBlur?: () => void;
   onFocus?: () => void;
   plugins?: React.ComponentType[];
+  slashCommands?: SlashCommand[];
   theme?: Record<string, string>;
 }
 
@@ -33,9 +36,10 @@ export interface EditorComponent extends React.FC<EditorProps> {
     showFloatingToolbar?: boolean;
     enableSpeechToText?: boolean;
     customPlugins?: React.ComponentType[];
+    slashCommands?: SlashCommand[];
     anchorElem?: HTMLElement;
     onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
     children?: React.ReactNode;
   }>;
-  Toolbar: any;
+  Toolbar: any; // Will be typed in toolbar index
 }

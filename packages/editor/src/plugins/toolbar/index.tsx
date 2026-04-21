@@ -1,41 +1,7 @@
-import { $isCodeNode } from "@lexical/code";
-import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
-import { $isListNode, ListNode } from "@lexical/list";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $isHeadingNode, $isQuoteNode } from "@lexical/rich-text";
-
-import { $isTableCellNode, INSERT_TABLE_COMMAND } from "@lexical/table";
-import {
-  $findMatchingParent,
-  $getNearestNodeOfType,
-  $wrapNodeInElement,
-  mergeRegister,
-} from "@lexical/utils";
-import {
-  $createParagraphNode,
-  $getSelection,
-  $insertNodes,
-  $isRangeSelection,
-  $isRootOrShadowRoot,
-  CAN_REDO_COMMAND,
-  CAN_UNDO_COMMAND,
-  COMMAND_PRIORITY_CRITICAL,
-  type ElementNode,
-  type TextNode,
-} from "lexical";
-import { LinkIcon, Mic, MicOff } from "lucide-react";
+import { Mic, MicOff } from "lucide-react";
 import { cn } from "@lana/utils";
-import { useCallback, useEffect, useReducer, useState, lazy, Suspense } from "react";
-import { ImageDialog } from "../../components/image-dialog";
-import { LayoutDialog } from "../../components/layout-dialog";
-import { TableDialog } from "../../components/table-dialog";
-import { INSERT_LAYOUT_COMMAND } from "../layout";
-import { InsertEquationDialog } from "../../plugins/equations";
-const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
-import type { AppState } from "@excalidraw/excalidraw/types";
-import { $createExcalidrawNode } from "../../nodes/excalidraw";
+import React from "react";
 import { Separator } from "../../components/toolbar-separator";
-import { $createImageNode } from "../../nodes/image";
 import { AlignButtons } from "./extensions/align-buttons";
 import { BlockFormatDropDown } from "./extensions/block-format-dropdown";
 import { BlockTypeButtons } from "./extensions/block-type-buttons";
@@ -44,55 +10,16 @@ import { HighlightPicker } from "./extensions/highlight-picker";
 import { FileActions } from "./extensions/file-actions";
 import { HistoryButtons } from "./extensions/history-buttons";
 import { InsertDropDown } from "./extensions/insert-actions";
+import { LinkButton } from "./extensions/link-button";
 import { ListButtons } from "./extensions/list-buttons";
 import { TableButtons } from "./extensions/table-buttons";
 import { TextCaseMenu } from "./extensions/text-case-menu";
 import { TextFormatButtons } from "./extensions/text-format-buttons";
 import { ToolbarButton } from "./extensions/toolbar-button";
 import { useSpeechToTextState } from "../../plugins/speech-to-text";
+import { ToolbarProvider, useToolbar, type ToolbarState } from "./context";
 
-const initialState = {
-  isBold: false,
-  isItalic: false,
-  isUnderline: false,
-  isStrikethrough: false,
-  isCode: false,
-  isLink: false,
-  isSubscript: false,
-  isSuperscript: false,
-  isCapitalized: false,
-  isUppercase: false,
-  isLowercase: false,
-  isTable: false,
-  isBulletedList: false,
-  isNumberedList: false,
-  isCheckList: false,
-  isQuote: false,
-  isCodeBlock: false,
-  linkUrl: "",
-  blockType: "paragraph",
-  canUndo: false,
-  canRedo: false,
-};
-
-export type ToolbarState = typeof initialState;
-type Action =
-  | { type: "UPDATE"; payload: Partial<ToolbarState> }
-  | { type: "SET_CAN_UNDO"; payload: boolean }
-  | { type: "SET_CAN_REDO"; payload: boolean };
-
-const toolbarReducer = (state: ToolbarState, action: Action): ToolbarState => {
-  switch (action.type) {
-    case "UPDATE":
-      return { ...state, ...action.payload };
-    case "SET_CAN_UNDO":
-      return { ...state, canUndo: action.payload };
-    case "SET_CAN_REDO":
-      return { ...state, canRedo: action.payload };
-    default:
-      return state;
-  }
-};
+export { ToolbarProvider, useToolbar, type ToolbarState };
 
 export function ToolbarRoot({
   children,
@@ -104,14 +31,88 @@ export function ToolbarRoot({
   return (
     <div
       className={cn(
-        "flex items-center gap-0.5 px-2 py-1.5 overflow-x-auto scrollbar-none transition-all",
-        "md:sticky md:top-0 md:z-10 md:border-b md:bg-background/95 md:backdrop-blur-md",
-        "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:bg-popover/95 max-md:backdrop-blur-md",
+        "flex items-center gap-0.5 px-2 py-1.5 overflow-x-auto scrollbar-none transition-all duration-200",
+        "md:sticky md:top-0 md:z-10 md:border-b md:bg-background",
+        "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:bg-background",
         className,
       )}
     >
       {children}
     </div>
+  );
+}
+
+function ToolbarInternal({
+  enableSpeechToText = false,
+  children,
+}: {
+  enableSpeechToText?: boolean;
+  children?: React.ReactNode;
+}) {
+  const { state: toolbarState } = useToolbar();
+  const { isListening: isSpeechToTextActive } = useSpeechToTextState();
+
+  return (
+    <ToolbarRoot>
+      {children || (
+        <>
+          <HistoryButtons />
+
+          <Separator />
+          <BlockFormatDropDown />
+
+          <Separator />
+
+          <ListButtons />
+          <BlockTypeButtons />
+
+          <Separator />
+
+          <TextFormatButtons />
+          <TextCaseMenu />
+          <Separator />
+          <ColorPicker />
+          <HighlightPicker />
+
+          <Separator />
+          <LinkButton />
+
+          <Separator />
+
+          <InsertDropDown />
+
+          <Separator />
+
+          <AlignButtons />
+
+          {enableSpeechToText && (
+            <>
+              <Separator />
+              <ToolbarButton
+                icon={isSpeechToTextActive ? MicOff : Mic}
+                isActive={isSpeechToTextActive}
+                onClick={() => {
+                  const event = new CustomEvent("toggle-speech-to-text");
+                  window.dispatchEvent(event);
+                }}
+                title={isSpeechToTextActive ? "Stop Speech to Text" : "Start Speech to Text"}
+              />
+            </>
+          )}
+
+          {toolbarState.isTable && (
+            <>
+              <Separator />
+              <TableButtons />
+            </>
+          )}
+
+          <Separator />
+
+          <FileActions />
+        </>
+      )}
+    </ToolbarRoot>
   );
 }
 
@@ -128,6 +129,7 @@ export interface ToolbarComponent extends React.FC<{
   TextCase: typeof TextCaseMenu;
   Color: typeof ColorPicker;
   Highlight: typeof HighlightPicker;
+  Link: typeof LinkButton;
   Align: typeof AlignButtons;
   File: typeof FileActions;
   Table: typeof TableButtons;
@@ -142,295 +144,10 @@ export const Toolbar = (({
   enableSpeechToText?: boolean;
   children?: React.ReactNode;
 }) => {
-  const [editor] = useLexicalComposerContext();
-  const [toolbarState, dispatch] = useReducer(toolbarReducer, initialState);
-  const [showTableDialog, setShowTableDialog] = useState(false);
-  const [showImageDialog, setShowImageDialog] = useState(false);
-  const [showEquationDialog, setShowEquationDialog] = useState(false);
-  const [showLayoutDialog, setShowLayoutDialog] = useState(false);
-  const [showExcalidrawModal, setShowExcalidrawModal] = useState(false);
-  const { isListening: isSpeechToTextActive } = useSpeechToTextState();
-
-  const updateToolbar = useCallback(() => {
-    const selection = $getSelection();
-    const newToolbarState = {
-      isBulletedList: false,
-      isNumberedList: false,
-      isCheckList: false,
-      isQuote: false,
-      isCodeBlock: false,
-      isStrikethrough: false,
-      isBold: false,
-      isItalic: false,
-      isUnderline: false,
-      isCode: false,
-      isLink: false,
-      isSubscript: false,
-      isSuperscript: false,
-      isCapitalized: false,
-      isUppercase: false,
-      isLowercase: false,
-      isTable: false,
-      linkUrl: "",
-      blockType: "paragraph",
-    };
-
-    if ($isRangeSelection(selection)) {
-      const anchorNode = selection.anchor.getNode();
-      const element =
-        anchorNode.getKey() === "root" ? anchorNode : anchorNode.getTopLevelElementOrThrow();
-
-      let blockType = "paragraph";
-      if ($isListNode(element)) {
-        const parentList = $getNearestNodeOfType(anchorNode, ListNode);
-        blockType = parentList ? parentList.getListType() : element.getListType();
-      } else {
-        if ($isHeadingNode(element)) {
-          blockType = element.getTag();
-        } else if ($isQuoteNode(element)) {
-          blockType = "quote";
-        } else if ($isCodeNode(element)) {
-          blockType = "code";
-        }
-      }
-      newToolbarState.blockType = blockType;
-
-      const cell = $findMatchingParent(anchorNode, (node) => $isTableCellNode(node));
-      newToolbarState.isTable = cell !== null;
-
-      let isLink = false;
-      let node: ElementNode | TextNode | null = anchorNode;
-      while (node) {
-        if ($isLinkNode(node)) {
-          isLink = true;
-          break;
-        }
-        const parent: ElementNode | null = node.getParent();
-        if (parent === node) break;
-        node = parent;
-      }
-      newToolbarState.isLink = isLink;
-      newToolbarState.linkUrl = isLink && $isLinkNode(node) ? node.getURL() : "";
-
-      newToolbarState.isBulletedList = blockType === "bullet";
-      newToolbarState.isNumberedList = blockType === "number";
-      newToolbarState.isCheckList = blockType === "check";
-      newToolbarState.isQuote = blockType === "quote";
-      newToolbarState.isCodeBlock = blockType === "code";
-
-      newToolbarState.isBold = selection.hasFormat("bold");
-      newToolbarState.isItalic = selection.hasFormat("italic");
-      newToolbarState.isUnderline = selection.hasFormat("underline");
-      newToolbarState.isStrikethrough = selection.hasFormat("strikethrough");
-      newToolbarState.isCode = selection.hasFormat("code");
-      newToolbarState.isSubscript = selection.hasFormat("subscript");
-      newToolbarState.isSuperscript = selection.hasFormat("superscript");
-      newToolbarState.isCapitalized = selection.hasFormat("capitalize");
-      newToolbarState.isUppercase = selection.hasFormat("uppercase");
-      newToolbarState.isLowercase = selection.hasFormat("lowercase");
-    }
-
-    dispatch({ type: "UPDATE", payload: newToolbarState });
-  }, []);
-
-  useEffect(() => {
-    editor.getEditorState().read(() => {
-      updateToolbar();
-    });
-  }, [editor, updateToolbar]);
-
-  useEffect(() => {
-    return mergeRegister(
-      editor.registerUpdateListener(({ editorState }) => {
-        editorState.read(() => {
-          updateToolbar();
-        });
-      }),
-      editor.registerCommand(
-        CAN_UNDO_COMMAND,
-        (payload: boolean) => {
-          dispatch({ type: "SET_CAN_UNDO", payload });
-          return false;
-        },
-        COMMAND_PRIORITY_CRITICAL,
-      ),
-      editor.registerCommand(
-        CAN_REDO_COMMAND,
-        (payload: boolean) => {
-          dispatch({ type: "SET_CAN_REDO", payload });
-          return false;
-        },
-        COMMAND_PRIORITY_CRITICAL,
-      ),
-    );
-  }, [editor, updateToolbar]);
-
-  const insertLink = useCallback(() => {
-    if (!toolbarState.isLink) {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, "https://");
-    } else {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
-    }
-  }, [editor, toolbarState.isLink]);
-
-  const handleTableSubmit = (rows: number, columns: number) => {
-    const validRows = Math.max(1, Math.min(rows, 20));
-    const validColumns = Math.max(1, Math.min(columns, 20));
-    editor.dispatchCommand(INSERT_TABLE_COMMAND, {
-      columns: validColumns.toString(),
-      rows: validRows.toString(),
-    });
-  };
-
-  const handleImageSubmit = (src: string, alt: string) => {
-    editor.update(() => {
-      const selection = $getSelection();
-      if ($isRangeSelection(selection)) {
-        const imageNode = $createImageNode({ src, altText: alt });
-        selection.insertNodes([imageNode]);
-      }
-    });
-  };
-
-  const handleLayoutSubmit = (template: string) => {
-    editor.dispatchCommand(INSERT_LAYOUT_COMMAND, template);
-  };
-
   return (
-    <>
-      <ToolbarRoot>
-        {children || (
-          <>
-            <HistoryButtons canRedo={toolbarState.canRedo} canUndo={toolbarState.canUndo} />
-
-            <Separator />
-            <BlockFormatDropDown blockType={toolbarState.blockType} />
-
-            <Separator />
-
-            <ListButtons toolbarState={toolbarState} />
-            <BlockTypeButtons toolbarState={toolbarState} />
-
-            <Separator />
-
-            <TextFormatButtons toolbarState={toolbarState} />
-            <TextCaseMenu toolbarState={toolbarState} />
-            <Separator />
-            <ColorPicker editor={editor} />
-            <HighlightPicker editor={editor} />
-
-            <Separator />
-            <ToolbarButton
-              icon={LinkIcon}
-              isActive={toolbarState.isLink}
-              onClick={insertLink}
-              title="Insert Link"
-            />
-
-            <Separator />
-
-            <InsertDropDown
-              setShowImageDialog={setShowImageDialog}
-              setShowTableDialog={setShowTableDialog}
-              setShowEquationDialog={setShowEquationDialog}
-              setShowLayoutDialog={setShowLayoutDialog}
-              setShowExcalidrawModal={setShowExcalidrawModal}
-            />
-
-            <Separator />
-
-            <AlignButtons />
-
-            {enableSpeechToText && (
-              <>
-                <Separator />
-                <ToolbarButton
-                  icon={isSpeechToTextActive ? MicOff : Mic}
-                  isActive={isSpeechToTextActive}
-                  onClick={() => {
-                    const event = new CustomEvent("toggle-speech-to-text");
-                    window.dispatchEvent(event);
-                  }}
-                  title={isSpeechToTextActive ? "Stop Speech to Text" : "Start Speech to Text"}
-                />
-              </>
-            )}
-
-            {toolbarState.isTable && (
-              <>
-                <Separator />
-                <TableButtons />
-              </>
-            )}
-
-            <Separator />
-
-            <FileActions />
-          </>
-        )}
-      </ToolbarRoot>
-
-      <TableDialog
-        isOpen={showTableDialog}
-        onClose={() => setShowTableDialog(false)}
-        onSubmit={handleTableSubmit}
-      />
-
-      <ImageDialog
-        isOpen={showImageDialog}
-        onClose={() => setShowImageDialog(false)}
-        onSubmit={handleImageSubmit}
-      />
-
-      <LayoutDialog
-        isOpen={showLayoutDialog}
-        onClose={() => setShowLayoutDialog(false)}
-        onSubmit={handleLayoutSubmit}
-      />
-
-      {showEquationDialog && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-lg border bg-popover shadow-lg animate-in fade-in zoom-in-95 duration-200">
-            <InsertEquationDialog
-              activeEditor={editor}
-              onClose={() => setShowEquationDialog(false)}
-            />
-          </div>
-        </div>
-      )}
-
-      {showExcalidrawModal && (
-        <Suspense fallback={null}>
-          <ExcalidrawModal
-            initialElements={[]}
-            initialAppState={{} as AppState}
-            initialFiles={{}}
-            isShown={showExcalidrawModal}
-            onDelete={() => setShowExcalidrawModal(false)}
-            onClose={() => setShowExcalidrawModal(false)}
-            onSave={(elements, appState, files) => {
-              editor.update(() => {
-                const excalidrawNode = $createExcalidrawNode();
-                excalidrawNode.setData(
-                  JSON.stringify({
-                    appState,
-                    elements,
-                    files,
-                  }),
-                );
-                $insertNodes([excalidrawNode]);
-                if ($isRootOrShadowRoot(excalidrawNode.getParentOrThrow())) {
-                  $wrapNodeInElement(excalidrawNode, $createParagraphNode).selectEnd();
-                }
-              });
-
-              setShowExcalidrawModal(false);
-            }}
-            closeOnClickOutside={false}
-          />
-        </Suspense>
-      )}
-    </>
+    <ToolbarProvider>
+      <ToolbarInternal enableSpeechToText={enableSpeechToText}>{children}</ToolbarInternal>
+    </ToolbarProvider>
   );
 }) as ToolbarComponent;
 
@@ -443,6 +160,7 @@ Toolbar.TextFormat = TextFormatButtons;
 Toolbar.TextCase = TextCaseMenu;
 Toolbar.Color = ColorPicker;
 Toolbar.Highlight = HighlightPicker;
+Toolbar.Link = LinkButton;
 Toolbar.Align = AlignButtons;
 Toolbar.File = FileActions;
 Toolbar.Table = TableButtons;

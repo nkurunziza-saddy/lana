@@ -4,7 +4,6 @@ import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_CRITICAL,
-  type LexicalEditor,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { mergeRegister } from "@lexical/utils";
@@ -21,13 +20,13 @@ import {
 import { HIGHLIGHT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
 
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 export const HighlightPicker = React.memo(function HighlightPicker({
-  editor,
   disabled = false,
 }: {
-  editor: LexicalEditor;
   disabled?: boolean;
 }) {
+  const [editor] = useLexicalComposerContext();
   const [color, setColor] = useState("");
 
   const applyColor = useCallback(

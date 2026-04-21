@@ -4,18 +4,15 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $createQuoteNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
 import { $createParagraphNode, $getSelection, $isRangeSelection } from "lexical";
-import type { ToolbarState } from "..";
 import { BLOCK_FORMAT_ITEMS } from "../toolbar-items";
 import { ToolbarToggleButton } from "./toolbar-button";
+import { useToolbar } from "../context";
 
 const BLOCK_TYPE_ITEMS = BLOCK_FORMAT_ITEMS.filter((item) => item.format);
 
-export const BlockTypeButtons = React.memo(function BlockTypeButtons({
-  toolbarState,
-}: {
-  toolbarState: ToolbarState;
-}) {
+export const BlockTypeButtons = React.memo(function BlockTypeButtons() {
   const [editor] = useLexicalComposerContext();
+  const { state: toolbarState } = useToolbar();
 
   const onClickHandler = (format: string) => {
     editor.update(() => {

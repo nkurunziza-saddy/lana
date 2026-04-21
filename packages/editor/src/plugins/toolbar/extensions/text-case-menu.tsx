@@ -4,8 +4,8 @@ import { FORMAT_TEXT_COMMAND } from "lexical";
 import { CaseLower, CaseUpper, type LucideIcon } from "lucide-react";
 import { useCallback } from "react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
-import type { ToolbarState } from "..";
 import { ToolbarButton } from "./toolbar-button";
+import { useToolbar } from "../context";
 
 interface TextCaseOption {
   name: string;
@@ -19,12 +19,9 @@ const TEXT_CASE_OPTIONS: TextCaseOption[] = [
   { name: "Lowercase", icon: CaseLower, format: "lowercase" },
 ];
 
-export const TextCaseMenu = React.memo(function TextCaseMenu({
-  toolbarState,
-}: {
-  toolbarState: ToolbarState;
-}) {
+export const TextCaseMenu = React.memo(function TextCaseMenu() {
   const [editor] = useLexicalComposerContext();
+  const { state: toolbarState } = useToolbar();
 
   const handleCaseChange = useCallback(
     (format: "capitalize" | "uppercase" | "lowercase") => {
@@ -58,7 +55,7 @@ export const TextCaseMenu = React.memo(function TextCaseMenu({
       <DropdownMenuTrigger
         render={<ToolbarButton icon={CaseUpper} isActive={isActive} title="Text Case" />}
       />
-      <DropdownMenuContent className="min-w-32" side="top" sideOffset={10}>
+      <DropdownMenuContent className="w-32" side="top" sideOffset={10}>
         {TEXT_CASE_OPTIONS.map((option) => (
           <DropdownMenuItem
             key={option.format}

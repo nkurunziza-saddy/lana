@@ -6,7 +6,6 @@ const KatexRenderer = lazy(() => import("./katex-renderer"));
 import { Button } from "@lana/ui";
 import { Label } from "@lana/ui";
 import { Input } from "@lana/ui";
-import { XIcon } from "lucide-react";
 
 type Props = {
   initialEquation?: string;
@@ -27,7 +26,7 @@ export default function KatexEquationAlterer({
   }, [onConfirm, equation, inline]);
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 mt-4">
       <div className="flex justify-between items-center">
         <label className="flex cursor-pointer items-center gap-2 text-sm">
           <input
@@ -38,9 +37,6 @@ export default function KatexEquationAlterer({
           />
           <span>Inline equation</span>
         </label>
-        <Button size={"sm"} variant={"ghost"} onClick={onClose}>
-          <XIcon className="" />
-        </Button>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -75,7 +71,10 @@ export default function KatexEquationAlterer({
         </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex gap-2 justify-end mt-4">
+        <Button onClick={onClose} type="button" variant="outline">
+          Cancel
+        </Button>
         <Button onClick={handleConfirm}>Insert Equation</Button>
       </div>
     </div>

@@ -6,13 +6,12 @@ import { $createParagraphNode, $getSelection } from "lexical";
 import { Check, Heading, Heading1, Heading2, Heading3, Heading4 } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import { ToolbarButton } from "./toolbar-button";
+import { useToolbar } from "../context";
 
-export const BlockFormatDropDown = React.memo(function BlockFormatDropDown({
-  blockType,
-}: {
-  blockType: string;
-}) {
+export const BlockFormatDropDown = React.memo(function BlockFormatDropDown() {
   const [editor] = useLexicalComposerContext();
+  const { state: toolbarState } = useToolbar();
+  const { blockType } = toolbarState;
 
   const formatHeading = (headingSize: "h1" | "h2" | "h3" | "h4") => {
     if (blockType !== headingSize) {
@@ -53,7 +52,7 @@ export const BlockFormatDropDown = React.memo(function BlockFormatDropDown({
           />
         }
       />
-      <DropdownMenuContent align="start" sideOffset={10} side="top">
+      <DropdownMenuContent align="start" sideOffset={10} side="top" className="w-40">
         {[
           {
             key: "heading 1",

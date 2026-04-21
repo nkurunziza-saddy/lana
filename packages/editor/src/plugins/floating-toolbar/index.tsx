@@ -104,7 +104,7 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
   return createPortal(
     <div
       className={cn(
-        "absolute z-50 flex items-center gap-0.5 px-2 py-1.5 bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl transition-all duration-200 ease-out will-change-[opacity,transform]",
+        "absolute z-50 flex items-center gap-0.5 px-2 py-1.5 bg-popover border border-border rounded-full shadow-md transition-all duration-150 ease-out will-change-[opacity,transform,top,left]",
       )}
       ref={toolbarRef}
       style={{
@@ -115,39 +115,31 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
         pointerEvents: position.opacity > 0 ? "auto" : "none",
       }}
     >
-      {groupedItems.basic?.map((item) => (
-        <ToolbarToggleButton
-          icon={item.icon}
-          isActive={activeFormats.has(item.format)}
-          key={item.name}
-          onClick={() => formatText(item.format)}
-          title={item.name}
-        />
-      ))}
+      <div className="flex items-center gap-0.5">
+        {groupedItems.basic?.map((item) => (
+          <ToolbarToggleButton
+            icon={item.icon}
+            isActive={activeFormats.has(item.format)}
+            key={item.name}
+            onClick={() => formatText(item.format)}
+            title={item.name}
+          />
+        ))}
+      </div>
 
       <Separator />
 
-      {groupedItems.special?.map((item) => (
-        <ToolbarToggleButton
-          icon={item.icon}
-          isActive={activeFormats.has(item.format)}
-          key={item.name}
-          onClick={() => formatText(item.format)}
-          title={item.name}
-        />
-      ))}
-
-      <Separator />
-
-      {groupedItems.script?.map((item) => (
-        <ToolbarToggleButton
-          icon={item.icon}
-          isActive={activeFormats.has(item.format)}
-          key={item.name}
-          onClick={() => formatText(item.format)}
-          title={item.name}
-        />
-      ))}
+      <div className="flex items-center gap-0.5">
+        {groupedItems.special?.map((item) => (
+          <ToolbarToggleButton
+            icon={item.icon}
+            isActive={activeFormats.has(item.format)}
+            key={item.name}
+            onClick={() => formatText(item.format)}
+            title={item.name}
+          />
+        ))}
+      </div>
 
       <Separator />
 
@@ -155,28 +147,32 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
         <DropdownMenuTrigger render={<ToolbarButton icon={Highlighter} title="Highlight" />} />
         <DropdownMenuContent
           align="center"
-          className="w-48 animate-in slide-in-from-top-2 duration-200"
+          side="top"
+          sideOffset={14}
+          className="w-48 animate-in fade-in zoom-in-95 duration-100 bg-popover border border-border shadow-md p-2 rounded-lg"
         >
-          <div className="grid grid-cols-3 gap-1 p-2">
+          <div className="grid grid-cols-4 gap-1 p-1">
             {HIGHLIGHT_COLORS.map((color) => (
               <button
-                className="flex flex-col items-center gap-1 p-2 rounded hover:bg-muted/50 transition-colors"
+                className="group relative flex items-center justify-center size-8 rounded-md hover:bg-muted transition-colors active:scale-90"
                 key={color.value}
                 onClick={() => formatHighlight(color.value)}
                 title={color.name}
                 type="button"
               >
                 <div
-                  className="w-6 h-4 rounded border border-border/50 shadow-sm"
+                  className="size-5 rounded border border-border shadow-sm"
                   style={{ backgroundColor: color.value }}
                 />
-                <span className="text-xs text-muted-foreground">{color.name}</span>
               </button>
             ))}
           </div>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex items-center gap-2" onClick={() => formatHighlight("")}>
-            <Palette className="size-4" />
+          <DropdownMenuSeparator className="my-1 bg-border/50" />
+          <DropdownMenuItem
+            className="flex items-center gap-2 px-2 py-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground rounded focus:bg-accent"
+            onClick={() => formatHighlight("")}
+          >
+            <Palette className="size-3.5" />
             Remove Highlight
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -185,7 +181,9 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
       {selectedText.length > 50 && (
         <>
           <Separator />
-          <div className="text-xs text-muted-foreground px-2">{selectedText.length} chars</div>
+          <div className="text-[10px] font-medium text-muted-foreground/80 px-2 tabular-nums">
+            {selectedText.length}
+          </div>
         </>
       )}
     </div>,
