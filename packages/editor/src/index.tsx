@@ -110,7 +110,7 @@ function EditorPlugins({
       {/* table plugins - order matters */}
       <TablePlugin hasCellBackgroundColor={true} hasCellMerge={true} hasTabHandler={true} />
       <TableHoverActionsPlugin anchorElem={anchorElem} />
-      <SlashCommandPlugin anchorElem={anchorElem} />
+      <SlashCommandPlugin />
       <EquationsPlugin />
       <ExcalidrawPlugin />
       <LayoutPlugin />
