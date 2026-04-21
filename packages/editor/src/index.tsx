@@ -170,8 +170,6 @@ export function Editor({
       }
     }
 
-    // When no initial state is provided, ensure the editor starts with
-    // a paragraph node so toolbar actions work immediately on first click.
     if (editorState === null) {
       editorState = () => {
         const root = $getRoot();
@@ -201,14 +199,18 @@ export function Editor({
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div
-        className={cn("relative overflow-hidden w-full flex flex-col h-full", className)}
+        className={cn(
+          "relative overflow-hidden w-full flex flex-col h-full",
+
+          className,
+        )}
         ref={onRef}
       >
         <div className={cn(showToolbar && "order-last md:order-first")}>
           {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
         </div>
 
-        <div className="flex-1 w-full overflow-y-auto order-first md:order-none">
+        <div className="flex-1 w-full overflow-y-auto order-first md:order-0">
           <EditorContent
             maxHeight={maxHeight}
             minHeight={minHeight}

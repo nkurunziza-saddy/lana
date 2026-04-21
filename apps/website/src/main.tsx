@@ -25,7 +25,7 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" enableSystem disableTransitionOnChange>
+    <ThemeProvider defaultTheme="dark" attribute="class" enableSystem disableTransitionOnChange>
       <App />
     </ThemeProvider>
   </React.StrictMode>,
