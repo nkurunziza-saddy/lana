@@ -25,11 +25,13 @@ import {
 } from "lexical";
 import { LinkIcon, Mic, MicOff } from "lucide-react";
 import { cn } from "@lana/utils";
-import { useCallback, useEffect, useReducer, useState } from "react";
-import { ImageDialog, LayoutDialog, TableDialog } from "../../components";
+import { useCallback, useEffect, useReducer, useState, lazy, Suspense } from "react";
+import { ImageDialog } from "../../components/image-dialog";
+import { LayoutDialog } from "../../components/layout-dialog";
+import { TableDialog } from "../../components/table-dialog";
 import { INSERT_LAYOUT_COMMAND } from "../layout";
 import { InsertEquationDialog } from "../../plugins/equations";
-import ExcalidrawModal from "../../components/excalidraw-modal";
+const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
 import type { AppState } from "@excalidraw/excalidraw/types";
 import { $createExcalidrawNode } from "../../nodes/excalidraw";
 import { Separator } from "../../components/toolbar-separator";
@@ -353,33 +355,35 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
       )}
 
       {showExcalidrawModal && (
-        <ExcalidrawModal
-          initialElements={[]}
-          initialAppState={{} as AppState}
-          initialFiles={{}}
-          isShown={showExcalidrawModal}
-          onDelete={() => setShowExcalidrawModal(false)}
-          onClose={() => setShowExcalidrawModal(false)}
-          onSave={(elements, appState, files) => {
-            editor.update(() => {
-              const excalidrawNode = $createExcalidrawNode();
-              excalidrawNode.setData(
-                JSON.stringify({
-                  appState,
-                  elements,
-                  files,
-                }),
-              );
-              $insertNodes([excalidrawNode]);
-              if ($isRootOrShadowRoot(excalidrawNode.getParentOrThrow())) {
-                $wrapNodeInElement(excalidrawNode, $createParagraphNode).selectEnd();
-              }
-            });
+        <Suspense fallback={null}>
+          <ExcalidrawModal
+            initialElements={[]}
+            initialAppState={{} as AppState}
+            initialFiles={{}}
+            isShown={showExcalidrawModal}
+            onDelete={() => setShowExcalidrawModal(false)}
+            onClose={() => setShowExcalidrawModal(false)}
+            onSave={(elements, appState, files) => {
+              editor.update(() => {
+                const excalidrawNode = $createExcalidrawNode();
+                excalidrawNode.setData(
+                  JSON.stringify({
+                    appState,
+                    elements,
+                    files,
+                  }),
+                );
+                $insertNodes([excalidrawNode]);
+                if ($isRootOrShadowRoot(excalidrawNode.getParentOrThrow())) {
+                  $wrapNodeInElement(excalidrawNode, $createParagraphNode).selectEnd();
+                }
+              });
 
-            setShowExcalidrawModal(false);
-          }}
-          closeOnClickOutside={false}
-        />
+              setShowExcalidrawModal(false);
+            }}
+            closeOnClickOutside={false}
+          />
+        </Suspense>
       )}
     </>
   );

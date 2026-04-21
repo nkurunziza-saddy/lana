@@ -1,6 +1,6 @@
+import React, { useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { FileDown, FileUp } from "lucide-react";
-import { useRef } from "react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import {
   copyAsPlainText,
@@ -10,7 +10,7 @@ import {
 } from "../../../lib/utils";
 import { ToolbarButton } from "./toolbar-button";
 
-export function FileActions() {
+export const FileActions = React.memo(function FileActions() {
   const [editor] = useLexicalComposerContext();
   const importInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,4 +64,4 @@ export function FileActions() {
       <ToolbarButton icon={FileUp} onClick={() => importInputRef.current?.click()} title="Import" />
     </>
   );
-}
+});

@@ -1,3 +1,4 @@
+import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
@@ -6,7 +7,11 @@ import { Check, Heading, Heading1, Heading2, Heading3, Heading4 } from "lucide-r
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import { ToolbarButton } from "./toolbar-button";
 
-export function BlockFormatDropDown({ blockType }: { blockType: string }) {
+export const BlockFormatDropDown = React.memo(function BlockFormatDropDown({
+  blockType,
+}: {
+  blockType: string;
+}) {
   const [editor] = useLexicalComposerContext();
 
   const formatHeading = (headingSize: "h1" | "h2" | "h3" | "h4") => {
@@ -101,4 +106,4 @@ export function BlockFormatDropDown({ blockType }: { blockType: string }) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});

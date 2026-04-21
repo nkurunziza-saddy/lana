@@ -3,8 +3,9 @@ import { INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontal
 import { ImageIcon, LayoutDashboard, Minus, Pencil, Plus, Sigma, Table } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import { ToolbarButton } from "./toolbar-button";
+import React from "react";
 
-export function InsertDropDown({
+export const InsertDropDown = React.memo(function InsertDropDown({
   setShowTableDialog,
   setShowImageDialog,
   setShowEquationDialog,
@@ -73,4 +74,4 @@ export function InsertDropDown({
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});

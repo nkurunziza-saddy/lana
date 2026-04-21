@@ -1,3 +1,4 @@
+import React from "react";
 import { REMOVE_LIST_COMMAND } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import type { ToolbarState } from "..";
@@ -8,7 +9,11 @@ const LIST_ITEMS = BLOCK_FORMAT_ITEMS.filter(
   (item) => item.command && ["bullet", "number", "check"].includes(item.name),
 );
 
-export function ListButtons({ toolbarState }: { toolbarState: ToolbarState }) {
+export const ListButtons = React.memo(function ListButtons({
+  toolbarState,
+}: {
+  toolbarState: ToolbarState;
+}) {
   const [editor] = useLexicalComposerContext();
 
   return (
@@ -32,4 +37,4 @@ export function ListButtons({ toolbarState }: { toolbarState: ToolbarState }) {
       })}
     </>
   );
-}
+});

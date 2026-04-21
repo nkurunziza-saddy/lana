@@ -1,3 +1,4 @@
+import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { FORMAT_TEXT_COMMAND } from "lexical";
 import { CaseLower, CaseUpper, type LucideIcon } from "lucide-react";
@@ -18,7 +19,11 @@ const TEXT_CASE_OPTIONS: TextCaseOption[] = [
   { name: "Lowercase", icon: CaseLower, format: "lowercase" },
 ];
 
-export function TextCaseMenu({ toolbarState }: { toolbarState: ToolbarState }) {
+export const TextCaseMenu = React.memo(function TextCaseMenu({
+  toolbarState,
+}: {
+  toolbarState: ToolbarState;
+}) {
   const [editor] = useLexicalComposerContext();
 
   const handleCaseChange = useCallback(
@@ -67,4 +72,4 @@ export function TextCaseMenu({ toolbarState }: { toolbarState: ToolbarState }) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});

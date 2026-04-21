@@ -1,10 +1,15 @@
+import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import type { LexicalCommand } from "lexical";
 import type { ToolbarState } from "..";
 import { TEXT_FORMAT_ITEMS } from "../toolbar-items";
 import { ToolbarToggleButton } from "./toolbar-button";
 
-export function TextFormatButtons({ toolbarState }: { toolbarState: ToolbarState }) {
+export const TextFormatButtons = React.memo(function TextFormatButtons({
+  toolbarState,
+}: {
+  toolbarState: ToolbarState;
+}) {
   const [editor] = useLexicalComposerContext();
 
   const handleClick = (command: LexicalCommand<string>, payload?: string) => {
@@ -29,4 +34,4 @@ export function TextFormatButtons({ toolbarState }: { toolbarState: ToolbarState
       ))}
     </>
   );
-}
+});

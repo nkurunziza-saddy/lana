@@ -1,10 +1,11 @@
+import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { $insertTableColumnAtSelection, $insertTableRowAtSelection } from "@lexical/table";
 import { Columns, Rows } from "lucide-react";
 import { ToolbarButton } from "./toolbar-button";
 
-export function TableButtons() {
+export const TableButtons = React.memo(function TableButtons() {
   const [editor] = useLexicalComposerContext();
 
   const insertRow = () => {
@@ -25,4 +26,4 @@ export function TableButtons() {
       <ToolbarButton onClick={insertColumn} title="Insert Column Right" icon={Columns} />
     </>
   );
-}
+});

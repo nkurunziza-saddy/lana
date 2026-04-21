@@ -1,3 +1,4 @@
+import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { FORMAT_ELEMENT_COMMAND } from "lexical";
@@ -5,7 +6,7 @@ import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
 import { ToolbarButton } from "./toolbar-button";
 
-export function AlignButtons() {
+export const AlignButtons = React.memo(function AlignButtons() {
   const [editor] = useLexicalComposerContext();
 
   const formatElement = (format: "left" | "center" | "right" | "justify") => {
@@ -53,4 +54,4 @@ export function AlignButtons() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});

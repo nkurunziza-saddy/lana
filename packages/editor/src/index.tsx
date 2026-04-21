@@ -15,7 +15,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } from "lexical";
 import type React from "react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, memo } from "react";
 import { cn } from "@lana/utils";
 import { EDITOR_CONFIG } from "./lib/configs";
 import type { EditorProps } from "./lib/types/editor";
@@ -31,7 +31,7 @@ import ExcalidrawPlugin from "./plugins/excalidraw";
 import DraggableBlockPlugin from "./plugins/draggable-block";
 import { LayoutPlugin } from "./plugins/layout";
 
-function EditorContent({
+const EditorContent = memo(function EditorContent({
   placeholder = "Start writing ...",
   className = "",
   minHeight = "400px",
@@ -78,9 +78,9 @@ function EditorContent({
       />
     </div>
   );
-}
+});
 
-function EditorPlugins({
+const EditorPlugins = memo(function EditorPlugins({
   showFloatingToolbar = true,
   enableSpeechToText = false,
   customPlugins = [],
@@ -127,7 +127,7 @@ function EditorPlugins({
       {pluginElements}
     </>
   );
-}
+});
 
 export function Editor({
   initialValue = "",

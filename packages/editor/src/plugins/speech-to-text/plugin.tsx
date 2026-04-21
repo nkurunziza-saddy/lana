@@ -1,10 +1,9 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { Mic, MicOff, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@lana/ui";
-import { useSpeechToText } from "./hooks";
-import { listeners, globalIsListening, globalIsProcessing } from "./state";
+import { useSpeechToText, useSpeechToTextState } from "./hooks";
 
 export default function SpeechToTextPlugin({
   anchorElem = document.body,
@@ -12,9 +11,7 @@ export default function SpeechToTextPlugin({
   anchorElem?: HTMLElement;
 }): React.ReactPortal | null {
   const [editor] = useLexicalComposerContext();
-  const [isListening, setIsListening] = useState(globalIsListening);
-  const [isProcessing, setIsProcessing] = useState(globalIsProcessing);
-
+  const { isListening, isProcessing } = useSpeechToTextState();
   const { isSupported, interimText, statusMessage, toggleListening } = useSpeechToText(editor);
 
   useEffect(() => {
@@ -27,17 +24,6 @@ export default function SpeechToTextPlugin({
       window.removeEventListener("toggle-speech-to-text", handleToggle);
     };
   }, [toggleListening]);
-
-  useEffect(() => {
-    const listener = (state: { isListening: boolean; isProcessing: boolean }) => {
-      setIsListening(state.isListening);
-      setIsProcessing(state.isProcessing);
-    };
-    listeners.add(listener);
-    return () => {
-      listeners.delete(listener);
-    };
-  }, []);
 
   if (!isSupported) {
     return null;

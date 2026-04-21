@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { globalIsListening, globalIsProcessing, listeners, setGlobalState } from "./state";
+import { useState, useCallback, useRef, useSyncExternalStore } from "react";
+import { setGlobalState, subscribe, getSnapshot } from "./state";
 import { type LexicalEditor, CAN_UNDO_COMMAND, CAN_REDO_COMMAND } from "lexical";
 import type {
   SpeechRecognition,
@@ -8,22 +8,7 @@ import type {
 } from "./types";
 
 export function useSpeechToTextState() {
-  const [state, setState] = useState({
-    isListening: globalIsListening,
-    isProcessing: globalIsProcessing,
-  });
-
-  useEffect(() => {
-    const listener = (newState: { isListening: boolean; isProcessing: boolean }) => {
-      setState(newState);
-    };
-    listeners.add(listener);
-    return () => {
-      listeners.delete(listener);
-    };
-  }, []);
-
-  return state;
+  return useSyncExternalStore(subscribe, getSnapshot);
 }
 
 export function useSpeechToText(editor: LexicalEditor) {

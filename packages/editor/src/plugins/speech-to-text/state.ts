@@ -1,11 +1,17 @@
-export let globalIsListening = false;
-export let globalIsProcessing = false;
-export const listeners = new Set<
-  (state: { isListening: boolean; isProcessing: boolean }) => void
->();
+let state = { isListening: false, isProcessing: false };
+const listeners = new Set<() => void>();
+
+export function subscribe(onStoreChange: () => void) {
+  listeners.add(onStoreChange);
+  return () => listeners.delete(onStoreChange);
+}
+
+export function getSnapshot() {
+  return state;
+}
 
 export function setGlobalState(isListening: boolean, isProcessing: boolean) {
-  globalIsListening = isListening;
-  globalIsProcessing = isProcessing;
-  listeners.forEach((listener) => listener({ isListening, isProcessing }));
+  if (state.isListening === isListening && state.isProcessing === isProcessing) return;
+  state = { isListening, isProcessing };
+  listeners.forEach((listener) => listener());
 }

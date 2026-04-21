@@ -1,8 +1,8 @@
 import type { JSX } from "react";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import KatexRenderer from "./katex-renderer";
+const KatexRenderer = lazy(() => import("./katex-renderer"));
 import { Button } from "@lana/ui";
 import { Label } from "@lana/ui";
 import { Input } from "@lana/ui";
@@ -68,7 +68,9 @@ export default function KatexEquationAlterer({
           <ErrorBoundary
             fallback={<span className="text-sm text-destructive">Invalid equation</span>}
           >
-            <KatexRenderer equation={equation} inline={false} onDoubleClick={() => null} />
+            <Suspense fallback={<div className="h-8 animate-pulse bg-muted rounded" />}>
+              <KatexRenderer equation={equation} inline={false} onDoubleClick={() => null} />
+            </Suspense>
           </ErrorBoundary>
         </div>
       </div>

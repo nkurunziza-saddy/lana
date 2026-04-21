@@ -1,3 +1,4 @@
+import React from "react";
 import { $getSelectionStyleValueForProperty, $patchStyleText } from "@lexical/selection";
 import {
   $getSelection,
@@ -20,7 +21,7 @@ import {
 import { HIGHLIGHT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
 
-export function HighlightPicker({
+export const HighlightPicker = React.memo(function HighlightPicker({
   editor,
   disabled = false,
 }: {
@@ -118,4 +119,4 @@ export function HighlightPicker({
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});

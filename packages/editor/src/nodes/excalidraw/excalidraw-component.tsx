@@ -9,10 +9,10 @@ import { useLexicalEditable } from "@lexical/react/useLexicalEditable";
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection";
 import { mergeRegister } from "@lexical/utils";
 import { $getNodeByKey, CLICK_COMMAND, COMMAND_PRIORITY_LOW, isDOMNode } from "lexical";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, lazy, Suspense } from "react";
 import { Download, Pencil } from "lucide-react";
 
-import ExcalidrawModal from "../../components/excalidraw-modal";
+const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
 import ImageResizer from "../../components/image-resizer";
 import { $isExcalidrawNode } from ".";
 import ExcalidrawImage from "./excalidraw-image";
@@ -182,19 +182,21 @@ export default function ExcalidrawComponent({
   return (
     <>
       {isEditable && isModalOpen && (
-        <ExcalidrawModal
-          initialElements={elements}
-          initialFiles={files}
-          initialAppState={appState}
-          isShown={isModalOpen}
-          onDelete={deleteNode}
-          onClose={closeModal}
-          onSave={(els, aps, fls) => {
-            setData(els, aps, fls);
-            setModalOpen(false);
-          }}
-          closeOnClickOutside={false}
-        />
+        <Suspense fallback={null}>
+          <ExcalidrawModal
+            initialElements={elements}
+            initialFiles={files}
+            initialAppState={appState}
+            isShown={isModalOpen}
+            onDelete={deleteNode}
+            onClose={closeModal}
+            onSave={(els, aps, fls) => {
+              setData(els, aps, fls);
+              setModalOpen(false);
+            }}
+            closeOnClickOutside={false}
+          />
+        </Suspense>
       )}
       {elements.length > 0 && (
         <button

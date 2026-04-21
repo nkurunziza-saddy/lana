@@ -1,3 +1,4 @@
+import React from "react";
 import { $createCodeNode } from "@lexical/code";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createQuoteNode } from "@lexical/rich-text";
@@ -9,7 +10,11 @@ import { ToolbarToggleButton } from "./toolbar-button";
 
 const BLOCK_TYPE_ITEMS = BLOCK_FORMAT_ITEMS.filter((item) => item.format);
 
-export function BlockTypeButtons({ toolbarState }: { toolbarState: ToolbarState }) {
+export const BlockTypeButtons = React.memo(function BlockTypeButtons({
+  toolbarState,
+}: {
+  toolbarState: ToolbarState;
+}) {
   const [editor] = useLexicalComposerContext();
 
   const onClickHandler = (format: string) => {
@@ -54,4 +59,4 @@ export function BlockTypeButtons({ toolbarState }: { toolbarState: ToolbarState 
       })}
     </>
   );
-}
+});

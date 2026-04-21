@@ -9,10 +9,10 @@ import {
   $isRootOrShadowRoot,
   COMMAND_PRIORITY_EDITOR,
 } from "lexical";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { $createExcalidrawNode, ExcalidrawNode } from "../../nodes/excalidraw";
 import type { ExcalidrawInitialElements } from "../../components/excalidraw-modal";
-import ExcalidrawModal from "../../components/excalidraw-modal";
+const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
 import { INSERT_EXCALIDRAW_COMMAND } from "./commands";
 
 export default function ExcalidrawPlugin(): JSX.Element | null {
@@ -65,15 +65,17 @@ export default function ExcalidrawPlugin(): JSX.Element | null {
   };
 
   return isModalOpen ? (
-    <ExcalidrawModal
-      initialElements={[]}
-      initialAppState={{} as AppState}
-      initialFiles={{}}
-      isShown={isModalOpen}
-      onDelete={onDelete}
-      onClose={onClose}
-      onSave={onSave}
-      closeOnClickOutside={false}
-    />
+    <Suspense fallback={null}>
+      <ExcalidrawModal
+        initialElements={[]}
+        initialAppState={{} as AppState}
+        initialFiles={{}}
+        isShown={isModalOpen}
+        onDelete={onDelete}
+        onClose={onClose}
+        onSave={onSave}
+        closeOnClickOutside={false}
+      />
+    </Suspense>
   ) : null;
 }
