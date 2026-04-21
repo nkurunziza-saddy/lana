@@ -94,7 +94,54 @@ const toolbarReducer = (state: ToolbarState, action: Action): ToolbarState => {
   }
 };
 
-export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: boolean }) {
+export function ToolbarRoot({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-0.5 px-2 py-1.5 overflow-x-auto scrollbar-none transition-all",
+        "md:sticky md:top-0 md:z-10 md:border-b md:bg-background/95 md:backdrop-blur-md",
+        "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:bg-popover/95 max-md:backdrop-blur-md",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+export interface ToolbarComponent extends React.FC<{
+  enableSpeechToText?: boolean;
+  children?: React.ReactNode;
+}> {
+  Root: typeof ToolbarRoot;
+  History: typeof HistoryButtons;
+  BlockFormat: typeof BlockFormatDropDown;
+  List: typeof ListButtons;
+  BlockType: typeof BlockTypeButtons;
+  TextFormat: typeof TextFormatButtons;
+  TextCase: typeof TextCaseMenu;
+  Color: typeof ColorPicker;
+  Highlight: typeof HighlightPicker;
+  Align: typeof AlignButtons;
+  File: typeof FileActions;
+  Table: typeof TableButtons;
+  Insert: typeof InsertDropDown;
+  Separator: typeof Separator;
+}
+
+export const Toolbar = (({
+  enableSpeechToText = false,
+  children,
+}: {
+  enableSpeechToText?: boolean;
+  children?: React.ReactNode;
+}) => {
   const [editor] = useLexicalComposerContext();
   const [toolbarState, dispatch] = useReducer(toolbarReducer, initialState);
   const [showTableDialog, setShowTableDialog] = useState(false);
@@ -251,79 +298,77 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
 
   return (
     <>
-      <div
-        className={cn(
-          "flex items-center gap-0.5 px-2 py-1.5 overflow-x-auto scrollbar-none transition-all",
-          "md:sticky md:top-0 md:z-10 md:border-b md:bg-background/95 md:backdrop-blur-md",
-          "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:bg-popover/95 max-md:backdrop-blur-md",
-        )}
-      >
-        <HistoryButtons canRedo={toolbarState.canRedo} canUndo={toolbarState.canUndo} />
-
-        <Separator />
-        <BlockFormatDropDown blockType={toolbarState.blockType} />
-
-        <Separator />
-
-        <ListButtons toolbarState={toolbarState} />
-        <BlockTypeButtons toolbarState={toolbarState} />
-
-        <Separator />
-
-        <TextFormatButtons toolbarState={toolbarState} />
-        <TextCaseMenu toolbarState={toolbarState} />
-        <Separator />
-        <ColorPicker editor={editor} />
-        <HighlightPicker editor={editor} />
-
-        <Separator />
-        <ToolbarButton
-          icon={LinkIcon}
-          isActive={toolbarState.isLink}
-          onClick={insertLink}
-          title="Insert Link"
-        />
-
-        <Separator />
-
-        <InsertDropDown
-          setShowImageDialog={setShowImageDialog}
-          setShowTableDialog={setShowTableDialog}
-          setShowEquationDialog={setShowEquationDialog}
-          setShowLayoutDialog={setShowLayoutDialog}
-          setShowExcalidrawModal={setShowExcalidrawModal}
-        />
-
-        <Separator />
-
-        <AlignButtons />
-
-        {enableSpeechToText && (
+      <ToolbarRoot>
+        {children || (
           <>
+            <HistoryButtons canRedo={toolbarState.canRedo} canUndo={toolbarState.canUndo} />
+
+            <Separator />
+            <BlockFormatDropDown blockType={toolbarState.blockType} />
+
+            <Separator />
+
+            <ListButtons toolbarState={toolbarState} />
+            <BlockTypeButtons toolbarState={toolbarState} />
+
+            <Separator />
+
+            <TextFormatButtons toolbarState={toolbarState} />
+            <TextCaseMenu toolbarState={toolbarState} />
+            <Separator />
+            <ColorPicker editor={editor} />
+            <HighlightPicker editor={editor} />
+
             <Separator />
             <ToolbarButton
-              icon={isSpeechToTextActive ? MicOff : Mic}
-              isActive={isSpeechToTextActive}
-              onClick={() => {
-                const event = new CustomEvent("toggle-speech-to-text");
-                window.dispatchEvent(event);
-              }}
-              title={isSpeechToTextActive ? "Stop Speech to Text" : "Start Speech to Text"}
+              icon={LinkIcon}
+              isActive={toolbarState.isLink}
+              onClick={insertLink}
+              title="Insert Link"
             />
-          </>
-        )}
 
-        {toolbarState.isTable && (
-          <>
             <Separator />
-            <TableButtons />
+
+            <InsertDropDown
+              setShowImageDialog={setShowImageDialog}
+              setShowTableDialog={setShowTableDialog}
+              setShowEquationDialog={setShowEquationDialog}
+              setShowLayoutDialog={setShowLayoutDialog}
+              setShowExcalidrawModal={setShowExcalidrawModal}
+            />
+
+            <Separator />
+
+            <AlignButtons />
+
+            {enableSpeechToText && (
+              <>
+                <Separator />
+                <ToolbarButton
+                  icon={isSpeechToTextActive ? MicOff : Mic}
+                  isActive={isSpeechToTextActive}
+                  onClick={() => {
+                    const event = new CustomEvent("toggle-speech-to-text");
+                    window.dispatchEvent(event);
+                  }}
+                  title={isSpeechToTextActive ? "Stop Speech to Text" : "Start Speech to Text"}
+                />
+              </>
+            )}
+
+            {toolbarState.isTable && (
+              <>
+                <Separator />
+                <TableButtons />
+              </>
+            )}
+
+            <Separator />
+
+            <FileActions />
           </>
         )}
-
-        <Separator />
-
-        <FileActions />
-      </div>
+      </ToolbarRoot>
 
       <TableDialog
         isOpen={showTableDialog}
@@ -387,4 +432,19 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
       )}
     </>
   );
-}
+}) as ToolbarComponent;
+
+Toolbar.Root = ToolbarRoot;
+Toolbar.History = HistoryButtons;
+Toolbar.BlockFormat = BlockFormatDropDown;
+Toolbar.List = ListButtons;
+Toolbar.BlockType = BlockTypeButtons;
+Toolbar.TextFormat = TextFormatButtons;
+Toolbar.TextCase = TextCaseMenu;
+Toolbar.Color = ColorPicker;
+Toolbar.Highlight = HighlightPicker;
+Toolbar.Align = AlignButtons;
+Toolbar.File = FileActions;
+Toolbar.Table = TableButtons;
+Toolbar.Insert = InsertDropDown;
+Toolbar.Separator = Separator;

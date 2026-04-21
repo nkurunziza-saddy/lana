@@ -14,11 +14,12 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } from "lexical";
-import type React from "react";
+import * as React from "react";
 import { useMemo, useRef, useState, memo } from "react";
+import { useTheme } from "next-themes";
 import { cn } from "@lana/utils";
 import { EDITOR_CONFIG } from "./lib/configs";
-import type { EditorProps } from "./lib/types/editor";
+import type { EditorProps, EditorComponent } from "./lib/types/editor";
 import { FloatingToolbar } from "./plugins/floating-toolbar";
 import SlashCommandPlugin from "./plugins/slash-command";
 import { FloatingLinkEditorPlugin } from "./plugins/floating-link-editor";
@@ -31,7 +32,7 @@ import ExcalidrawPlugin from "./plugins/excalidraw";
 import DraggableBlockPlugin from "./plugins/draggable-block";
 import { LayoutPlugin } from "./plugins/layout";
 
-const EditorContent = memo(function EditorContent({
+export const EditorContent = memo(function EditorContent({
   placeholder = "Start writing ...",
   className = "",
   minHeight = "400px",
@@ -80,18 +81,20 @@ const EditorContent = memo(function EditorContent({
   );
 });
 
-const EditorPlugins = memo(function EditorPlugins({
+export const EditorPlugins = memo(function EditorPlugins({
   showFloatingToolbar = true,
   enableSpeechToText = false,
   customPlugins = [],
   anchorElem = document.body,
   onChange,
+  children,
 }: {
   showFloatingToolbar?: boolean;
   enableSpeechToText?: boolean;
   customPlugins?: React.ComponentType[];
   anchorElem?: HTMLElement;
-  onChange: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
+  onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
+  children?: React.ReactNode;
 }) {
   const pluginElements = useMemo(
     () => customPlugins.map((Plugin, index) => <Plugin key={index} />),
@@ -117,7 +120,7 @@ const EditorPlugins = memo(function EditorPlugins({
       <DraggableBlockPlugin anchorElem={anchorElem} />
       {enableSpeechToText && <SpeechToTextPlugin anchorElem={anchorElem} />}
       <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-      <OnChangePlugin onChange={onChange} />
+      {onChange && <OnChangePlugin onChange={onChange} />}
       {showFloatingToolbar && anchorElem && (
         <>
           <FloatingToolbar anchorElem={anchorElem} />
@@ -125,26 +128,22 @@ const EditorPlugins = memo(function EditorPlugins({
         </>
       )}
       {pluginElements}
+      {children}
     </>
   );
 });
 
-export function Editor({
+export function EditorRoot({
+  children,
   initialValue = "",
-  placeholder = 'Start writing or use "/" for quick commands',
-  className = "",
-  minHeight = "400px",
-  maxHeight,
-  showToolbar = false,
-  showFloatingToolbar = true,
-  enableSpeechToText = false,
   readOnly = false,
-  onChange,
-  plugins = [],
-}: EditorProps) {
-  const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
-
+  className = "",
+}: {
+  children: React.ReactNode;
+  initialValue?: string;
+  readOnly?: boolean;
+  className?: string;
+}) {
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null);
 
   const onRef = (floatingAnchorElem: HTMLDivElement) => {
@@ -152,6 +151,7 @@ export function Editor({
       setFloatingAnchorElem(floatingAnchorElem);
     }
   };
+
   const initialConfig = useMemo(() => {
     let editorState: string | (() => void) | null = null;
     if (initialValue && typeof initialValue === "string" && initialValue.trim() !== "") {
@@ -186,6 +186,47 @@ export function Editor({
     };
   }, [initialValue, readOnly]);
 
+  const { resolvedTheme } = useTheme();
+
+  return (
+    <LexicalComposer initialConfig={initialConfig}>
+      <div
+        className={cn(
+          "relative overflow-hidden w-full flex flex-col h-full",
+          resolvedTheme === "dark" && "dark",
+          className,
+        )}
+        ref={onRef}
+      >
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            return React.cloneElement(child as React.ReactElement<any>, {
+              anchorElem: floatingAnchorElem || undefined,
+            });
+          }
+          return child;
+        })}
+      </div>
+    </LexicalComposer>
+  );
+}
+
+export const Editor = (({
+  initialValue = "",
+  placeholder = 'Start writing or use "/" for quick commands',
+  className = "",
+  minHeight = "400px",
+  maxHeight,
+  showToolbar = false,
+  showFloatingToolbar = true,
+  enableSpeechToText = false,
+  readOnly = false,
+  onChange,
+  plugins = [],
+}: EditorProps) => {
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
   const handleEditorChange = useMemo(
     () =>
       debounce((editorState: EditorState) => {
@@ -197,37 +238,32 @@ export function Editor({
   );
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <div
-        className={cn(
-          "relative overflow-hidden w-full flex flex-col h-full",
+    <EditorRoot initialValue={initialValue} readOnly={readOnly} className={className}>
+      <div className={cn(showToolbar && "order-last md:order-first")}>
+        {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
+      </div>
 
-          className,
-        )}
-        ref={onRef}
-      >
-        <div className={cn(showToolbar && "order-last md:order-first")}>
-          {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
-        </div>
-
-        <div className="flex-1 w-full overflow-y-auto order-first md:order-0">
-          <EditorContent
-            maxHeight={maxHeight}
-            minHeight={minHeight}
-            placeholder={placeholder}
-            readOnly={readOnly}
-            className={className}
-          />
-        </div>
-
-        <EditorPlugins
-          customPlugins={plugins}
-          onChange={handleEditorChange}
-          showFloatingToolbar={showFloatingToolbar}
-          enableSpeechToText={enableSpeechToText}
-          anchorElem={floatingAnchorElem || undefined}
+      <div className="flex-1 w-full overflow-y-auto order-first md:order-none">
+        <EditorContent
+          maxHeight={maxHeight}
+          minHeight={minHeight}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          className={className}
         />
       </div>
-    </LexicalComposer>
+
+      <EditorPlugins
+        customPlugins={plugins}
+        onChange={handleEditorChange}
+        showFloatingToolbar={showFloatingToolbar}
+        enableSpeechToText={enableSpeechToText}
+      />
+    </EditorRoot>
   );
-}
+}) as EditorComponent;
+
+Editor.Root = EditorRoot;
+Editor.Content = EditorContent;
+Editor.Plugins = EditorPlugins;
+Editor.Toolbar = Toolbar;
