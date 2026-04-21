@@ -17,6 +17,7 @@ import type React from "react";
 import { createPortal } from "react-dom";
 
 import { Button, Input } from "@lana/ui";
+import { cn } from "@lana/utils";
 
 function sanitizeUrl(url: string): string {
   try {
@@ -44,7 +45,11 @@ interface Position {
   opacity: number;
 }
 
-export function FloatingLinkEditorPlugin() {
+export function FloatingLinkEditorPlugin({
+  anchorElem = document.body,
+}: {
+  anchorElem?: HTMLElement;
+}) {
   const [editor] = useLexicalComposerContext();
   const popoverRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -55,39 +60,38 @@ export function FloatingLinkEditorPlugin() {
   const [editedLinkUrl, setEditedLinkUrl] = useState("");
   const [position, setPosition] = useState<Position>({ top: -1000, left: -1000, opacity: 0 });
 
-  // Mirrors the same math as use-floating-toolbar.ts calculatePosition,
-  // but prefers placing the popover BELOW the link instead of above.
-  // Always uses absolute page coordinates (rect + window.scrollY) so it
-  // works correctly when portalled into document.body.
-  const calculatePosition = useCallback((rect: DOMRect) => {
-    const popover = popoverRef.current;
-    if (!popover) return;
+  // Calculates position relative to the anchor element (editor container)
+  const calculatePosition = useCallback(
+    (rect: DOMRect) => {
+      const popover = popoverRef.current;
+      if (!popover) return;
 
-    const popoverRect = popover.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const MARGIN = 10;
-    const GAP = 6;
+      const popoverRect = popover.getBoundingClientRect();
+      const anchorRect = anchorElem.getBoundingClientRect();
 
-    // Place below the link by default
-    let top = rect.bottom + window.scrollY + GAP;
-    // Left-align with the start of the link, centred if it's wide
-    let left = rect.left + window.scrollX;
+      const MARGIN = 10;
+      const GAP = 6;
 
-    // Clamp to viewport width
-    if (left + popoverRect.width > viewportWidth - MARGIN) {
-      left = viewportWidth - popoverRect.width - MARGIN;
-    }
-    if (left < MARGIN) left = MARGIN;
+      // Local coordinates within the anchor element
+      let top = rect.bottom - anchorRect.top + anchorElem.scrollTop + GAP;
+      let left = rect.left - anchorRect.left + anchorElem.scrollLeft;
 
-    // Flip above if it would overflow the bottom of the viewport
-    const wouldOverflowBottom = rect.bottom + GAP + popoverRect.height > viewportHeight;
-    if (wouldOverflowBottom) {
-      top = rect.top + window.scrollY - popoverRect.height - GAP;
-    }
+      // Clamp horizontally
+      if (left + popoverRect.width > anchorRect.width - MARGIN) {
+        left = anchorRect.width - popoverRect.width - MARGIN;
+      }
+      if (left < MARGIN) left = MARGIN;
 
-    setPosition({ top, left, opacity: 1 });
-  }, []);
+      // Flip above if it would overflow the bottom of the anchor element
+      const wouldOverflowBottom = top + popoverRect.height > anchorElem.scrollHeight - MARGIN;
+      if (wouldOverflowBottom) {
+        top = rect.top - anchorRect.top + anchorElem.scrollTop - popoverRect.height - GAP;
+      }
+
+      setPosition({ top, left, opacity: 1 });
+    },
+    [anchorElem],
+  );
 
   const updateLinkEditor = useCallback(() => {
     editor.getEditorState().read(() => {
@@ -190,12 +194,14 @@ export function FloatingLinkEditorPlugin() {
   return createPortal(
     <div
       ref={popoverRef}
-      className="absolute z-50 bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl overflow-hidden transition-[opacity,transform] duration-150 ease-out will-change-[opacity,transform]"
+      className={cn(
+        "absolute z-50 bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl overflow-hidden transition-all duration-200 ease-out will-change-[opacity,transform]",
+      )}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
         opacity: position.opacity,
-        transform: `translateY(${position.opacity === 1 ? "0px" : "3px"})`,
+        transform: `translateY(${position.opacity === 1 ? "0px" : "4px"})`,
         pointerEvents: position.opacity > 0 ? "auto" : "none",
         minWidth: "260px",
         maxWidth: "380px",
@@ -283,8 +289,6 @@ export function FloatingLinkEditorPlugin() {
         </div>
       )}
     </div>,
-    // Always portal to document.body — same as FloatingToolbar —
-    // so absolute coordinates match window.scrollY-based math.
-    document.body,
+    anchorElem,
   );
 }

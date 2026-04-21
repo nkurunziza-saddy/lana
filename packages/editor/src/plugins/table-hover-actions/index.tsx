@@ -22,7 +22,11 @@ import {
   DropdownMenuTrigger,
 } from "@lana/ui";
 
-export default function TableHoverActionsPlugin() {
+export default function TableHoverActionsPlugin({
+  anchorElem = document.body,
+}: {
+  anchorElem?: HTMLElement;
+}) {
   const [editor] = useLexicalComposerContext();
   const [hoveredTable, setHoveredTable] = useState<{
     node: TableNode;
@@ -61,11 +65,12 @@ export default function TableHoverActionsPlugin() {
     if (hoveredTable && actionButtonRef.current) {
       const { dom } = hoveredTable;
       const rect = dom.getBoundingClientRect();
+      const anchorRect = anchorElem.getBoundingClientRect();
       const actionButton = actionButtonRef.current;
-      actionButton.style.top = `${rect.top + window.scrollY - 20}px`;
-      actionButton.style.left = `${rect.right + window.scrollX - 20}px`;
+      actionButton.style.top = `${rect.top - anchorRect.top + anchorElem.scrollTop - 20}px`;
+      actionButton.style.left = `${rect.right - anchorRect.left + anchorElem.scrollLeft - 20}px`;
     }
-  }, [hoveredTable]);
+  }, [hoveredTable, anchorElem]);
 
   const modifyTable = (action: string) => {
     if (hoveredTable) {
@@ -188,6 +193,6 @@ export default function TableHoverActionsPlugin() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>,
-    document.body,
+    anchorElem,
   );
 }

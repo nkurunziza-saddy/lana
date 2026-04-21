@@ -87,6 +87,8 @@ export function HighlightPicker({
       />
       <DropdownMenuContent
         align="start"
+        side="top"
+        sideOffset={10}
         className="animate-in slide-in-from-top-2 duration-200 min-w-[150px]"
       >
         {HIGHLIGHT_COLORS.map((c) => {

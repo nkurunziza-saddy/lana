@@ -53,7 +53,7 @@ export function TextCaseMenu({ toolbarState }: { toolbarState: ToolbarState }) {
       <DropdownMenuTrigger
         render={<ToolbarButton icon={CaseUpper} isActive={isActive} title="Text Case" />}
       />
-      <DropdownMenuContent className="min-w-32">
+      <DropdownMenuContent className="min-w-32" side="top" sideOffset={10}>
         {TEXT_CASE_OPTIONS.map((option) => (
           <DropdownMenuItem
             key={option.format}

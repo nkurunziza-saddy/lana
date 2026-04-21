@@ -19,7 +19,11 @@ class SlashCommandOption extends MenuOption {
   }
 }
 
-export default function SlashCommandPlugin() {
+export default function SlashCommandPlugin({
+  anchorElem = document.body,
+}: {
+  anchorElem?: HTMLElement;
+}) {
   const [editor] = useLexicalComposerContext();
   const [query, setQuery] = useState<string | null>(null);
 
@@ -61,13 +65,14 @@ export default function SlashCommandPlugin() {
         }
 
         const rect = anchorElement.getBoundingClientRect();
+        const anchorRect = anchorElem.getBoundingClientRect();
 
         return createPortal(
           <div
             className="mt-1 absolute z-50 w-44 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md border bg-popover p-1 shadow-md"
             style={{
-              top: rect.bottom + window.scrollY + 1,
-              left: rect.left + window.scrollX,
+              top: rect.bottom - anchorRect.top + anchorElem.scrollTop + 1,
+              left: rect.left - anchorRect.left + anchorElem.scrollLeft,
             }}
           >
             {options.map((option, i) => (
@@ -85,7 +90,7 @@ export default function SlashCommandPlugin() {
               />
             ))}
           </div>,
-          document.body,
+          anchorElem,
         );
       }}
       onQueryChange={setQuery}

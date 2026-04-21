@@ -24,6 +24,7 @@ import {
   type TextNode,
 } from "lexical";
 import { LinkIcon, Mic, MicOff } from "lucide-react";
+import { cn } from "@lana/utils";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { ImageDialog, LayoutDialog, TableDialog } from "../../components";
 import { INSERT_LAYOUT_COMMAND } from "../layout";
@@ -247,61 +248,80 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
   };
 
   return (
-    <div className="flex relative items-center gap-0.5 px-2 py-1.5 border-b overflow-x-auto scrollbar-none">
-      <HistoryButtons canRedo={toolbarState.canRedo} canUndo={toolbarState.canUndo} />
+    <>
+      <div
+        className={cn(
+          "flex items-center gap-0.5 px-2 py-1.5 overflow-x-auto scrollbar-none transition-all",
+          "md:sticky md:top-0 md:z-10 md:border-b md:bg-background/95 md:backdrop-blur-md",
+          "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:bg-popover/95 max-md:backdrop-blur-md",
+        )}
+      >
+        <HistoryButtons canRedo={toolbarState.canRedo} canUndo={toolbarState.canUndo} />
 
-      <Separator />
-      <BlockFormatDropDown blockType={toolbarState.blockType} />
+        <Separator />
+        <BlockFormatDropDown blockType={toolbarState.blockType} />
 
-      <Separator />
+        <Separator />
 
-      <ListButtons toolbarState={toolbarState} />
-      <BlockTypeButtons toolbarState={toolbarState} />
+        <ListButtons toolbarState={toolbarState} />
+        <BlockTypeButtons toolbarState={toolbarState} />
 
-      <Separator />
+        <Separator />
 
-      <TextFormatButtons toolbarState={toolbarState} />
-      <TextCaseMenu toolbarState={toolbarState} />
-      <Separator />
-      <ColorPicker editor={editor} />
-      <HighlightPicker editor={editor} />
+        <TextFormatButtons toolbarState={toolbarState} />
+        <TextCaseMenu toolbarState={toolbarState} />
+        <Separator />
+        <ColorPicker editor={editor} />
+        <HighlightPicker editor={editor} />
 
-      <Separator />
-      <ToolbarButton
-        icon={LinkIcon}
-        isActive={toolbarState.isLink}
-        onClick={insertLink}
-        title="Insert Link"
-      />
+        <Separator />
+        <ToolbarButton
+          icon={LinkIcon}
+          isActive={toolbarState.isLink}
+          onClick={insertLink}
+          title="Insert Link"
+        />
 
-      <Separator />
+        <Separator />
 
-      <InsertDropDown
-        setShowImageDialog={setShowImageDialog}
-        setShowTableDialog={setShowTableDialog}
-        setShowEquationDialog={setShowEquationDialog}
-        setShowLayoutDialog={setShowLayoutDialog}
-        setShowExcalidrawModal={setShowExcalidrawModal}
-      />
+        <InsertDropDown
+          setShowImageDialog={setShowImageDialog}
+          setShowTableDialog={setShowTableDialog}
+          setShowEquationDialog={setShowEquationDialog}
+          setShowLayoutDialog={setShowLayoutDialog}
+          setShowExcalidrawModal={setShowExcalidrawModal}
+        />
 
-      <Separator />
+        <Separator />
 
-      <AlignButtons />
+        <AlignButtons />
 
-      {enableSpeechToText && (
-        <>
-          <Separator />
-          <ToolbarButton
-            icon={isSpeechToTextActive ? MicOff : Mic}
-            isActive={isSpeechToTextActive}
-            onClick={() => {
-              const event = new CustomEvent("toggle-speech-to-text");
-              window.dispatchEvent(event);
-            }}
-            title={isSpeechToTextActive ? "Stop Speech to Text" : "Start Speech to Text"}
-          />
-        </>
-      )}
+        {enableSpeechToText && (
+          <>
+            <Separator />
+            <ToolbarButton
+              icon={isSpeechToTextActive ? MicOff : Mic}
+              isActive={isSpeechToTextActive}
+              onClick={() => {
+                const event = new CustomEvent("toggle-speech-to-text");
+                window.dispatchEvent(event);
+              }}
+              title={isSpeechToTextActive ? "Stop Speech to Text" : "Start Speech to Text"}
+            />
+          </>
+        )}
+
+        {toolbarState.isTable && (
+          <>
+            <Separator />
+            <TableButtons />
+          </>
+        )}
+
+        <Separator />
+
+        <FileActions />
+      </div>
 
       <TableDialog
         isOpen={showTableDialog}
@@ -322,8 +342,8 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
       />
 
       {showEquationDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-lg border bg-popover shadow-lg">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-lg border bg-popover shadow-lg animate-in fade-in zoom-in-95 duration-200">
             <InsertEquationDialog
               activeEditor={editor}
               onClose={() => setShowEquationDialog(false)}
@@ -361,17 +381,6 @@ export function Toolbar({ enableSpeechToText = false }: { enableSpeechToText?: b
           closeOnClickOutside={false}
         />
       )}
-
-      {toolbarState.isTable && (
-        <>
-          <Separator />
-          <TableButtons />
-        </>
-      )}
-
-      <Separator />
-
-      <FileActions />
-    </div>
+    </>
   );
 }

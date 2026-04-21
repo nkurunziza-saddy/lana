@@ -18,8 +18,9 @@ import {
   Superscript,
   Underline,
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
+import { cn } from "@lana/utils";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -59,9 +60,10 @@ const FORMAT_ITEMS: FormatItem[] = [
   { name: "Subscript", icon: Subscript, format: "subscript", group: "script" },
 ];
 
-export function FloatingToolbar() {
+export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: HTMLElement }) {
   const [editor] = useLexicalComposerContext();
-  const { toolbarRef, isVisible, position, activeFormats, selectedText } = useFloatingToolbar();
+  const { toolbarRef, isVisible, position, activeFormats, selectedText } =
+    useFloatingToolbar(anchorElem);
 
   const formatText = useCallback(
     (format: string) => {
@@ -97,35 +99,19 @@ export function FloatingToolbar() {
     return groups;
   }, []);
 
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
   if (!isVisible) return null;
 
   return createPortal(
     <div
-      className={
-        isMobile
-          ? // Mobile: stable full-width bar locked to bottom
-            "fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-0.5 px-3 py-2 pb-safe bg-popover/97 backdrop-blur-md border-t border-border/40 shadow-2xl transition-[opacity,transform] duration-200 ease-out will-change-[opacity,transform]"
-          : // Desktop: floating bubble above selection
-            "fixed z-50 flex items-center gap-0.5 px-2 py-1.5 bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl transition-[opacity,transform] duration-200 ease-out will-change-[opacity,transform]"
-      }
+      className={cn(
+        "absolute z-50 flex items-center gap-0.5 px-2 py-1.5 bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl transition-all duration-200 ease-out will-change-[opacity,transform]",
+      )}
       ref={toolbarRef}
       style={{
-        ...(isMobile
-          ? {}
-          : {
-              top: `${position.top}px`,
-              left: `${position.left}px`,
-            }),
+        top: `${position.top}px`,
+        left: `${position.left}px`,
         opacity: position.opacity,
-        transform: `translateY(${position.opacity === 1 ? "0px" : isMobile ? "6px" : "3px"})`,
+        transform: `translateY(${position.opacity === 1 ? "0px" : "4px"})`,
         pointerEvents: position.opacity > 0 ? "auto" : "none",
       }}
     >
@@ -203,6 +189,6 @@ export function FloatingToolbar() {
         </>
       )}
     </div>,
-    document.body,
+    anchorElem,
   );
 }

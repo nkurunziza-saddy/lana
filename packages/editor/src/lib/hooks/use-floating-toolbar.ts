@@ -32,7 +32,9 @@ const FORMATS = [
   "subscript",
 ] as const;
 
-export function useFloatingToolbar(): UseFloatingToolbarReturn {
+export function useFloatingToolbar(
+  anchorElem: HTMLElement = document.body,
+): UseFloatingToolbarReturn {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
@@ -46,31 +48,36 @@ export function useFloatingToolbar(): UseFloatingToolbarReturn {
     opacity: 0,
   });
 
-  const calculatePosition = useCallback((rect: DOMRect): Position => {
-    const toolbar = toolbarRef.current;
-    if (!toolbar) return { top: -1000, left: -1000, opacity: 0 };
+  const calculatePosition = useCallback(
+    (rect: DOMRect): Position => {
+      const toolbar = toolbarRef.current;
+      if (!toolbar) return { top: -1000, left: -1000, opacity: 0 };
 
-    const toolbarRect = toolbar.getBoundingClientRect();
-    const viewport = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
+      const toolbarRect = toolbar.getBoundingClientRect();
+      const anchorRect = anchorElem.getBoundingClientRect();
 
-    let top = rect.top + window.scrollY - toolbarRect.height - 10;
-    let left = rect.left + window.scrollX + rect.width / 2 - toolbarRect.width / 2;
+      let top = rect.top - anchorRect.top + anchorElem.scrollTop - toolbarRect.height - 10;
+      let left =
+        rect.left -
+        anchorRect.left +
+        anchorElem.scrollLeft +
+        rect.width / 2 -
+        toolbarRect.width / 2;
 
-    if (left < 10) {
-      left = 10;
-    } else if (left + toolbarRect.width > viewport.width - 10) {
-      left = viewport.width - toolbarRect.width - 10;
-    }
+      if (left < 10) {
+        left = 10;
+      } else if (left + toolbarRect.width > anchorRect.width - 10) {
+        left = anchorRect.width - toolbarRect.width - 10;
+      }
 
-    if (top < window.scrollY + 10) {
-      top = rect.bottom + window.scrollY + 10;
-    }
+      if (top < anchorElem.scrollTop + 10) {
+        top = rect.bottom - anchorRect.top + anchorElem.scrollTop + 10;
+      }
 
-    return { top, left, opacity: 1 };
-  }, []);
+      return { top, left, opacity: 1 };
+    },
+    [anchorElem],
+  );
 
   const updateToolbar = useCallback(() => {
     if (timeoutRef.current) {

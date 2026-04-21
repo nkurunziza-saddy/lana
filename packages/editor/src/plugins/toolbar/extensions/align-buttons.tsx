@@ -16,7 +16,12 @@ export function AlignButtons() {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger render={<ToolbarButton icon={AlignLeft} title="Text Alignment" />} />
 
-      <DropdownMenuContent align="start" className="animate-in slide-in-from-top-2 duration-200">
+      <DropdownMenuContent
+        align="start"
+        side="top"
+        sideOffset={10}
+        className="animate-in slide-in-from-top-2 duration-200"
+      >
         <DropdownMenuItem
           className="hover:bg-accent/80 transition-colors"
           onClick={() => formatElement("left")}

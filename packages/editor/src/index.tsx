@@ -109,19 +109,19 @@ function EditorPlugins({
       <HorizontalRulePlugin />
       {/* table plugins - order matters */}
       <TablePlugin hasCellBackgroundColor={true} hasCellMerge={true} hasTabHandler={true} />
-      <TableHoverActionsPlugin />
-      <SlashCommandPlugin />
+      <TableHoverActionsPlugin anchorElem={anchorElem} />
+      <SlashCommandPlugin anchorElem={anchorElem} />
       <EquationsPlugin />
       <ExcalidrawPlugin />
       <LayoutPlugin />
       <DraggableBlockPlugin anchorElem={anchorElem} />
-      {enableSpeechToText && <SpeechToTextPlugin />}
+      {enableSpeechToText && <SpeechToTextPlugin anchorElem={anchorElem} />}
       <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       <OnChangePlugin onChange={onChange} />
-      {showFloatingToolbar && (
+      {showFloatingToolbar && anchorElem && (
         <>
-          <FloatingToolbar />
-          <FloatingLinkEditorPlugin />
+          <FloatingToolbar anchorElem={anchorElem} />
+          <FloatingLinkEditorPlugin anchorElem={anchorElem} />
         </>
       )}
       {pluginElements}
@@ -199,11 +199,16 @@ export function Editor({
   );
 
   return (
-    <div className={cn("w-full", className)}>
-      <LexicalComposer initialConfig={initialConfig}>
-        <div className="relative overflow-hidden w-full" ref={onRef}>
+    <LexicalComposer initialConfig={initialConfig}>
+      <div
+        className={cn("relative overflow-hidden w-full flex flex-col h-full", className)}
+        ref={onRef}
+      >
+        <div className={cn(showToolbar && "order-last md:order-first")}>
           {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
+        </div>
 
+        <div className="flex-1 w-full overflow-y-auto order-first md:order-none">
           <EditorContent
             maxHeight={maxHeight}
             minHeight={minHeight}
@@ -211,16 +216,16 @@ export function Editor({
             readOnly={readOnly}
             className={className}
           />
-
-          <EditorPlugins
-            customPlugins={plugins}
-            onChange={handleEditorChange}
-            showFloatingToolbar={showFloatingToolbar}
-            enableSpeechToText={enableSpeechToText}
-            anchorElem={floatingAnchorElem || undefined}
-          />
         </div>
-      </LexicalComposer>
-    </div>
+
+        <EditorPlugins
+          customPlugins={plugins}
+          onChange={handleEditorChange}
+          showFloatingToolbar={showFloatingToolbar}
+          enableSpeechToText={enableSpeechToText}
+          anchorElem={floatingAnchorElem || undefined}
+        />
+      </div>
+    </LexicalComposer>
   );
 }

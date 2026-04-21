@@ -22,7 +22,12 @@ export function InsertDropDown({
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger render={<ToolbarButton icon={Plus} title="Insert" />} />
-      <DropdownMenuContent align="start" className="animate-in slide-in-from-top-2 duration-200">
+      <DropdownMenuContent
+        align="start"
+        side="top"
+        sideOffset={10}
+        className="animate-in slide-in-from-top-2 duration-200"
+      >
         <DropdownMenuItem
           className="hover:bg-accent/80 transition-colors"
           onClick={() => editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined)}

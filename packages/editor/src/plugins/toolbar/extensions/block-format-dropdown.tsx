@@ -48,7 +48,7 @@ export function BlockFormatDropDown({ blockType }: { blockType: string }) {
           />
         }
       />
-      <DropdownMenuContent align="start">
+      <DropdownMenuContent align="start" sideOffset={10} side="top">
         {[
           {
             key: "heading 1",

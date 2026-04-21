@@ -6,7 +6,11 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@lana/ui";
 import { useSpeechToText } from "./hooks";
 import { listeners, globalIsListening, globalIsProcessing } from "./state";
 
-export default function SpeechToTextPlugin(): React.ReactPortal | null {
+export default function SpeechToTextPlugin({
+  anchorElem = document.body,
+}: {
+  anchorElem?: HTMLElement;
+}): React.ReactPortal | null {
   const [editor] = useLexicalComposerContext();
   const [isListening, setIsListening] = useState(globalIsListening);
   const [isProcessing, setIsProcessing] = useState(globalIsProcessing);
@@ -40,7 +44,7 @@ export default function SpeechToTextPlugin(): React.ReactPortal | null {
   }
 
   return createPortal(
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+    <div className="absolute bottom-4 right-4 z-50 flex flex-col items-end gap-2">
       {(statusMessage || interimText) && (
         <div className="bg-background/95 backdrop-blur-sm border rounded-lg px-3 py-2 shadow-lg max-w-xs">
           {statusMessage && <div className="text-sm text-muted-foreground">{statusMessage}</div>}
@@ -86,6 +90,6 @@ export default function SpeechToTextPlugin(): React.ReactPortal | null {
         </TooltipContent>
       </Tooltip>
     </div>,
-    document.body,
+    anchorElem,
   );
 }
