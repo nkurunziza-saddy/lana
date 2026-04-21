@@ -10,8 +10,10 @@ export function getSnapshot() {
   return state;
 }
 
-export function setGlobalState(isListening: boolean, isProcessing: boolean) {
-  if (state.isListening === isListening && state.isProcessing === isProcessing) return;
-  state = { isListening, isProcessing };
+export function setGlobalState(updates: Partial<typeof state>) {
+  const newState = { ...state, ...updates };
+  if (state.isListening === newState.isListening && state.isProcessing === newState.isProcessing)
+    return;
+  state = newState;
   listeners.forEach((listener) => listener());
 }

@@ -12,7 +12,7 @@ export function useSpeechToTextState() {
 }
 
 export function useSpeechToText(editor: LexicalEditor) {
-  const [isListening, setIsListening] = useState(false);
+  const { isListening } = useSpeechToTextState();
   const [interimText, setInterimText] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -24,8 +24,7 @@ export function useSpeechToText(editor: LexicalEditor) {
   const stopListening = useCallback(() => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
-      setIsListening(false);
-      setGlobalState(false, false);
+      setGlobalState({ isListening: false, isProcessing: false });
     }
   }, []);
 
@@ -42,22 +41,19 @@ export function useSpeechToText(editor: LexicalEditor) {
     recognition.lang = "en-US";
 
     recognition.addEventListener("start", () => {
-      setIsListening(true);
-      setGlobalState(true, false);
+      setGlobalState({ isListening: true, isProcessing: false });
       setStatusMessage("Listening...");
     });
 
     recognition.addEventListener("error", (event: any) => {
       const errorEvent = event as SpeechRecognitionErrorEvent;
       console.error("Speech recognition error", errorEvent.error);
-      setIsListening(false);
-      setGlobalState(false, false);
+      setGlobalState({ isListening: false, isProcessing: false });
       setStatusMessage(`Error: ${errorEvent.error}`);
     });
 
     recognition.addEventListener("end", () => {
-      setIsListening(false);
-      setGlobalState(false, false);
+      setGlobalState({ isListening: false, isProcessing: false });
     });
 
     recognition.addEventListener("result", (event: any) => {

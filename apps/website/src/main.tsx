@@ -15,6 +15,7 @@ function App() {
             placeholder="Start typing your story..."
             showToolbar
             showFloatingToolbar
+            enableSpeechToText
           />
         </main>
       </div>
