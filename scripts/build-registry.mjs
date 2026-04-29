@@ -2,6 +2,7 @@ import { spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { getBaseUrl } from "../packages/utils/src/index.ts";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const shadcnCli = path.join(
@@ -13,10 +14,9 @@ const shadcnCli = path.join(
   "dist",
   "index.js",
 );
-const baseOutputDir = path.join(rootDir, "apps", "website", "public", "r");
+const baseOutputDir = path.join(rootDir, "apps/website/public/r");
 
-const isProd = process.env.VERCEL === "1" || process.env.NODE_ENV === "production";
-const homepage = isProd ? "https://lanaaa.vercel.app" : "http://localhost:5173";
+const homepage = getBaseUrl();
 
 console.log(`Building registry with homepage: ${homepage}`);
 

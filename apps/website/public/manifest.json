@@ -1,7 +1,7 @@
 {
   "name": "Lanaa",
   "short_name": "Lanaa",
-  "description": "A progressive web application",
+  "description": "Lana — A minimal rich-text editor canvas.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#164e63",

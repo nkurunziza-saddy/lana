@@ -1,6 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+// @ts-ignore
+import "@fontsource/instrument-serif";
+// @ts-ignore
+import "@fontsource/geist-mono/300.css";
+// @ts-ignore
+import "@fontsource/geist-mono/400.css";
+// @ts-ignore
+import "@fontsource/geist-mono/500.css";
 import { Editor, EditorContent, EditorToolbar, EditorPlugins } from "@lana/editor";
+import { SITE_URL } from "@lana/utils";
 import "./style.css";
 
 import { ThemeProvider } from "next-themes";
@@ -59,7 +68,7 @@ function LandingView() {
           <div className="mb-8 max-w-sm">
             <MonoLabel>Quick Install (Mira Style)</MonoLabel>
             <div className="mt-3">
-              <CopyCommand command="npx shadcn add https://lanaaa.vercel.app/r/mira/editor.json" />
+              <CopyCommand command={`npx shadcn add ${SITE_URL}/r/mira/editor.json`} />
             </div>
           </div>
 
@@ -270,7 +279,7 @@ function DocsView() {
                 <pre className="p-3 bg-muted/30 border border-grid text-[11px] font-mono text-muted-foreground overflow-x-auto rounded">
                   {`{
   "registries": {
-    "@lana": "https://lanaaa.vercel.app/r/{style}"
+    "@lana": "${SITE_URL}/r/{style}"
   }
 }`}
                 </pre>
@@ -286,9 +295,7 @@ function DocsView() {
                   Or install directly using the URL for the{" "}
                   {styleTab === "mira" ? "Mira" : "Default"} style:
                 </p>
-                <CopyCommand
-                  command={`npx shadcn add https://lanaaa.vercel.app/r/${styleTab}/editor.json`}
-                />
+                <CopyCommand command={`npx shadcn add ${SITE_URL}/r/${styleTab}/editor.json`} />
               </div>
             </div>
           </div>

@@ -9,8 +9,11 @@
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
+      "@lana/ui": ["./packages/ui/src/index.ts"],
       "@lana/ui/*": ["./packages/ui/src/*"],
+      "@lana/editor": ["./packages/editor/src/index.tsx"],
       "@lana/editor/*": ["./packages/editor/src/*"],
+      "@lana/utils": ["./packages/utils/src/index.ts"],
       "@lana/utils/*": ["./packages/utils/src/*"],
       "@/*": ["./apps/website/src/*"]
     }

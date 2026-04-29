@@ -4,6 +4,7 @@
     "module": "esnext",
     "lib": ["ES2023"],
     "skipLibCheck": true,
+    "types": ["node"],
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,

@@ -5,6 +5,8 @@ packages:
 
 catalog:
   "@base-ui/react": ^1.4.0
+  "@fontsource/geist-mono": ^5.2.7
+  "@fontsource/instrument-serif": ^5.2.8
   "@lana/utils": workspace:*
   "@tanstack/react-router": ^1.168.25
   "@types/node": ^24

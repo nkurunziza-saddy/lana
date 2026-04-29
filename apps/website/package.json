@@ -10,6 +10,8 @@
     "check": "vp check"
   },
   "dependencies": {
+    "@fontsource/geist-mono": "catalog:",
+    "@fontsource/instrument-serif": "catalog:",
     "@lana/editor": "workspace:*",
     "@lana/ui": "workspace:*",
     "@tanstack/react-router": "catalog:",
