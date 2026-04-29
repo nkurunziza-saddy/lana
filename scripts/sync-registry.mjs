@@ -98,7 +98,9 @@ function copyRecursive(src, dest, style) {
 function transformContent(content, filePath) {
   // 0. Disable checks for generated registry files
   const header = "/* oxlint-disable */\n// @ts-nocheck\n";
-  content = header + content;
+  if (!content.startsWith(header)) {
+    content = header + content;
+  }
 
   // 1. Transform RTL CSS (physical to logical classes)
   // We avoid touching the editor theme config which relies on physical classes for lexical state

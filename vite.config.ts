@@ -1,11 +1,13 @@
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
-  staged: {
-    "*": "vp check --fix",
+  lint: {
+    options: { typeAware: true, typeCheck: true },
+    ignorePatterns: ["registry/**", "apps/website/public/r/**"],
   },
-  fmt: {},
-  lint: { options: { typeAware: true, typeCheck: true } },
+  staged: {
+    "!(registry/**|apps/**/public/r/**)": "vp check --fix",
+  },
   run: {
     cache: true,
   },

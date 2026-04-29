@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { Mic, MicOff, Loader2 } from "lucide-react";
 import { useEffect } from "react";

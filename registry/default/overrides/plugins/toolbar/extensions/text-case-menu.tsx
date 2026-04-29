@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { FORMAT_TEXT_COMMAND } from "lexical";
