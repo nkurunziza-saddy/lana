@@ -25,28 +25,28 @@ export const FileActions = React.memo(function FileActions() {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger
-          render={<ToolbarButton icon={FileDown} title="Export" variant="ghost" />}
+          render={
+            <ToolbarButton disablePressAnimation icon={FileDown} title="Export" variant="ghost" />
+          }
         />
-        <DropdownMenuContent
-          align="start"
-          side="top"
-          sideOffset={10}
-          className="animate-in slide-in-from-top-2 duration-200"
-        >
+        <DropdownMenuContent align="start" side="bottom" sideOffset={8}>
           <DropdownMenuItem
             className="hover:bg-accent/80 transition-colors"
+            closeOnClick
             onClick={() => exportAsHTML(editor)}
           >
             Save as HTML
           </DropdownMenuItem>
           <DropdownMenuItem
             className="hover:bg-accent/80 transition-colors"
+            closeOnClick
             onClick={() => exportAsMarkdown(editor)}
           >
             Save as Markdown
           </DropdownMenuItem>
           <DropdownMenuItem
             className="hover:bg-accent/80 transition-colors"
+            closeOnClick
             onClick={() => copyAsPlainText(editor)}
           >
             Copy as Plain Text

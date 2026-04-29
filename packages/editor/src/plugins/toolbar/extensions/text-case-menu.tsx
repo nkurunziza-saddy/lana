@@ -53,13 +53,21 @@ export const TextCaseMenu = React.memo(function TextCaseMenu() {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
-        render={<ToolbarButton icon={CaseUpper} isActive={isActive} title="Text Case" />}
+        render={
+          <ToolbarButton
+            disablePressAnimation
+            icon={CaseUpper}
+            isActive={isActive}
+            title="Text Case"
+          />
+        }
       />
-      <DropdownMenuContent className="w-32" side="top" sideOffset={10}>
+      <DropdownMenuContent className="w-32" side="bottom" sideOffset={8}>
         {TEXT_CASE_OPTIONS.map((option) => (
           <DropdownMenuItem
             key={option.format}
             onClick={() => handleCaseChange(option.format)}
+            closeOnClick
             className={activeFormat === option.format ? "bg-accent" : ""}
           >
             <option.icon className="size-4" />

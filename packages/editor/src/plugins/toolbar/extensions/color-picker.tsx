@@ -38,7 +38,13 @@ export const ColorPicker = React.memo(function ColorPicker({
   const updateColor = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
-      setColor($getSelectionStyleValueForProperty(selection, "color", "hsl(var(--foreground))"));
+      const nextColor = $getSelectionStyleValueForProperty(
+        selection,
+        "color",
+        "hsl(var(--foreground))",
+      );
+
+      setColor((currentColor) => (currentColor === nextColor ? currentColor : nextColor));
     }
   }, []);
 
@@ -70,17 +76,12 @@ export const ColorPicker = React.memo(function ColorPicker({
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         render={
-          <ToolbarButton disabled={disabled} title="Text Color">
+          <ToolbarButton disablePressAnimation disabled={disabled} title="Text Color">
             <Palette className="size-4" style={{ color }} />
           </ToolbarButton>
         }
       />
-      <DropdownMenuContent
-        align="start"
-        side="top"
-        sideOffset={10}
-        className="animate-in slide-in-from-top-2 duration-200 min-w-[140px]"
-      >
+      <DropdownMenuContent align="start" side="bottom" sideOffset={8} className="min-w-[140px]">
         {FONT_COLORS.map((c) => {
           const isActive =
             color === c.value ||
@@ -89,6 +90,7 @@ export const ColorPicker = React.memo(function ColorPicker({
           return (
             <DropdownMenuItem
               className="flex items-center justify-between"
+              closeOnClick
               key={c.name}
               onClick={() => applyColor(c.value)}
             >

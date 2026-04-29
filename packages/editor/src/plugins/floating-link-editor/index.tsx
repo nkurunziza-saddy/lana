@@ -195,13 +195,12 @@ export function FloatingLinkEditorPlugin({
     <div
       ref={popoverRef}
       className={cn(
-        "absolute z-50 bg-popover/95 backdrop-blur-md border border-border/50 rounded-xl shadow-xl overflow-hidden transition-all duration-200 ease-out will-change-[opacity,transform]",
+        "absolute z-50 overflow-hidden rounded-lg border border-border/70 bg-popover shadow-[var(--shadow-soft)] transition-opacity duration-100 ease-out",
       )}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
         opacity: position.opacity,
-        transform: `translateY(${position.opacity === 1 ? "0px" : "4px"})`,
         pointerEvents: position.opacity > 0 ? "auto" : "none",
         minWidth: "260px",
         maxWidth: "380px",
@@ -210,7 +209,7 @@ export function FloatingLinkEditorPlugin({
       {isEditMode ? (
         // ── Edit mode ────────────────────────────────
         <form onSubmit={handleLinkSubmission} className="flex items-center gap-2 p-2">
-          <div className="flex flex-1 items-center gap-2 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+          <div className="flex flex-1 items-center gap-2 rounded-md border border-border/60 bg-muted/45 px-2.5 py-1.5 transition-colors focus-within:border-ring/50">
             <Link2 className="size-3.5 shrink-0 text-muted-foreground" />
             <Input
               ref={inputRef}
@@ -253,7 +252,7 @@ export function FloatingLinkEditorPlugin({
             href={sanitizeUrl(linkUrl)}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex min-w-0 flex-1 items-center gap-2.5 px-3 py-2.5 transition-colors hover:bg-muted/40"
+            className="group flex min-w-0 flex-1 items-center gap-2.5 px-3 py-2.5 transition-colors hover:bg-muted/35"
             title={linkUrl}
           >
             <Link2 className="size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" />

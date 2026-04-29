@@ -47,12 +47,13 @@ export const BlockFormatDropDown = React.memo(function BlockFormatDropDown() {
       <DropdownMenuTrigger
         render={
           <ToolbarButton
+            disablePressAnimation
             icon={Icon}
             variant={["h1", "h2", "h3", "h4"].includes(blockType) ? "secondary" : "ghost"}
           />
         }
       />
-      <DropdownMenuContent align="start" sideOffset={10} side="top" className="w-40">
+      <DropdownMenuContent align="start" side="bottom" sideOffset={8} className="w-40">
         {[
           {
             key: "heading 1",
@@ -90,15 +91,9 @@ export const BlockFormatDropDown = React.memo(function BlockFormatDropDown() {
             onClick: formatParagraph,
           },
         ].map(({ key, icon: ItemIcon, state, onClick }) => (
-          <DropdownMenuItem
-            className={"flex items-center justify-between gap-5"}
-            key={key}
-            onClick={onClick}
-          >
-            <div className="flex items-center">
-              <ItemIcon className="size-4" />{" "}
-              <span className="ml-2 capitalize text-sm text-muted-foreground">{key}</span>
-            </div>
+          <DropdownMenuItem className="gap-2.5" closeOnClick key={key} onClick={onClick}>
+            <ItemIcon className="size-4" />
+            <span className="flex-1 capitalize text-sm text-muted-foreground">{key}</span>
             {state ? <Check className="ml-auto size-4" /> : null}
           </DropdownMenuItem>
         ))}

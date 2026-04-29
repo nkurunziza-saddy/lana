@@ -38,6 +38,7 @@ export function useFloatingToolbar(
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
+  const rafRef = useRef<number | null>(null);
 
   const [activeFormats, setActiveFormats] = useState<Set<string>>(new Set());
   const [isVisible, setIsVisible] = useState(false);
@@ -103,7 +104,7 @@ export function useFloatingToolbar(
         const rect = domRange.getBoundingClientRect();
         const text = selection.getTextContent().trim();
 
-        if (text.length < 2) {
+        if (text.length < 1) {
           setIsVisible(false);
           return;
         }
@@ -120,7 +121,7 @@ export function useFloatingToolbar(
         setActiveFormats(formats);
         setIsVisible(true);
 
-        requestAnimationFrame(() => {
+        rafRef.current = requestAnimationFrame(() => {
           const newPosition = calculatePosition(rect);
           setPosition((prev) => {
             if (
@@ -136,10 +137,21 @@ export function useFloatingToolbar(
         timeoutRef.current = setTimeout(() => {
           setIsVisible(false);
           setPosition((prev) => ({ ...prev, opacity: 0 }));
-        }, 100);
+        }, 40);
       }
     });
   }, [editor, calculatePosition]);
+
+  const scheduleUpdateToolbar = useCallback(() => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      updateToolbar();
+    });
+  }, [updateToolbar]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -158,15 +170,17 @@ export function useFloatingToolbar(
 
     const handleScroll = () => {
       if (isVisible) {
-        requestAnimationFrame(() => {
-          updateToolbar();
-        });
+        scheduleUpdateToolbar();
       }
+    };
+
+    const handleSelectionChange = () => {
+      scheduleUpdateToolbar();
     };
 
     const handleResize = () => {
       if (isVisible) {
-        requestAnimationFrame(() => {
+        rafRef.current = requestAnimationFrame(() => {
           const nativeSelection = window.getSelection();
           if (nativeSelection && nativeSelection.rangeCount > 0) {
             const domRange = nativeSelection.getRangeAt(0);
@@ -187,18 +201,23 @@ export function useFloatingToolbar(
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("selectionchange", handleSelectionChange);
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("selectionchange", handleSelectionChange);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
-  }, [editor, isVisible, updateToolbar, calculatePosition]);
+  }, [editor, isVisible, scheduleUpdateToolbar, calculatePosition]);
 
   useEffect(() => {
     return mergeRegister(
@@ -208,13 +227,13 @@ export function useFloatingToolbar(
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
         () => {
-          updateToolbar();
+          scheduleUpdateToolbar();
           return false;
         },
         COMMAND_PRIORITY_LOW,
       ),
     );
-  }, [editor, updateToolbar]);
+  }, [editor, scheduleUpdateToolbar, updateToolbar]);
 
   return {
     toolbarRef,

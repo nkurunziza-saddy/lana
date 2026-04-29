@@ -51,19 +51,19 @@ export const EditorContent = memo(function EditorContent({
   );
 
   return (
-    <div className="relative w-full animate-in fade-in duration-300">
+    <div className="relative w-full animate-in fade-in duration-200">
       <RichTextPlugin
         contentEditable={
           <ContentEditable
             className={cn(
-              "pl-12 pr-6 py-6 md:pr-8 md:py-8",
+              "pl-14 pr-7 py-8 md:pr-9 md:py-9",
               "outline-none",
               "max-w-none",
               "w-full",
               "min-h-[inherit]",
               "will-change-auto",
               "cursor-text",
-              "transition-colors duration-150",
+              "text-[0.98rem] leading-7 tracking-[-0.01em] transition-colors duration-100",
               className,
             )}
             readOnly={readOnly}
@@ -75,7 +75,7 @@ export const EditorContent = memo(function EditorContent({
         }
         ErrorBoundary={LexicalErrorBoundary}
         placeholder={
-          <div className="absolute top-6 md:top-8 left-12 text-muted-foreground/30 pointer-events-none select-none text-base md:text-lg leading-relaxed animate-in fade-in duration-500">
+          <div className="pointer-events-none absolute top-8 left-14 select-none text-[0.98rem] leading-7 text-muted-foreground/38 animate-in fade-in duration-300 md:top-9">
             {placeholder}
           </div>
         }
@@ -200,7 +200,7 @@ export function EditorRoot({
     <LexicalComposer initialConfig={initialConfig}>
       <div
         className={cn(
-          "relative overflow-hidden w-full flex flex-col h-full bg-background transition-colors duration-200",
+          "relative flex h-full w-full flex-col overflow-hidden rounded-[14px] border border-border/65 bg-background shadow-[var(--shadow-soft)] transition-colors duration-150",
           resolvedTheme === "dark" && "dark",
           className,
         )}
@@ -253,11 +253,11 @@ export const Editor = (({
 
   return (
     <EditorRoot initialValue={initialValue} readOnly={readOnly} className={className}>
-      <div className={cn(showToolbar && "order-last md:order-first transition-all duration-300")}>
+      <div className={cn(showToolbar && "order-last transition-all duration-300 md:order-first")}>
         {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
       </div>
 
-      <div className="flex-1 w-full overflow-y-auto order-first md:order-none scroll-smooth">
+      <div className="order-first flex-1 w-full overflow-y-auto scroll-smooth md:order-none">
         <EditorContent
           maxHeight={maxHeight}
           minHeight={minHeight}

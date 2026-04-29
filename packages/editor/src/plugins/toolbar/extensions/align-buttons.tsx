@@ -15,16 +15,14 @@ export const AlignButtons = React.memo(function AlignButtons() {
 
   return (
     <DropdownMenu modal={false}>
-      <DropdownMenuTrigger render={<ToolbarButton icon={AlignLeft} title="Text Alignment" />} />
+      <DropdownMenuTrigger
+        render={<ToolbarButton disablePressAnimation icon={AlignLeft} title="Text Alignment" />}
+      />
 
-      <DropdownMenuContent
-        align="start"
-        side="top"
-        sideOffset={10}
-        className="animate-in slide-in-from-top-2 duration-200"
-      >
+      <DropdownMenuContent align="start" side="bottom" sideOffset={8}>
         <DropdownMenuItem
           className="hover:bg-accent/80 transition-colors"
+          closeOnClick
           onClick={() => formatElement("left")}
         >
           <AlignLeft data-icon="inline-start" />
@@ -32,6 +30,7 @@ export const AlignButtons = React.memo(function AlignButtons() {
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:bg-accent/80 transition-colors"
+          closeOnClick
           onClick={() => formatElement("center")}
         >
           <AlignCenter data-icon="inline-start" />
@@ -39,6 +38,7 @@ export const AlignButtons = React.memo(function AlignButtons() {
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:bg-accent/80 transition-colors"
+          closeOnClick
           onClick={() => formatElement("right")}
         >
           <AlignRight data-icon="inline-start" />
@@ -46,6 +46,7 @@ export const AlignButtons = React.memo(function AlignButtons() {
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:bg-accent/80 transition-colors"
+          closeOnClick
           onClick={() => formatElement("justify")}
         >
           <AlignJustify data-icon="inline-start" />

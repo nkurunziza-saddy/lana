@@ -34,6 +34,7 @@ import { INSERT_EQUATION_COMMAND } from "../../equations/commands";
 const ExcalidrawModal = lazy(() => import("../../../components/excalidraw-modal"));
 
 type View = "main" | "table" | "image" | "layout" | "equation";
+const INSERT_PANEL_WIDTH = "w-64";
 
 export const InsertDropDown = React.memo(function InsertDropDown() {
   const [editor] = useLexicalComposerContext();
@@ -43,8 +44,14 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
 
   const close = useCallback(() => {
     setIsOpen(false);
-    // Reset view immediately for no lag, or simple state reset
     setView("main");
+  }, []);
+
+  const handleOpenChange = useCallback((open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
+      setView("main");
+    }
   }, []);
 
   const handleTableSubmit = (rows: number, columns: number) => {
@@ -114,25 +121,30 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
 
   return (
     <>
-      <Popover open={isOpen} onOpenChange={setIsOpen}>
-        <PopoverTrigger render={<ToolbarButton icon={Plus} title="Insert" isActive={isOpen} />} />
+      <Popover open={isOpen} onOpenChange={handleOpenChange}>
+        <PopoverTrigger
+          render={
+            <ToolbarButton disablePressAnimation icon={Plus} title="Insert" isActive={isOpen} />
+          }
+        />
         <PopoverContent
           align="start"
-          side="top"
-          sideOffset={10}
+          side="bottom"
+          sideOffset={8}
+          finalFocus={false}
           className={cn(
-            "p-1 bg-popover border border-border shadow-md",
-            view === "main" ? "w-40" : "w-80",
+            INSERT_PANEL_WIDTH,
+            "border border-border bg-popover p-1 shadow-[var(--shadow-soft)]",
           )}
         >
           {view === "main" ? (
-            <div className="flex flex-col gap-0.5 animate-in fade-in duration-150">
+            <div className="flex flex-col gap-0.5 animate-in fade-in duration-100">
               {menuItems.map((item) => (
                 <Button
                   key={item.label}
                   variant="ghost"
                   size="sm"
-                  className="justify-start font-normal h-8 px-2 text-xs"
+                  className="h-8 justify-start px-2 text-xs font-normal"
                   onClick={item.onClick}
                 >
                   <item.icon className="size-3.5 mr-2 text-muted-foreground" />
@@ -141,7 +153,7 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col animate-in fade-in slide-in-from-right-1 duration-150">
+            <div className="flex flex-col animate-in fade-in duration-100">
               <Button
                 variant="ghost"
                 size="sm"
@@ -227,7 +239,7 @@ function TablePopoverContent({
   const [columns, setColumns] = useState(3);
   return (
     <div className="p-2 flex flex-col gap-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         <div className="grid gap-1.5">
           <Label className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
             Rows
@@ -287,7 +299,7 @@ function ImagePopoverContent({
   };
 
   return (
-    <div className="p-2 flex flex-col gap-3">
+    <div className="flex flex-col gap-3 p-2">
       <div className="grid gap-1">
         <Label className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
           URL
@@ -363,24 +375,25 @@ function LayoutPopoverContent({
   const [layout, setLayout] = useState(LAYOUTS[0].value);
   const selected = LAYOUTS.find((l) => l.value === layout);
   return (
-    <div className="p-2 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-2">
       <div className="grid gap-1.5">
         <Label className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
           Layout
         </Label>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger
             render={
-              <Button variant="outline" className="w-full justify-between h-8 text-xs px-2">
+              <Button variant="outline" className="h-8 w-full justify-between px-2 text-xs">
                 {selected?.label}
                 <ChevronDown className="size-3 opacity-50" />
               </Button>
             }
           />
-          <DropdownMenuContent className="w-64">
+          <DropdownMenuContent className="w-56">
             {LAYOUTS.map((l) => (
               <DropdownMenuItem
                 key={l.value}
+                closeOnClick
                 onClick={() => setLayout(l.value)}
                 className="text-xs"
               >

@@ -31,9 +31,9 @@ export function ToolbarRoot({
   return (
     <div
       className={cn(
-        "flex items-center gap-0.5 px-2 py-1.5 overflow-x-auto scrollbar-none transition-all duration-200",
-        "md:sticky md:top-0 md:z-10 md:border-b md:bg-background",
-        "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:bg-background",
+        "flex items-center gap-1 overflow-x-auto px-3 py-2 scrollbar-none transition-all duration-150",
+        "md:sticky md:top-0 md:z-10 md:border-b md:border-border/45 md:bg-[color-mix(in_oklab,var(--background)_97%,white)]",
+        "max-md:sticky max-md:bottom-0 max-md:z-10 max-md:border-t max-md:border-border/45 max-md:bg-[color-mix(in_oklab,var(--background)_98%,white)]",
         className,
       )}
     >

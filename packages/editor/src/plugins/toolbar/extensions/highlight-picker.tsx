@@ -44,7 +44,8 @@ export const HighlightPicker = React.memo(function HighlightPicker({
   const updateColor = useCallback(() => {
     const selection = $getSelection();
     if ($isRangeSelection(selection)) {
-      setColor($getSelectionStyleValueForProperty(selection, "background-color", ""));
+      const nextColor = $getSelectionStyleValueForProperty(selection, "background-color", "");
+      setColor((currentColor) => (currentColor === nextColor ? currentColor : nextColor));
     }
   }, []);
 
@@ -77,6 +78,7 @@ export const HighlightPicker = React.memo(function HighlightPicker({
       <DropdownMenuTrigger
         render={
           <ToolbarButton
+            disablePressAnimation
             disabled={disabled}
             title="Highlight"
             isActive={!!color && color !== "transparent"}
@@ -85,18 +87,14 @@ export const HighlightPicker = React.memo(function HighlightPicker({
           </ToolbarButton>
         }
       />
-      <DropdownMenuContent
-        align="start"
-        side="top"
-        sideOffset={10}
-        className="animate-in slide-in-from-top-2 duration-200 min-w-[150px]"
-      >
+      <DropdownMenuContent align="start" side="bottom" sideOffset={8} className="min-w-[150px]">
         {HIGHLIGHT_COLORS.map((c) => {
           const isActive = color === c.value;
 
           return (
             <DropdownMenuItem
               className="flex items-center justify-between"
+              closeOnClick
               key={c.name}
               onClick={() => applyColor(c.value)}
             >
@@ -112,7 +110,7 @@ export const HighlightPicker = React.memo(function HighlightPicker({
           );
         })}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex items-center" onClick={() => applyColor("")}>
+        <DropdownMenuItem className="flex items-center" closeOnClick onClick={() => applyColor("")}>
           Remove Highlight
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -7,8 +7,8 @@ const Separator = ({ orientation = "vertical" }: Props) => {
   return (
     <div
       className={cn(
-        "bg-linear-to-b from-transparent via-border to-transparent",
-        orientation === "horizontal" ? "h-px w-6 my-1.5" : "w-px h-5 mx-1 shrink-0",
+        "bg-border/55",
+        orientation === "horizontal" ? "my-1.5 h-px w-6" : "mx-1.5 h-4.5 w-px shrink-0",
       )}
     />
   );

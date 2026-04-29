@@ -104,14 +104,13 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
   return createPortal(
     <div
       className={cn(
-        "absolute z-50 flex items-center gap-0.5 px-2 py-1.5 bg-popover border border-border rounded-full shadow-md transition-all duration-150 ease-out will-change-[opacity,transform,top,left]",
+        "absolute z-50 flex items-center gap-0.5 rounded-lg border border-border/70 bg-popover px-1.5 py-1.5 shadow-[var(--shadow-soft)] transition-[opacity,top,left] duration-100 ease-out will-change-[opacity,top,left]",
       )}
       ref={toolbarRef}
       style={{
         top: `${position.top}px`,
         left: `${position.left}px`,
         opacity: position.opacity,
-        transform: `translateY(${position.opacity === 1 ? "0px" : "4px"})`,
         pointerEvents: position.opacity > 0 ? "auto" : "none",
       }}
     >
@@ -144,12 +143,15 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
       <Separator />
 
       <DropdownMenu>
-        <DropdownMenuTrigger render={<ToolbarButton icon={Highlighter} title="Highlight" />} />
+        <DropdownMenuTrigger
+          render={<ToolbarButton disablePressAnimation icon={Highlighter} title="Highlight" />}
+        />
         <DropdownMenuContent
+          finalFocus={false}
           align="center"
-          side="top"
-          sideOffset={14}
-          className="w-48 animate-in fade-in zoom-in-95 duration-100 bg-popover border border-border shadow-md p-2 rounded-lg"
+          side="bottom"
+          sideOffset={8}
+          className="w-48 border border-border/70 bg-popover p-2 shadow-[var(--shadow-soft)]"
         >
           <div className="grid grid-cols-4 gap-1 p-1">
             {HIGHLIGHT_COLORS.map((color) => (
@@ -170,6 +172,7 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
           <DropdownMenuSeparator className="my-1 bg-border/50" />
           <DropdownMenuItem
             className="flex items-center gap-2 px-2 py-1.5 text-[11px] font-medium text-muted-foreground hover:text-foreground rounded focus:bg-accent"
+            closeOnClick
             onClick={() => formatHighlight("")}
           >
             <Palette className="size-3.5" />

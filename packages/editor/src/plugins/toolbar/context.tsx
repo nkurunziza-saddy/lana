@@ -48,12 +48,25 @@ type Action =
 
 const toolbarReducer = (state: ToolbarState, action: Action): ToolbarState => {
   switch (action.type) {
-    case "UPDATE":
-      return { ...state, ...action.payload };
+    case "UPDATE": {
+      let hasChanges = false;
+
+      for (const [key, value] of Object.entries(action.payload) as [
+        keyof ToolbarState,
+        ToolbarState[keyof ToolbarState],
+      ][]) {
+        if (state[key] !== value) {
+          hasChanges = true;
+          break;
+        }
+      }
+
+      return hasChanges ? { ...state, ...action.payload } : state;
+    }
     case "SET_CAN_UNDO":
-      return { ...state, canUndo: action.payload };
+      return state.canUndo === action.payload ? state : { ...state, canUndo: action.payload };
     case "SET_CAN_REDO":
-      return { ...state, canRedo: action.payload };
+      return state.canRedo === action.payload ? state : { ...state, canRedo: action.payload };
     default:
       return state;
   }

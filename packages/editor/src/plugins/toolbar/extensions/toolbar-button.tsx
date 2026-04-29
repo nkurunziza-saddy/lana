@@ -29,8 +29,10 @@ export const ToolbarToggleButton = React.memo(function ToolbarToggleButton({
           <Toggle
             className={cn(
               BTN_SIZE,
-              "transition-all duration-200 ease-in-out active:scale-95",
-              isActive ? "bg-secondary shadow-sm" : "hover:bg-muted/80",
+              "rounded-[7px] transition-all duration-150 ease-in-out active:scale-95",
+              isActive
+                ? "border-border/60 bg-accent text-foreground shadow-none"
+                : "hover:bg-muted/72",
             )}
             disabled={disabled}
             onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
@@ -42,8 +44,8 @@ export const ToolbarToggleButton = React.memo(function ToolbarToggleButton({
             <Icon
               className={cn(
                 ICON_SIZE,
-                "transition-transform duration-200",
-                isActive && "scale-110",
+                "transition-transform duration-150",
+                isActive && "scale-105",
               )}
             />
           </Toggle>
@@ -57,6 +59,7 @@ export const ToolbarToggleButton = React.memo(function ToolbarToggleButton({
 });
 
 type ToolbarButtonProps = React.ComponentProps<typeof Button> & {
+  disablePressAnimation?: boolean;
   isActive?: boolean;
   icon?: LucideIcon;
   children?: React.ReactNode;
@@ -65,13 +68,28 @@ type ToolbarButtonProps = React.ComponentProps<typeof Button> & {
 
 export const ToolbarButton = React.memo(
   React.forwardRef<HTMLButtonElement, ToolbarButtonProps>(
-    ({ className, isActive = false, children, icon: Icon, variant, title, ...props }, ref) => {
+    (
+      {
+        className,
+        disablePressAnimation = false,
+        isActive = false,
+        children,
+        icon: Icon,
+        variant,
+        title,
+        ...props
+      },
+      ref,
+    ) => {
       const button = (
         <Button
           className={cn(
             BTN_SIZE,
-            "px-0 shrink-0 transition-all duration-200 ease-in-out active:scale-95",
-            isActive ? "bg-secondary shadow-sm" : "hover:bg-muted/80",
+            "shrink-0 rounded-[7px] px-0 transition-all duration-150 ease-in-out",
+            !disablePressAnimation && "active:scale-95",
+            isActive
+              ? "border-border/60 bg-accent text-foreground shadow-none"
+              : "hover:bg-muted/72",
             className,
           )}
           ref={ref}
@@ -89,8 +107,8 @@ export const ToolbarButton = React.memo(
             <Icon
               className={cn(
                 ICON_SIZE,
-                "transition-transform duration-200",
-                isActive && "scale-110",
+                "transition-transform duration-150",
+                isActive && "scale-105",
               )}
             />
           )}
