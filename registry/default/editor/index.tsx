@@ -19,7 +19,7 @@ import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } 
 import * as React from "react";
 import { useMemo, useRef, useState, memo } from "react";
 import { useTheme } from "next-themes";
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 import { EDITOR_CONFIG } from "./lib/configs";
 import type { EditorProps, EditorComponent } from "./lib/types/editor";
 import { FloatingToolbar } from "./plugins/floating-toolbar";
@@ -202,7 +202,7 @@ export function EditorRoot({
     <LexicalComposer initialConfig={initialConfig}>
       <div
         className={cn(
-          "relative flex h-full w-full flex-col overflow-hidden rounded-[14px] border border-border/65 bg-background  transition-colors duration-150",
+          "relative flex h-full w-full flex-col overflow-hidden rounded-sm border border-border/65 bg-background  transition-colors duration-150",
           resolvedTheme === "dark" && "dark",
           className,
         )}

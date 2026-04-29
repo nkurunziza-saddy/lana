@@ -217,7 +217,7 @@ export default function ImageResizer({
         <button
           ref={buttonRef}
           onClick={() => setShowCaption(!showCaption)}
-          className="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded bg-muted px-2 py-1 text-xs text-muted-foreground pointer-events-auto hover:bg-muted/80"
+          className="absolute -bottom-8 left-1/2 -translate-x-1/2 rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground pointer-events-auto hover:bg-muted/80"
         >
           Add Caption
         </button>

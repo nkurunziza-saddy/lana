@@ -33,7 +33,7 @@ export default function KatexEquationAlterer({
             type="checkbox"
             checked={inline}
             onChange={() => setInline(!inline)}
-            className="size-4 rounded border-input accent-primary"
+            className="size-4 rounded-md border-input accent-primary"
           />
           <span>Inline equation</span>
         </label>
@@ -64,7 +64,7 @@ export default function KatexEquationAlterer({
           <ErrorBoundary
             fallback={<span className="text-sm text-destructive">Invalid equation</span>}
           >
-            <Suspense fallback={<div className="h-8 animate-pulse bg-muted rounded" />}>
+            <Suspense fallback={<div className="h-8 animate-pulse bg-muted rounded-md" />}>
               <KatexRenderer equation={equation} inline={false} onDoubleClick={() => null} />
             </Suspense>
           </ErrorBoundary>

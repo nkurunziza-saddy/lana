@@ -25,9 +25,9 @@ export default function DraggableBlockPlugin({
       menuComponent={
         <div
           ref={menuRef}
-          className={`${DRAGGABLE_BLOCK_MENU_CLASSNAME} flex items-center size-7 rounded bg-background border border-border shadow-sm opacity-0 transition-opacity duration-200 cursor-grab active:cursor-grabbing hover:opacity-100 will-change-transform absolute left-0 top-0 z-50`}
+          className={`${DRAGGABLE_BLOCK_MENU_CLASSNAME} flex items-center size-7 rounded-md bg-background border border-border shadow-sm opacity-0 transition-opacity duration-200 cursor-grab active:cursor-grabbing hover:opacity-100 will-change-transform absolute left-0 top-0 z-50`}
         >
-          <div className="flex items-center justify-center w-full h-full hover:bg-accent transition-colors rounded-sm">
+          <div className="flex items-center justify-center w-full h-full hover:bg-accent transition-colors rounded-md">
             <GripVertical className="size-3.5 text-muted-foreground" />
           </div>
         </div>
