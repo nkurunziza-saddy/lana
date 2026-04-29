@@ -5,7 +5,12 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { FORMAT_TEXT_COMMAND } from "lexical";
 import { CaseLower, CaseUpper, type LucideIcon } from "lucide-react";
 import { useCallback } from "react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { ToolbarButton } from "./toolbar-button";
 import { useToolbar } from "../context";
 

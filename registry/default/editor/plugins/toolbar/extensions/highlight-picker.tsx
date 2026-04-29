@@ -12,7 +12,13 @@ import { mergeRegister } from "@lexical/utils";
 import { Highlighter, Check } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { HIGHLIGHT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
 

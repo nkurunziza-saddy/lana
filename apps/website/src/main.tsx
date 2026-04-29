@@ -1,12 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// @ts-ignore
-import "@fontsource/instrument-serif";
-// @ts-ignore
+import "@fontsource/instrument-serif/index.css";
 import "@fontsource/geist-mono/300.css";
-// @ts-ignore
 import "@fontsource/geist-mono/400.css";
-// @ts-ignore
 import "@fontsource/geist-mono/500.css";
 import { Editor, EditorContent, EditorToolbar, EditorPlugins } from "@lana/editor";
 import { SITE_URL } from "@lana/utils";

@@ -12,7 +12,12 @@ import { mergeRegister } from "@lexical/utils";
 import { Palette, Check } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { FONT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";

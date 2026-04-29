@@ -14,6 +14,7 @@
     "@fontsource/instrument-serif": "catalog:",
     "@lana/editor": "workspace:*",
     "@lana/ui": "workspace:*",
+    "@lana/utils": "workspace:*",
     "@tanstack/react-router": "catalog:",
     "next-themes": "catalog:",
     "react": "^19.0.0",

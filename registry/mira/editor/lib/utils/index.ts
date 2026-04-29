@@ -2,4 +2,4 @@
 // @ts-nocheck
 export * from "./export";
 export * from "./import";
-export { cn } from '@/lib/utils';
+export { cn } from "@/lib/utils";

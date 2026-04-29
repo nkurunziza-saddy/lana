@@ -22,8 +22,14 @@ import {
 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { cn } from '@/lib/utils';
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "../../components/toolbar-separator";
 import { HIGHLIGHT_COLORS } from "../../lib/colors";
 import { useFloatingToolbar } from "../../lib/hooks/use-floating-toolbar";
