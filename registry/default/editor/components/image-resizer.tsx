@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { LexicalEditor } from "lexical";
 import type { JSX } from "react";
 

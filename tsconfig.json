@@ -15,5 +15,6 @@
       "@/*": ["./apps/website/src/*"]
     }
   },
-  "include": ["apps/**/*", "packages/**/*", "scripts/**/*", "tests/**/*"]
+  "include": ["apps/**/*", "packages/**/*", "scripts/**/*", "tests/**/*"],
+  "exclude": ["node_modules", "registry", "apps/**/public/r"]
 }

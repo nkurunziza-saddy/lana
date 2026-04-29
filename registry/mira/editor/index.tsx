@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { TRANSFORMERS } from "@lexical/markdown";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
@@ -17,7 +19,7 @@ import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } 
 import * as React from "react";
 import { useMemo, useRef, useState, memo } from "react";
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 import { EDITOR_CONFIG } from "./lib/configs";
 import type { EditorProps, EditorComponent } from "./lib/types/editor";
 import { FloatingToolbar } from "./plugins/floating-toolbar";

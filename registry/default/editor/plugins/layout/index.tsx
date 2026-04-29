@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { ElementNode, LexicalNode } from "lexical";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";

@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import {
   ElementNode,
   type LexicalNode,

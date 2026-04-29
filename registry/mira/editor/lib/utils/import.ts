@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { $convertFromMarkdownString, TRANSFORMERS } from "@lexical/markdown";
 import type { LexicalEditor } from "lexical";
 

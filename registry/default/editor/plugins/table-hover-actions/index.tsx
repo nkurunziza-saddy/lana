@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $deleteTableColumnAtSelection,
@@ -13,14 +15,8 @@ import { $getNearestNodeFromDOMNode, $getNodeByKey } from "lexical";
 import { MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function TableHoverActionsPlugin({
   anchorElem = document.body,

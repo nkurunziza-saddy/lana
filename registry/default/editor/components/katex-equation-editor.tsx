@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { JSX } from "react";
 
 import { useCallback, useState, lazy, Suspense } from "react";

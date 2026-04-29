@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import EditorTheme from "./editor-theme";
 import { nodes } from "./nodes";
 

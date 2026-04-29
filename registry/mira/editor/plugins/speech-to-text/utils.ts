@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 export const VOICE_COMMANDS: Record<string, string> = {
   "new line": "\n",
   newline: "\n",

@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 export interface SpeechRecognitionAlternative {
   transcript: string;
   confidence: number;

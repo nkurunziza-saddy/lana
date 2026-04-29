@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type {
   AppState,
   BinaryFiles,

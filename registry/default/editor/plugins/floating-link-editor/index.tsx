@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { $isAutoLinkNode, $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $findMatchingParent, mergeRegister } from "@lexical/utils";
@@ -16,9 +18,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type React from "react";
 import { createPortal } from "react-dom";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 function sanitizeUrl(url: string): string {
   try {

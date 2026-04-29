@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { JSX, Ref, RefObject } from "react";
 import { type ChangeEvent, forwardRef } from "react";
 

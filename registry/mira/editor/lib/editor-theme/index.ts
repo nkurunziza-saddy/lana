@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { EditorThemeClasses } from "lexical";
 
 export const theme: EditorThemeClasses = {

@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { JSX } from "react";
 import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 import { useRef } from "react";

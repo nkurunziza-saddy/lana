@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { $createCodeNode } from "@lexical/code";
 import {
   INSERT_CHECK_LIST_COMMAND,

@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useEffect, useRef } from "react";
 

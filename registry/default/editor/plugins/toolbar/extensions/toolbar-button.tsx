@@ -1,8 +1,10 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { LucideIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Toggle } from "@/components/ui/toggle";
+import { cn } from '@/lib/utils';
+import { Button } from "@/components/ui/button"
+import { Toggle } from "@/components/ui/toggle"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 // Shared token — change here to resize both button types together

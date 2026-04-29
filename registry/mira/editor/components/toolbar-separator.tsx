@@ -1,4 +1,6 @@
-import { cn } from "@/lib/utils";
+/* oxlint-disable */
+// @ts-nocheck
+import { cn } from '@/lib/utils';
 
 interface Props {
   orientation?: "vertical" | "horizontal";

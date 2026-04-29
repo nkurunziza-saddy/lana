@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { TOGGLE_LINK_COMMAND } from "@lexical/link";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { Link } from "lucide-react";

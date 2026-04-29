@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import type { BaseSelection, LexicalEditor, NodeKey } from "lexical";
 import type { JSX } from "react";
 

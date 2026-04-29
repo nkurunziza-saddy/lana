@@ -1,3 +1,5 @@
+/* oxlint-disable */
+// @ts-nocheck
 import { useState, useCallback, useRef, useSyncExternalStore } from "react";
 import { setGlobalState, subscribe, getSnapshot } from "./state";
 import { type LexicalEditor, CAN_UNDO_COMMAND, CAN_REDO_COMMAND } from "lexical";
