@@ -195,7 +195,7 @@ export function FloatingLinkEditorPlugin({
     <div
       ref={popoverRef}
       className={cn(
-        "absolute z-50 overflow-hidden rounded-lg border border-border/70 bg-popover shadow-[var(--shadow-soft)] transition-opacity duration-100 ease-out",
+        "absolute z-50 overflow-hidden rounded-lg border border-border/70 bg-popover  transition-opacity duration-100 ease-out",
       )}
       style={{
         top: `${position.top}px`,

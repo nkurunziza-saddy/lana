@@ -132,10 +132,7 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
           side="bottom"
           sideOffset={8}
           finalFocus={false}
-          className={cn(
-            INSERT_PANEL_WIDTH,
-            "border border-border bg-popover p-1 shadow-[var(--shadow-soft)]",
-          )}
+          className={cn(INSERT_PANEL_WIDTH, "border border-border bg-popover p-1 ")}
         >
           {view === "main" ? (
             <div className="flex flex-col gap-0.5 animate-in fade-in duration-100">

@@ -1,0 +1,261 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "lana",
+  "homepage": "http://localhost:5173",
+  "items": [
+    {
+      "name": "editor",
+      "type": "registry:block",
+      "title": "Lana Editor",
+      "description": "Rich text editor built with Lexical. Includes toolbar, floating toolbar, slash commands, equations, excalidraw, tables, drag-and-drop blocks, and more.",
+      "author": "Lana",
+      "dependencies": [
+        "@lexical/code",
+        "@lexical/dragon",
+        "@lexical/hashtag",
+        "@lexical/history",
+        "@lexical/html",
+        "@lexical/link",
+        "@lexical/list",
+        "@lexical/markdown",
+        "@lexical/overflow",
+        "@lexical/plain-text",
+        "@lexical/react",
+        "@lexical/rich-text",
+        "@lexical/selection",
+        "@lexical/table",
+        "@lexical/utils",
+        "lexical",
+        "@excalidraw/excalidraw",
+        "katex",
+        "next-themes",
+        "react-error-boundary",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "toggle",
+        "tooltip",
+        "popover",
+        "dropdown-menu"
+      ],
+      "files": [
+        {
+          "path": "registry/mira/editor/index.tsx",
+          "type": "registry:component",
+          "target": "components/editor/index.tsx"
+        },
+        {
+          "path": "registry/mira/editor/components/equation-editor.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/components/excalidraw-modal.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/components/image-commands.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/components/image-component.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/components/image-resizer.tsx",
+          "type": "registry:component"
+        },
+        { "path": "registry/mira/editor/components/index.ts", "type": "registry:component" },
+        {
+          "path": "registry/mira/editor/components/katex-equation-editor.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/components/katex-renderer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/components/toolbar-separator.tsx",
+          "type": "registry:component"
+        },
+        { "path": "registry/mira/editor/env.d.ts", "type": "registry:component" },
+        { "path": "registry/mira/editor/images/image-broken.svg", "type": "registry:component" },
+        { "path": "registry/mira/editor/lib/colors.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/configs.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/debounce.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/editor-theme/index.ts", "type": "registry:lib" },
+        {
+          "path": "registry/mira/editor/lib/hooks/use-floating-toolbar.ts",
+          "type": "registry:lib"
+        },
+        { "path": "registry/mira/editor/lib/nodes/index.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/types/editor.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/utils/export.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/utils/import.ts", "type": "registry:lib" },
+        { "path": "registry/mira/editor/lib/utils/index.ts", "type": "registry:lib" },
+        {
+          "path": "registry/mira/editor/nodes/equation/equation-component.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/nodes/equation/equation-node.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/nodes/excalidraw/excalidraw-component.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/nodes/excalidraw/excalidraw-image.tsx",
+          "type": "registry:component"
+        },
+        { "path": "registry/mira/editor/nodes/excalidraw/index.tsx", "type": "registry:component" },
+        { "path": "registry/mira/editor/nodes/image/index.tsx", "type": "registry:component" },
+        { "path": "registry/mira/editor/nodes/layout-container.ts", "type": "registry:component" },
+        { "path": "registry/mira/editor/nodes/layout-item.ts", "type": "registry:component" },
+        { "path": "registry/mira/editor/plugins/autosave/index.tsx", "type": "registry:component" },
+        {
+          "path": "registry/mira/editor/plugins/draggable-block/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/equations/commands.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/equations/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/excalidraw/commands.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/excalidraw/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/floating-link-editor/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/floating-toolbar/index.tsx",
+          "type": "registry:component"
+        },
+        { "path": "registry/mira/editor/plugins/layout/commands.ts", "type": "registry:component" },
+        { "path": "registry/mira/editor/plugins/layout/index.tsx", "type": "registry:component" },
+        { "path": "registry/mira/editor/plugins/layout/utils.ts", "type": "registry:component" },
+        {
+          "path": "registry/mira/editor/plugins/slash-command/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/slash-command/slash-command-items.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/slash-command/slash-command-menu-item.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/speech-to-text/hooks.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/speech-to-text/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/speech-to-text/plugin.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/speech-to-text/state.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/speech-to-text/types.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/speech-to-text/utils.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/table-hover-actions/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/context.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/align-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/block-format-dropdown.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/block-type-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/color-picker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/file-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/highlight-picker.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/history-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/insert-actions.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/link-button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/list-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/table-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/text-case-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/text-format-buttons.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/toolbar-button.tsx",
+          "type": "registry:component"
+        },
+        { "path": "registry/mira/editor/plugins/toolbar/index.tsx", "type": "registry:component" },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/toolbar-items.ts",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

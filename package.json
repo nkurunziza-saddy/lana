@@ -6,7 +6,9 @@
   "scripts": {
     "ready": "vp check && vp run -r test && vp run -r build",
     "dev": "vp run website#dev",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "registry:build": "node ./scripts/sync-registry.mjs && node ./scripts/build-registry.mjs",
+    "test": "vp test"
   },
   "devDependencies": {
     "vite-plus": "catalog:"

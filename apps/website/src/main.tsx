@@ -43,11 +43,39 @@ function App() {
                 A quieter pass on the system: smaller radii, whisper borders, softer active states,
                 and theme coherence across the page and editor.
               </p>
+              <div className="mt-8 flex flex-col gap-6">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[0.62rem] font-bold uppercase tracking-widest text-primary/50">
+                      Mira Style (Base UI)
+                    </span>
+                    <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-3 py-2.5">
+                      <code className="text-[0.78rem] font-mono text-muted-foreground select-all">
+                        npx shadcn@latest add http://localhost:5173/r/mira/editor.json
+                      </code>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-[0.62rem] font-bold uppercase tracking-widest text-primary/50">
+                      Default Style (Radix UI)
+                    </span>
+                    <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-3 py-2.5">
+                      <code className="text-[0.78rem] font-mono text-muted-foreground select-all">
+                        npx shadcn@latest add http://localhost:5173/r/default/editor.json
+                      </code>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-[0.8rem] text-muted-foreground/70">
+                  <span className="font-semibold text-primary/80">RTL Ready:</span> Both styles use
+                  logical CSS properties and support right-to-left layouts out of the box.
+                </p>
+              </div>
             </div>
           </div>
           <ThemeSwitch />
         </header>
-        <main className="overflow-hidden rounded-[18px] border border-border/60 bg-card/92 shadow-[var(--shadow-deep)]">
+        <main className="overflow-hidden rounded-[18px] border border-border/60 bg-card/92">
           <Editor
             className="min-h-[500px]"
             placeholder="Start typing your story..."

@@ -200,7 +200,7 @@ export function EditorRoot({
     <LexicalComposer initialConfig={initialConfig}>
       <div
         className={cn(
-          "relative flex h-full w-full flex-col overflow-hidden rounded-[14px] border border-border/65 bg-background shadow-[var(--shadow-soft)] transition-colors duration-150",
+          "relative flex h-full w-full flex-col overflow-hidden rounded-[14px] border border-border/65 bg-background  transition-colors duration-150",
           resolvedTheme === "dark" && "dark",
           className,
         )}

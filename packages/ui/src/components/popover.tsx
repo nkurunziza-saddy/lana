@@ -34,7 +34,7 @@ function PopoverContent({
           data-slot="popover-content"
           finalFocus={finalFocus}
           className={cn(
-            "z-50 flex w-80 flex-col gap-4 rounded-lg border border-border/70 bg-popover p-3.5 text-[0.8125rem] text-popover-foreground shadow-[var(--shadow-soft)] outline-hidden duration-75 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
+            "z-50 flex w-80 flex-col gap-4 rounded-lg border border-border/70 bg-popover p-3.5 text-[0.8125rem] text-popover-foreground  outline-hidden duration-75 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
             className,
           )}
           {...props}

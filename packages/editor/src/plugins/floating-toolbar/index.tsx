@@ -104,7 +104,7 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
   return createPortal(
     <div
       className={cn(
-        "absolute z-50 flex items-center gap-0.5 rounded-lg border border-border/70 bg-popover px-1.5 py-1.5 shadow-[var(--shadow-soft)] transition-[opacity,top,left] duration-100 ease-out will-change-[opacity,top,left]",
+        "absolute z-50 flex items-center gap-0.5 rounded-lg border border-border/70 bg-popover px-1.5 py-1.5  transition-[opacity,top,left] duration-100 ease-out will-change-[opacity,top,left]",
       )}
       ref={toolbarRef}
       style={{
@@ -151,7 +151,7 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
           align="center"
           side="bottom"
           sideOffset={8}
-          className="w-48 border border-border/70 bg-popover p-2 shadow-[var(--shadow-soft)]"
+          className="w-48 border border-border/70 bg-popover p-2 "
         >
           <div className="grid grid-cols-4 gap-1 p-1">
             {HIGHLIGHT_COLORS.map((color) => (

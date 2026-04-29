@@ -40,7 +40,7 @@ function DropdownMenuContent({
           data-slot="dropdown-menu-content"
           finalFocus={finalFocus}
           className={cn(
-            "z-50 max-h-(--available-height) min-w-40 overflow-x-hidden overflow-y-auto rounded-lg border border-border/70 bg-popover/96 p-1.5 text-popover-foreground shadow-[var(--shadow-soft)] outline-none duration-75 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 **:data-[slot$=-item]:focus:bg-accent **:data-[slot$=-item]:data-highlighted:bg-accent **:data-[slot$=-separator]:bg-border/55 **:data-[slot$=-trigger]:focus:bg-accent **:data-[slot$=-trigger]:aria-expanded:bg-accent! **:data-[variant=destructive]:focus:bg-destructive/8! **:data-[variant=destructive]:text-destructive! **:data-[variant=destructive]:**:text-destructive!",
+            "z-50 max-h-(--available-height) min-w-40 overflow-x-hidden overflow-y-auto rounded-lg border border-border/70 bg-popover/96 p-1.5 text-popover-foreground  outline-none duration-75 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 **:data-[slot$=-item]:focus:bg-accent **:data-[slot$=-item]:data-highlighted:bg-accent **:data-[slot$=-separator]:bg-border/55 **:data-[slot$=-trigger]:focus:bg-accent **:data-[slot$=-trigger]:aria-expanded:bg-accent! **:data-[variant=destructive]:focus:bg-destructive/8! **:data-[variant=destructive]:text-destructive! **:data-[variant=destructive]:**:text-destructive!",
             className,
           )}
           {...props}

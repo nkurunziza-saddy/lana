@@ -15,5 +15,5 @@
       "@/*": ["./apps/website/src/*"]
     }
   },
-  "include": ["apps/**/*", "packages/**/*"]
+  "include": ["apps/**/*", "packages/**/*", "scripts/**/*", "tests/**/*"]
 }
