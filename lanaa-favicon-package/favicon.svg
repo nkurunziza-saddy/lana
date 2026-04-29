@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs></defs>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+  </style>
+  <rect width="256" height="256" fill="#164e63" rx="0" ry="0"/>
+  <text 
+    x="128" 
+    y="128" 
+    font-family="'Merriweather', serif" 
+    font-size="172" 
+    font-weight="400" 
+    fill="#22d3ee" 
+    text-anchor="middle" 
+    dominant-baseline="central"
+  >L</text>
+</svg>
