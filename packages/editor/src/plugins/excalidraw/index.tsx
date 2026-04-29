@@ -1,3 +1,5 @@
+"use client";
+
 import type { AppState, BinaryFiles } from "@excalidraw/excalidraw/types";
 import type { JSX } from "react";
 import "@excalidraw/excalidraw/index.css";

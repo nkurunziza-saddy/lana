@@ -1,6 +1,8 @@
 /* oxlint-disable */
 // @ts-nocheck
-import { cn } from '@/lib/utils';
+"use client";
+
+import { cn } from "@/lib/utils";
 
 interface Props {
   orientation?: "vertical" | "horizontal";

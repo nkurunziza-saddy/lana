@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import type { ExcalidrawElement, NonDeleted } from "@excalidraw/excalidraw/element/types";
 import type { AppState, BinaryFiles } from "@excalidraw/excalidraw/types";
 import type { JSX } from "react";

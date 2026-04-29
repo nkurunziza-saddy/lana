@@ -9,6 +9,26 @@
       "title": "Lana Editor",
       "description": "Rich text editor built with Lexical. Includes toolbar, floating toolbar, slash commands, equations, excalidraw, tables, drag-and-drop blocks, and more.",
       "author": "Lana",
+      "cssVars": {
+        "light": {
+          "editor-primary": "oklch(0.57 0.17 249)",
+          "editor-background": "oklch(0.998 0.001 85)",
+          "editor-foreground": "oklch(0.235 0.008 70)",
+          "editor-muted": "oklch(0.976 0.004 80)",
+          "editor-muted-foreground": "oklch(0.54 0.01 70)",
+          "editor-border": "oklch(0.235 0.008 70 / 12%)",
+          "editor-link": "oklch(0.57 0.17 249)"
+        },
+        "dark": {
+          "editor-primary": "oklch(0.74 0.12 247)",
+          "editor-background": "oklch(0.28 0.008 72)",
+          "editor-foreground": "oklch(0.93 0.004 80)",
+          "editor-muted": "oklch(0.315 0.008 72)",
+          "editor-muted-foreground": "oklch(0.73 0.008 80)",
+          "editor-border": "oklch(0.93 0.004 80 / 12%)",
+          "editor-link": "oklch(0.74 0.12 247)"
+        }
+      },
       "dependencies": [
         "@lexical/code",
         "@lexical/dragon",
@@ -52,226 +72,368 @@
         },
         {
           "path": "registry/default/editor/components/equation-editor.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/equation-editor.tsx"
         },
         {
           "path": "registry/default/editor/components/excalidraw-modal.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/excalidraw-modal.tsx"
         },
         {
           "path": "registry/default/editor/components/image-commands.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/image-commands.ts"
         },
         {
           "path": "registry/default/editor/components/image-component.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/image-component.tsx"
         },
         {
           "path": "registry/default/editor/components/image-resizer.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/image-resizer.tsx"
         },
-        { "path": "registry/default/editor/components/index.ts", "type": "registry:component" },
+        {
+          "path": "registry/default/editor/components/index.ts",
+          "type": "registry:component",
+          "target": "components/editor/components/index.ts"
+        },
         {
           "path": "registry/default/editor/components/katex-equation-editor.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/katex-equation-editor.tsx"
         },
         {
           "path": "registry/default/editor/components/katex-renderer.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/katex-renderer.tsx"
         },
         {
           "path": "registry/default/editor/components/toolbar-separator.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/components/toolbar-separator.tsx"
         },
-        { "path": "registry/default/editor/env.d.ts", "type": "registry:component" },
-        { "path": "registry/default/editor/images/image-broken.svg", "type": "registry:component" },
-        { "path": "registry/default/editor/lib/colors.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/configs.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/debounce.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/editor-theme/index.ts", "type": "registry:lib" },
+        {
+          "path": "registry/default/editor/env.d.ts",
+          "type": "registry:component",
+          "target": "components/editor/env.d.ts"
+        },
+        {
+          "path": "registry/default/editor/images/image-broken.svg",
+          "type": "registry:component",
+          "target": "components/editor/images/image-broken.svg"
+        },
+        {
+          "path": "registry/default/editor/lib/colors.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/colors.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/configs.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/configs.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/debounce.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/debounce.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/editor-theme/index.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/editor-theme/index.ts"
+        },
         {
           "path": "registry/default/editor/lib/hooks/use-floating-toolbar.ts",
-          "type": "registry:lib"
+          "type": "registry:lib",
+          "target": "components/editor/lib/hooks/use-floating-toolbar.ts"
         },
-        { "path": "registry/default/editor/lib/nodes/index.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/types/editor.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/utils/export.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/utils/import.ts", "type": "registry:lib" },
-        { "path": "registry/default/editor/lib/utils/index.ts", "type": "registry:lib" },
+        {
+          "path": "registry/default/editor/lib/nodes/index.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/nodes/index.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/types/editor.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/types/editor.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/utils/export.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/utils/export.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/utils/import.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/utils/import.ts"
+        },
+        {
+          "path": "registry/default/editor/lib/utils/index.ts",
+          "type": "registry:lib",
+          "target": "components/editor/lib/utils/index.ts"
+        },
         {
           "path": "registry/default/editor/nodes/equation/equation-component.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/nodes/equation/equation-component.tsx"
         },
         {
           "path": "registry/default/editor/nodes/equation/equation-node.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/nodes/equation/equation-node.tsx"
         },
         {
           "path": "registry/default/editor/nodes/excalidraw/excalidraw-component.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/nodes/excalidraw/excalidraw-component.tsx"
         },
         {
           "path": "registry/default/editor/nodes/excalidraw/excalidraw-image.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/nodes/excalidraw/excalidraw-image.tsx"
         },
         {
           "path": "registry/default/editor/nodes/excalidraw/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/nodes/excalidraw/index.tsx"
         },
-        { "path": "registry/default/editor/nodes/image/index.tsx", "type": "registry:component" },
+        {
+          "path": "registry/default/editor/nodes/image/index.tsx",
+          "type": "registry:component",
+          "target": "components/editor/nodes/image/index.tsx"
+        },
         {
           "path": "registry/default/editor/nodes/layout-container.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/nodes/layout-container.ts"
         },
-        { "path": "registry/default/editor/nodes/layout-item.ts", "type": "registry:component" },
+        {
+          "path": "registry/default/editor/nodes/layout-item.ts",
+          "type": "registry:component",
+          "target": "components/editor/nodes/layout-item.ts"
+        },
         {
           "path": "registry/default/editor/plugins/autosave/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/autosave/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/draggable-block/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/draggable-block/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/equations/commands.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/equations/commands.ts"
         },
         {
           "path": "registry/default/editor/plugins/equations/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/equations/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/excalidraw/commands.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/excalidraw/commands.ts"
         },
         {
           "path": "registry/default/editor/plugins/excalidraw/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/excalidraw/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/floating-link-editor/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/floating-toolbar/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-toolbar/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/layout/commands.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/layout/commands.ts"
         },
         {
           "path": "registry/default/editor/plugins/layout/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/layout/index.tsx"
         },
-        { "path": "registry/default/editor/plugins/layout/utils.ts", "type": "registry:component" },
+        {
+          "path": "registry/default/editor/plugins/layout/utils.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugins/layout/utils.ts"
+        },
         {
           "path": "registry/default/editor/plugins/slash-command/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/slash-command/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/slash-command/slash-command-items.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/slash-command/slash-command-items.ts"
         },
         {
           "path": "registry/default/editor/plugins/slash-command/slash-command-menu-item.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/slash-command/slash-command-menu-item.tsx"
         },
         {
           "path": "registry/default/editor/plugins/speech-to-text/hooks.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/speech-to-text/hooks.ts"
         },
         {
           "path": "registry/default/editor/plugins/speech-to-text/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/speech-to-text/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/speech-to-text/plugin.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/speech-to-text/plugin.tsx"
         },
         {
           "path": "registry/default/editor/plugins/speech-to-text/state.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/speech-to-text/state.ts"
         },
         {
           "path": "registry/default/editor/plugins/speech-to-text/types.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/speech-to-text/types.ts"
         },
         {
           "path": "registry/default/editor/plugins/speech-to-text/utils.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/speech-to-text/utils.ts"
         },
         {
           "path": "registry/default/editor/plugins/table-hover-actions/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/table-hover-actions/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/context.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/context.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/align-buttons.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/align-buttons.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/block-format-dropdown.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/block-format-dropdown.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/block-type-buttons.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/block-type-buttons.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/color-picker.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/color-picker.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/file-actions.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/file-actions.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/highlight-picker.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/highlight-picker.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/history-buttons.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/history-buttons.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/insert-actions.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert-actions.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/link-button.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/link-button.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/list-buttons.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/list-buttons.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/table-buttons.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/table-buttons.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/text-case-menu.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/text-case-menu.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/text-format-buttons.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/text-format-buttons.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/extensions/toolbar-button.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/toolbar-button.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/index.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/index.tsx"
         },
         {
           "path": "registry/default/editor/plugins/toolbar/toolbar-items.ts",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/toolbar-items.ts"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/table-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/table-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/image-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/image-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/layout-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/layout-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/equation-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/equation-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/floating-link-editor/components/edit-view.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/components/edit-view.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/floating-link-editor/components/display-view.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/components/display-view.tsx"
         }
       ]
     }

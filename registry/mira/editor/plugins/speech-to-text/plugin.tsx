@@ -1,44 +1,44 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { Mic, MicOff, Loader2 } from "lucide-react";
+import { MicOff } from "lucide-react";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useSpeechToText, useSpeechToTextState } from "./hooks";
 
 export default function SpeechToTextPlugin({
-  anchorElem = document.body,
+  anchorElem = typeof document !== "undefined" ? document.body : undefined,
 }: {
   anchorElem?: HTMLElement;
 }): React.ReactPortal | null {
   const [editor] = useLexicalComposerContext();
-  const { isListening, isProcessing } = useSpeechToTextState();
+  const { isListening } = useSpeechToTextState();
   const { isSupported, interimText, statusMessage, toggleListening } = useSpeechToText(editor);
 
   useEffect(() => {
-    const handleToggle = () => {
-      toggleListening();
-    };
-
-    window.addEventListener("toggle-speech-to-text", handleToggle);
-    return () => {
-      window.removeEventListener("toggle-speech-to-text", handleToggle);
-    };
+    const handle = () => toggleListening();
+    window.addEventListener("toggle-speech-to-text", handle);
+    return () => window.removeEventListener("toggle-speech-to-text", handle);
   }, [toggleListening]);
 
-  if (!isSupported || !isListening) {
-    return null;
-  }
+  if (!isSupported || !isListening || !anchorElem) return null;
 
   return createPortal(
-    <div className="absolute bottom-4 end-4 z-50 flex flex-col items-end gap-2">
+    <div className="absolute bottom-4 end-4 z-50 flex flex-col items-end gap-2 select-none">
       {(statusMessage || interimText) && (
-        <div className="bg-background/95 backdrop-blur-sm border rounded-lg px-3 py-2 shadow-lg max-w-xs">
-          {statusMessage && <div className="text-sm text-muted-foreground">{statusMessage}</div>}
+        <div className="bg-background/95 backdrop-blur-sm border rounded-lg px-3 py-2 shadow-lg max-w-sm animate-in fade-in slide-in-from-bottom-2 duration-200">
+          {statusMessage && (
+            <div className="text-xs font-medium text-muted-foreground">{statusMessage}</div>
+          )}
           {interimText && (
-            <div className="text-sm text-muted-foreground/70 italic">{interimText}...</div>
+            <div className="text-sm text-foreground/60 italic leading-relaxed mt-0.5">
+              {interimText}
+              <span className="inline-block w-[3px] h-3.5 bg-primary/60 ms-0.5 align-text-bottom animate-pulse" />
+            </div>
           )}
         </div>
       )}
@@ -49,32 +49,20 @@ export default function SpeechToTextPlugin({
             <Button
               onClick={toggleListening}
               size="icon"
-              variant={isListening ? "default" : "outline"}
-              className={`rounded-full shadow-lg transition-all duration-300 ${
-                isListening
-                  ? "bg-destructive hover:bg-destructive/90 scale-110"
-                  : "bg-background hover:bg-accent"
-              } ${isProcessing ? "ring-2 ring-primary ring-offset-2" : ""}`}
-              aria-label={isListening ? "Stop recording" : "Start recording"}
+              variant="default"
+              className="relative rounded-full shadow-lg bg-destructive hover:bg-destructive/90 scale-110 transition-all duration-300"
+              aria-label="Stop recording"
             >
-              {isProcessing ? (
-                <Loader2 className="size-4 animate-spin" />
-              ) : isListening ? (
-                <MicOff className="size-4" />
-              ) : (
-                <Mic className="size-4" />
-              )}
+              <MicOff className="relative size-4" />
             </Button>
           }
         />
         <TooltipContent side="left">
           <p>
-            {isListening ? "Stop speech-to-text" : "Start speech-to-text"}
-            {isListening && (
-              <span className="block text-xs text-muted-foreground mt-1">
-                Say &quot;undo&quot; or &quot;redo&quot; for commands
-              </span>
-            )}
+            Stop speech-to-text
+            <span className="block text-xs text-muted-foreground mt-1">
+              Say &quot;stop&quot;, &quot;undo&quot;, or &quot;redo&quot;
+            </span>
           </p>
         </TooltipContent>
       </Tooltip>

@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 /* oxlint-disable react-refresh/only-export-components */
 import type {
   DOMConversionMap,
@@ -194,8 +196,6 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     const writable = this.getWritable();
     writable.__showCaption = showCaption;
   }
-
-  // View
 
   createDOM(config: EditorConfig): HTMLElement {
     const span = document.createElement("span");

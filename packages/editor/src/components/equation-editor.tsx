@@ -1,3 +1,5 @@
+"use client";
+
 import type { JSX, Ref, RefObject } from "react";
 import { type ChangeEvent, forwardRef } from "react";
 

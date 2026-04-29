@@ -1,12 +1,19 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
 import { $createParagraphNode, $getSelection } from "lexical";
 import { Check, Heading, Heading1, Heading2, Heading3, Heading4 } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { ToolbarButton } from "./toolbar-button";
 import { useToolbar } from "../context";
 

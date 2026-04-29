@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import type {
   AppState,
   BinaryFiles,
@@ -205,6 +207,6 @@ export default function ExcalidrawModal({
         </div>
       </div>
     </div>,
-    document.body,
+    typeof document !== "undefined" ? document.body : (null as any as HTMLElement),
   );
 }

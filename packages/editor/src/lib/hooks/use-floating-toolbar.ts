@@ -1,3 +1,5 @@
+"use client";
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import {
@@ -33,7 +35,7 @@ const FORMATS = [
 ] as const;
 
 export function useFloatingToolbar(
-  anchorElem: HTMLElement = document.body,
+  anchorElem: HTMLElement | undefined = typeof document !== "undefined" ? document.body : undefined,
 ): UseFloatingToolbarReturn {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -53,6 +55,8 @@ export function useFloatingToolbar(
     (rect: DOMRect): Position => {
       const toolbar = toolbarRef.current;
       if (!toolbar) return { top: -1000, left: -1000, opacity: 0 };
+
+      if (!toolbar || !anchorElem) return { top: -1000, left: -1000, opacity: 0 };
 
       const toolbarRect = toolbar.getBoundingClientRect();
       const anchorRect = anchorElem.getBoundingClientRect();

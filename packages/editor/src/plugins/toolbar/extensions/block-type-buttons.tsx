@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { $createCodeNode } from "@lexical/code";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";

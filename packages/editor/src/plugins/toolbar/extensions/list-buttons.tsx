@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { REMOVE_LIST_COMMAND } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";

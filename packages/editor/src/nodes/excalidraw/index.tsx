@@ -1,3 +1,5 @@
+"use client";
+
 /* oxlint-disable react-refresh/only-export-components */
 import type {
   DOMConversionMap,
@@ -86,7 +88,6 @@ export class ExcalidrawNode extends DecoratorNode<JSX.Element> {
     this.__height = height;
   }
 
-  // View
   createDOM(config: EditorConfig): HTMLElement {
     const span = document.createElement("span");
     const theme = config.theme;

@@ -1,11 +1,18 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { FORMAT_ELEMENT_COMMAND } from "lexical";
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { ToolbarButton } from "./toolbar-button";
 
 export const AlignButtons = React.memo(function AlignButtons() {

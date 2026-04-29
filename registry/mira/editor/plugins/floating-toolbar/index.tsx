@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $patchStyleText } from "@lexical/selection";
 import {
@@ -22,8 +24,14 @@ import {
 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { cn } from '@/lib/utils';
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "../../components/toolbar-separator";
 import { HIGHLIGHT_COLORS } from "../../lib/colors";
 import { useFloatingToolbar } from "../../lib/hooks/use-floating-toolbar";
@@ -56,7 +64,11 @@ const FORMAT_ITEMS: FormatItem[] = [
   { name: "Subscript", icon: Subscript, format: "subscript", group: "script" },
 ];
 
-export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: HTMLElement }) {
+export function FloatingToolbar({
+  anchorElem = typeof document !== "undefined" ? document.body : undefined,
+}: {
+  anchorElem?: HTMLElement;
+}) {
   const [editor] = useLexicalComposerContext();
   const { toolbarRef, isVisible, position, activeFormats, selectedText } =
     useFloatingToolbar(anchorElem);
@@ -95,7 +107,7 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
     return groups;
   }, []);
 
-  if (!isVisible) return null;
+  if (!isVisible || !anchorElem) return null;
 
   return createPortal(
     <div

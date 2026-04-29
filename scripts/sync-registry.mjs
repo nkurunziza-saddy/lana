@@ -137,6 +137,7 @@ function transformContent(content, filePath) {
       } else {
         if (!componentImports["unknown"]) componentImports["unknown"] = [];
         componentImports["unknown"].push(name);
+        console.warn(`⚠ Unknown @lana/ui import: "${name}" — add to COMPONENT_MAP`);
       }
     });
 

@@ -1,10 +1,12 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import type { LucideIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from '@/lib/utils';
-import { Button } from "@/components/ui/button"
-import { Toggle } from "@/components/ui/toggle"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Toggle } from "@/components/ui/toggle";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 // Shared token — change here to resize both button types together
@@ -33,10 +35,8 @@ export const ToolbarToggleButton = React.memo(function ToolbarToggleButton({
           <Toggle
             className={cn(
               BTN_SIZE,
-              "rounded-[7px] transition-all duration-150 ease-in-out active:scale-95",
-              isActive
-                ? "border-border/60 bg-accent text-foreground shadow-none"
-                : "hover:bg-muted/72",
+              "transition-all duration-150 ease-in-out active:scale-95",
+              isActive ? "bg-accent text-foreground" : "hover:bg-muted",
             )}
             disabled={disabled}
             onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
@@ -89,11 +89,9 @@ export const ToolbarButton = React.memo(
         <Button
           className={cn(
             BTN_SIZE,
-            "shrink-0 rounded-[7px] px-0 transition-all duration-150 ease-in-out",
+            "shrink-0 px-0 transition-all duration-150 ease-in-out",
             !disablePressAnimation && "active:scale-95",
-            isActive
-              ? "border-border/60 bg-accent text-foreground shadow-none"
-              : "hover:bg-muted/72",
+            isActive ? "bg-accent text-foreground" : "hover:bg-muted",
             className,
           )}
           ref={ref}

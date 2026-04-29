@@ -5,8 +5,7 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 
 import { cn } from "@lana/utils";
 import { Button } from "@lana/ui/components/button";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { X } from "lucide-react";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -62,7 +61,7 @@ function DialogContent({
             data-slot="dialog-close"
             render={<Button variant="ghost" className="absolute top-2 end-2" size="icon-sm" />}
           >
-            <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} />
+            <X strokeWidth={2} />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}

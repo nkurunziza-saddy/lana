@@ -9,7 +9,7 @@
     "baseColor": "neutral",
     "cssVariables": true
   },
-  "iconLibrary": "hugeicons",
+  "iconLibrary": "lucide",
   "aliases": {
     "components": "@lana/ui/components",
     "utils": "@lana/ui/lib/utils",

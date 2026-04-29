@@ -1,3 +1,5 @@
+"use client";
+
 import type { ElementNode, LexicalNode } from "lexical";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";

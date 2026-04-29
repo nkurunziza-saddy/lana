@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $deleteTableColumnAtSelection,
@@ -15,11 +17,17 @@ import { $getNearestNodeFromDOMNode, $getNodeByKey } from "lexical";
 import { MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function TableHoverActionsPlugin({
-  anchorElem = document.body,
+  anchorElem = typeof document !== "undefined" ? document.body : undefined,
 }: {
   anchorElem?: HTMLElement;
 }) {
@@ -58,7 +66,7 @@ export default function TableHoverActionsPlugin({
   }, [editor]);
 
   useEffect(() => {
-    if (hoveredTable && actionButtonRef.current) {
+    if (hoveredTable && actionButtonRef.current && anchorElem) {
       const { dom } = hoveredTable;
       const rect = dom.getBoundingClientRect();
       const anchorRect = anchorElem.getBoundingClientRect();
@@ -142,7 +150,7 @@ export default function TableHoverActionsPlugin({
     }
   };
 
-  if (!hoveredTable) {
+  if (!hoveredTable || !anchorElem) {
     return null;
   }
 

@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 /* oxlint-disable react-refresh/only-export-components */
 import type {
   DOMConversionMap,

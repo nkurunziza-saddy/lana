@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import type { JSX, Ref, RefObject } from "react";
 import { type ChangeEvent, forwardRef } from "react";
 
@@ -20,7 +22,7 @@ function EquationEditor(
   const symbolClass = "text-muted-foreground font-mono text-sm select-none";
 
   return inline ? (
-    <span className="inline-flex items-center gap-1 rounded bg-muted/50 px-2 py-1">
+    <span className="inline-flex items-center gap-1 rounded-md bg-muted/50 px-2 py-1">
       <span className={symbolClass}>$</span>
       <input
         className="min-w-[100px] bg-transparent text-sm outline-none placeholder:text-muted-foreground"

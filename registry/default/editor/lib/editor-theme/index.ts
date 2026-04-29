@@ -35,9 +35,9 @@ export const theme: EditorThemeClasses = {
     ul: "list-disc list-outside my-6 ml-6 space-y-1 first:mt-0",
     listitem: "pl-2 leading-7",
     listitemChecked:
-      "relative block min-h-[1.5em] pl-6 list-none outline-none text-muted-foreground/50 line-through before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:size-4 before:rounded-[0.25rem] before:border before:border-foreground before:bg-foreground before:cursor-pointer before:flex before:items-center before:justify-center before:[content:'✓'] before:text-background before:text-xs before:font-bold",
+      "relative block min-h-[1.5em] pl-6 list-none outline-none text-muted-foreground/50 line-through before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:size-4 before:rounded-sm before:border before:border-foreground before:bg-foreground before:cursor-pointer before:flex before:items-center before:justify-center before:[content:'✓'] before:text-background before:text-xs before:font-bold",
     listitemUnchecked:
-      "relative block min-h-[1.5em] pl-6 list-none outline-none before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:size-4 before:rounded-[0.25rem] before:border before:border-border before:bg-muted before:cursor-pointer hover:before:border-foreground/50 transition-colors duration-80",
+      "relative block min-h-[1.5em] pl-6 list-none outline-none before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:size-4 before:rounded-sm before:border before:border-border before:bg-muted before:cursor-pointer hover:before:border-foreground/50 transition-colors duration-80",
     checklist: "my-6 space-y-2 pl-1 first:mt-0",
   },
 
@@ -45,7 +45,7 @@ export const theme: EditorThemeClasses = {
     bold: "font-bold",
     capitalize: "capitalize",
     code: "mx-0.5 rounded-md border border-border/80 bg-muted px-1.5 py-0.5 text-[0.875em] leading-snug font-mono text-foreground",
-    highlight: "bg-yellow-200/40 dark:bg-yellow-900/30 px-1 rounded",
+    highlight: "bg-yellow-200/40 dark:bg-yellow-900/30 px-1 rounded-sm",
     italic: "italic",
     lowercase: "lowercase",
     strikethrough: "line-through opacity-70",
@@ -96,9 +96,9 @@ export const theme: EditorThemeClasses = {
   table:
     "my-8 w-full max-w-full table-fixed border-separate border-spacing-0 overflow-hidden rounded-lg border border-editor-border bg-editor-background [&_tr:last-child_td]:border-b-0 [&_tr:last-child_th]:border-b-0",
   tableAddColumns:
-    "absolute h-full w-5 top-0 -right-5 hover:bg-editor-muted cursor-pointer border-0 rounded transition-all duration-200 opacity-0 hover:opacity-100 after:content-['+'] after:absolute after:flex after:items-center after:justify-center after:w-full after:h-full after:text-editor-muted-foreground after:text-lg after:font-bold",
+    "absolute h-full w-5 top-0 -right-5 hover:bg-editor-muted cursor-pointer border-0 rounded-sm transition-all duration-200 opacity-0 hover:opacity-100 after:content-['+'] after:absolute after:flex after:items-center after:justify-center after:w-full after:h-full after:text-editor-muted-foreground after:text-lg after:font-bold",
   tableAddRows:
-    "absolute w-full h-5 left-0 -bottom-5 hover:bg-editor-muted cursor-pointer border-0 rounded transition-all duration-200 opacity-0 hover:opacity-100 after:content-['+'] after:absolute after:flex after:items-center after:justify-center after:w-full after:h-full after:text-editor-muted-foreground after:text-lg after:font-bold",
+    "absolute w-full h-5 left-0 -bottom-5 hover:bg-editor-muted cursor-pointer border-0 rounded-sm transition-all duration-200 opacity-0 hover:opacity-100 after:content-['+'] after:absolute after:flex after:items-center after:justify-center after:w-full after:h-full after:text-editor-muted-foreground after:text-lg after:font-bold",
   tableAlignment: {
     center: "mx-auto",
     right: "ml-auto",
@@ -106,7 +106,7 @@ export const theme: EditorThemeClasses = {
   tableCell:
     "relative min-w-[7.5rem] overflow-auto border-r border-b border-editor-border p-3 align-top text-left outline-none last:border-r-0 md:min-w-[5rem] md:p-2.5 md:text-sm [&_p]:mt-0",
   tableCellActionButton:
-    "absolute top-0 right-0 z-10 w-6 h-6 bg-editor-background border border-editor-border rounded-bl hover:bg-editor-muted transition-colors duration-200 flex items-center justify-center text-xs text-editor-muted-foreground hover:text-editor-foreground cursor-pointer opacity-0 group-hover:opacity-100",
+    "absolute top-0 right-0 z-10 w-6 h-6 bg-editor-background border border-editor-border rounded-bl-sm hover:bg-editor-muted transition-colors duration-200 flex items-center justify-center text-xs text-editor-muted-foreground hover:text-editor-foreground cursor-pointer opacity-0 group-hover:opacity-100",
   tableCellActionButtonContainer: "absolute top-0 right-0 w-6 h-6 pointer-events-auto",
   tableCellHeader:
     "relative min-w-[7.5rem] overflow-auto border-r border-b border-editor-border bg-muted/65 p-3 align-top text-left text-sm font-semibold outline-none last:border-r-0 md:min-w-[5rem] md:p-2.5 [&_p]:mt-0",
@@ -118,10 +118,10 @@ export const theme: EditorThemeClasses = {
   tableRowStriping: "",
   tableScrollableWrapper: "my-0 mb-6 overflow-x-auto rounded-lg border border-editor-border/90",
   tableSelected: "outline-2 outline-editor-primary",
-  tableSelection: "bg-editor-primary/10 border-2 border-editor-primary/50 rounded",
+  tableSelection: "bg-editor-primary/10 border-2 border-editor-primary/50 rounded-sm",
 
   hr: "my-10 h-px border-none bg-border/90",
-  hrSelected: "outline-2 outline-primary rounded select-none",
+  hrSelected: "outline-2 outline-primary rounded-sm select-none",
 
   hashtag:
     "bg-blue-100/60 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-1 rounded-sm font-medium",
@@ -131,27 +131,27 @@ export const theme: EditorThemeClasses = {
 
   characterLimit: "bg-red-200 dark:bg-red-900/50",
 
-  mark: "bg-yellow-200/40 px-1 rounded",
-  markOverlap: "bg-yellow-300/60 px-1 rounded",
+  mark: "bg-yellow-200/40 px-1 rounded-sm",
+  markOverlap: "bg-yellow-300/60 px-1 rounded-sm",
 
   embedBlock: {
     base: "select-none my-2",
-    focus: "outline-2 outline-editor-primary rounded",
+    focus: "outline-2 outline-editor-primary rounded-sm",
   },
 
   layoutContainer: "grid gap-4 my-4",
   layoutItem: "min-w-0 max-w-full rounded-lg border border-dashed border-border p-4",
 
-  autocomplete: "text-editor-muted-foreground bg-muted/50 px-2 py-1 rounded",
+  autocomplete: "text-editor-muted-foreground bg-muted/50 px-2 py-1 rounded-sm",
 
   tab: "relative inline-block no-underline w-[4ch]",
 
   specialText:
-    "bg-yellow-300/60 dark:bg-yellow-900/40 text-yellow-900 dark:text-yellow-100 px-1 rounded font-medium",
+    "bg-yellow-300/60 dark:bg-yellow-900/40 text-yellow-900 dark:text-yellow-100 px-1 rounded-sm font-medium",
 
   image:
     "my-8 h-auto max-w-full rounded-lg border border-border/70 transition-[outline,box-shadow] outline-[3px] outline-transparent",
-  inlineImage: "inline-block max-h-6 rounded",
+  inlineImage: "inline-block max-h-6 rounded-sm",
 };
 
 export default theme;

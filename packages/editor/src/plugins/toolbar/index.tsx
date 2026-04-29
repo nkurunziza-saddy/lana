@@ -1,3 +1,5 @@
+"use client";
+
 import { Mic, MicOff } from "lucide-react";
 import { cn } from "@lana/utils";
 import React from "react";

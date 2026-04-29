@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@lana/utils";
 
 interface Props {

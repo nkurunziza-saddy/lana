@@ -1,3 +1,5 @@
+"use client";
+
 import type { JSX } from "react";
 
 import { useCallback, useState, lazy, Suspense } from "react";

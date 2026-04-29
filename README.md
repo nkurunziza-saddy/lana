@@ -11,7 +11,7 @@ vp run dev
 
 ## Registry
 
-The repository ships a first-party `shadcn` registry under the `mira` style namespace.
+The repository ships a first-party `shadcn` registry with two styles: `mira` (Base UI) and `default` (Radix UI).
 
 Build the registry JSON payloads:
 
@@ -19,21 +19,22 @@ Build the registry JSON payloads:
 vp run registry:build
 ```
 
-This generates static installable items in `apps/website/public/r`, including:
+This generates static installable items in `apps/website/public/r`, organized by style:
 
-- `lana-base.json`
-- `lana-theme.json`
-- `lana-button.json`
-- `lana-input.json`
-- `lana-dropdown-menu.json`
+- `r/default/editor.json` - Lexical-based editor with Radix UI primitives.
+- `r/mira/editor.json` - Lexical-based editor with Base UI primitives.
 
 Use the built registry item directly with the CLI:
 
 ```bash
-npx shadcn@latest add http://localhost:5173/r/lana-base.json
+# To install the Mira style editor
+npx shadcn@latest add http://localhost:5173/r/mira/editor.json
+
+# To install the Default style editor
+npx shadcn@latest add http://localhost:5173/r/default/editor.json
 ```
 
-The `lana-base` item installs the theme tokens, font setup, utility helpers, and compact Base UI primitives used by the editor surface.
+The `editor` item installs the full rich-text surface including toolbar, floating toolbar, slash commands, equations, excalidraw, and more.
 
 ## Validation
 

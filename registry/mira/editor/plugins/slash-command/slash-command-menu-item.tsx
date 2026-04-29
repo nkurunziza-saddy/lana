@@ -1,6 +1,8 @@
 /* oxlint-disable */
 // @ts-nocheck
-import { cn } from '@/lib/utils';
+"use client";
+
+import { cn } from "@/lib/utils";
 import type { SlashCommand } from "./slash-command-items";
 
 interface SlashCommandDropdownMenuItemProps {
@@ -18,10 +20,10 @@ export function SlashCommandDropdownMenuItem({
 }: SlashCommandDropdownMenuItemProps) {
   const Icon = command.icon;
   return (
-    <li className="flex items-center group rounded" tabIndex={-1}>
+    <li className="flex items-center group rounded-md" tabIndex={-1}>
       <button
         className={cn(
-          "flex items-center group gap-3 p-1.5 rounded cursor-pointer transition-colors",
+          "flex items-center group gap-3 p-1.5 rounded-md cursor-pointer transition-colors",
           "w-full appearance-none outline-none",
           isSelected ? "bg-accent text-accent-foreground" : "hover:bg-muted/50",
         )}

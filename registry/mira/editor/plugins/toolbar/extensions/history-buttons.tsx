@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { REDO_COMMAND, UNDO_COMMAND } from "lexical";

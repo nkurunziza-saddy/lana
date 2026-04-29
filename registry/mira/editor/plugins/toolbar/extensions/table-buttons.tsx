@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 

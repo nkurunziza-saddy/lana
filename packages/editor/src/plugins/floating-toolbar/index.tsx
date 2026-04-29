@@ -1,3 +1,5 @@
+"use client";
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $patchStyleText } from "@lexical/selection";
 import {
@@ -60,7 +62,11 @@ const FORMAT_ITEMS: FormatItem[] = [
   { name: "Subscript", icon: Subscript, format: "subscript", group: "script" },
 ];
 
-export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: HTMLElement }) {
+export function FloatingToolbar({
+  anchorElem = typeof document !== "undefined" ? document.body : undefined,
+}: {
+  anchorElem?: HTMLElement;
+}) {
   const [editor] = useLexicalComposerContext();
   const { toolbarRef, isVisible, position, activeFormats, selectedText } =
     useFloatingToolbar(anchorElem);
@@ -99,7 +105,7 @@ export function FloatingToolbar({ anchorElem = document.body }: { anchorElem?: H
     return groups;
   }, []);
 
-  if (!isVisible) return null;
+  if (!isVisible || !anchorElem) return null;
 
   return createPortal(
     <div

@@ -1,12 +1,7 @@
 export function Ticker({ items }: { items: string[] }) {
   const doubled = [...items, ...items, ...items, ...items];
   return (
-    <div
-      className="overflow-hidden py-[11px]"
-      style={{
-        borderBottom: "var(--border-grid)",
-      }}
-    >
+    <div className="overflow-hidden py-[11px] border-b boyrder-grid">
       <div className="flex w-max animate-ticker gap-0">
         {doubled.map((item, i) => (
           <div

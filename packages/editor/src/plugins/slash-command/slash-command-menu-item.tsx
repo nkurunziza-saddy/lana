@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@lana/utils";
 import type { SlashCommand } from "./slash-command-items";
 

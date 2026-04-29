@@ -1,3 +1,5 @@
+"use client";
+
 import type { ExcalidrawInitialElements } from "../../components/excalidraw-modal";
 import type { AppState, BinaryFiles } from "@excalidraw/excalidraw/types";
 import type { NodeKey } from "lexical";

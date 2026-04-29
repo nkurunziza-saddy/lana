@@ -1,3 +1,5 @@
+"use client";
+
 import { TRANSFORMERS } from "@lexical/markdown";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
@@ -15,18 +17,17 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } from "lexical";
 import * as React from "react";
-import { useMemo, useRef, useState, memo } from "react";
+import { useMemo, useState, memo } from "react";
 import { useTheme } from "next-themes";
 import { cn } from "@lana/utils";
 import { EDITOR_CONFIG } from "./lib/configs";
-import type { EditorProps, EditorComponent } from "./lib/types/editor";
+import type { EditorProps } from "./lib/types/editor";
 import { FloatingToolbar } from "./plugins/floating-toolbar";
 import SlashCommandPlugin from "./plugins/slash-command";
 import { FloatingLinkEditorPlugin } from "./plugins/floating-link-editor";
 import TableHoverActionsPlugin from "./plugins/table-hover-actions";
 import SpeechToTextPlugin from "./plugins/speech-to-text";
 import { Toolbar } from "./plugins/toolbar";
-import { debounce } from "./lib/debounce";
 import EquationsPlugin from "./plugins/equations";
 import ExcalidrawPlugin from "./plugins/excalidraw";
 import DraggableBlockPlugin from "./plugins/draggable-block";
@@ -89,7 +90,7 @@ export const EditorPlugins = memo(function EditorPlugins({
   enableSpeechToText = false,
   customPlugins = [],
   slashCommands,
-  anchorElem = document.body,
+  anchorElem = typeof document !== "undefined" ? document.body : undefined,
   onChange,
   onSave,
   children,
@@ -141,7 +142,7 @@ export const EditorPlugins = memo(function EditorPlugins({
   );
 });
 
-export function EditorRoot({
+export function Editor({
   children,
   initialValue = "",
   readOnly = false,
@@ -208,10 +209,12 @@ export function EditorRoot({
       >
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
-            // Pass the anchor element to children that might need it (like Plugins or Floating Toolbar)
-            return React.cloneElement(child as React.ReactElement<any>, {
-              anchorElem: floatingAnchorElem || undefined,
-            });
+            // Only pass anchorElem to React components, not DOM elements
+            if (typeof child.type !== "string") {
+              return React.cloneElement(child as React.ReactElement<any>, {
+                anchorElem: floatingAnchorElem || undefined,
+              });
+            }
           }
           return child;
         })}
@@ -220,67 +223,4 @@ export function EditorRoot({
   );
 }
 
-export const Editor = (({
-  initialValue = "",
-  placeholder = 'Start writing or use "/" for quick commands',
-  className = "",
-  minHeight = "400px",
-  maxHeight,
-  showToolbar = false,
-  showFloatingToolbar = true,
-  enableSpeechToText = false,
-  readOnly = false,
-  onChange,
-  onSave,
-  plugins = [],
-  slashCommands,
-}: EditorProps) => {
-  const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
-
-  const onSaveRef = useRef(onSave);
-  onSaveRef.current = onSave;
-
-  const handleEditorChange = useMemo(
-    () =>
-      debounce((editorState: EditorState) => {
-        const jsonState = editorState.toJSON();
-        const jsonString = JSON.stringify(jsonState);
-        onChangeRef.current?.(jsonString);
-      }, 300),
-    [],
-  );
-
-  return (
-    <EditorRoot initialValue={initialValue} readOnly={readOnly} className={className}>
-      <div className={cn(showToolbar && "order-last transition-all duration-300 md:order-first")}>
-        {showToolbar && <Toolbar enableSpeechToText={enableSpeechToText} />}
-      </div>
-
-      <div className="order-first flex-1 w-full overflow-y-auto scroll-smooth md:order-none">
-        <EditorContent
-          maxHeight={maxHeight}
-          minHeight={minHeight}
-          placeholder={placeholder}
-          readOnly={readOnly}
-          className={className}
-        />
-      </div>
-
-      <EditorPlugins
-        customPlugins={plugins}
-        slashCommands={slashCommands}
-        onChange={handleEditorChange}
-        onSave={onSave}
-        showFloatingToolbar={showFloatingToolbar}
-        enableSpeechToText={enableSpeechToText}
-      />
-    </EditorRoot>
-  );
-}) as EditorComponent;
-
-// Attach compound components
-Editor.Root = EditorRoot;
-Editor.Content = EditorContent;
-Editor.Plugins = EditorPlugins;
-Editor.Toolbar = Toolbar;
+export const EditorToolbar = Toolbar;

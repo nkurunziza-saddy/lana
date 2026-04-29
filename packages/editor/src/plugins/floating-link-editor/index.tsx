@@ -1,3 +1,5 @@
+"use client";
+
 import { $isAutoLinkNode, $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $findMatchingParent, mergeRegister } from "@lexical/utils";
@@ -11,13 +13,13 @@ import {
   getDOMSelection,
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
-import { Check, Edit2, ExternalLink, Link2, Trash2, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type React from "react";
 import { createPortal } from "react-dom";
 
-import { Button, Input } from "@lana/ui";
 import { cn } from "@lana/utils";
+import { EditLinkView } from "./components/edit-view";
+import { DisplayLinkView } from "./components/display-view";
 
 function sanitizeUrl(url: string): string {
   try {
@@ -46,7 +48,7 @@ interface Position {
 }
 
 export function FloatingLinkEditorPlugin({
-  anchorElem = document.body,
+  anchorElem = typeof document !== "undefined" ? document.body : undefined,
 }: {
   anchorElem?: HTMLElement;
 }) {
@@ -60,11 +62,10 @@ export function FloatingLinkEditorPlugin({
   const [editedLinkUrl, setEditedLinkUrl] = useState("");
   const [position, setPosition] = useState<Position>({ top: -1000, left: -1000, opacity: 0 });
 
-  // Calculates position relative to the anchor element (editor container)
   const calculatePosition = useCallback(
     (rect: DOMRect) => {
       const popover = popoverRef.current;
-      if (!popover) return;
+      if (!popover || !anchorElem) return;
 
       const popoverRect = popover.getBoundingClientRect();
       const anchorRect = anchorElem.getBoundingClientRect();
@@ -72,17 +73,14 @@ export function FloatingLinkEditorPlugin({
       const MARGIN = 10;
       const GAP = 6;
 
-      // Local coordinates within the anchor element
       let top = rect.bottom - anchorRect.top + anchorElem.scrollTop + GAP;
       let left = rect.left - anchorRect.left + anchorElem.scrollLeft;
 
-      // Clamp horizontally
       if (left + popoverRect.width > anchorRect.width - MARGIN) {
         left = anchorRect.width - popoverRect.width - MARGIN;
       }
       if (left < MARGIN) left = MARGIN;
 
-      // Flip above if it would overflow the bottom of the anchor element
       const wouldOverflowBottom = top + popoverRect.height > anchorElem.scrollHeight - MARGIN;
       if (wouldOverflowBottom) {
         top = rect.top - anchorRect.top + anchorElem.scrollTop - popoverRect.height - GAP;
@@ -189,7 +187,7 @@ export function FloatingLinkEditorPlugin({
     }
   })();
 
-  if (!isLink) return null;
+  if (!isLink || !anchorElem) return null;
 
   return createPortal(
     <div
@@ -207,85 +205,22 @@ export function FloatingLinkEditorPlugin({
       }}
     >
       {isEditMode ? (
-        // ── Edit mode ────────────────────────────────
-        <form onSubmit={handleLinkSubmission} className="flex items-center gap-2 p-2">
-          <div className="flex flex-1 items-center gap-2 rounded-md border border-border/60 bg-muted/45 px-2.5 py-1.5 transition-colors focus-within:border-ring/50">
-            <Link2 className="size-3.5 shrink-0 text-muted-foreground" />
-            <Input
-              ref={inputRef}
-              className="h-auto border-0 bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
-              value={editedLinkUrl}
-              onChange={(e) => setEditedLinkUrl(e.target.value)}
-              placeholder="https://..."
-              onKeyDown={(e) => {
-                if (e.key === "Escape") {
-                  e.preventDefault();
-                  setIsEditMode(false);
-                }
-              }}
-            />
-          </div>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="size-8 shrink-0 text-emerald-500 hover:bg-emerald-500/10 hover:text-emerald-600"
-            type="submit"
-            title="Save"
-          >
-            <Check className="size-4" />
-          </Button>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="size-8 shrink-0 text-muted-foreground hover:text-foreground"
-            type="button"
-            title="Cancel"
-            onClick={() => setIsEditMode(false)}
-          >
-            <X className="size-4" />
-          </Button>
-        </form>
+        <EditLinkView
+          editedLinkUrl={editedLinkUrl}
+          setEditedLinkUrl={setEditedLinkUrl}
+          handleLinkSubmission={handleLinkSubmission}
+          setIsEditMode={setIsEditMode}
+          inputRef={inputRef}
+        />
       ) : (
-        // ── View mode ────────────────────────────────
-        <div className="flex items-stretch">
-          <a
-            href={sanitizeUrl(linkUrl)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex min-w-0 flex-1 items-center gap-2.5 px-3 py-2.5 transition-colors hover:bg-muted/35"
-            title={linkUrl}
-          >
-            <Link2 className="size-3.5 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" />
-            <span className="truncate text-sm font-medium text-foreground">{displayUrl}</span>
-            <ExternalLink className="ml-auto size-3 shrink-0 text-muted-foreground/40 transition-colors group-hover:text-primary/60" />
-          </a>
-
-          <div className="my-1.5 w-px shrink-0 bg-border/60" />
-
-          <div className="flex shrink-0 items-center gap-0.5 px-1.5 py-1">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="size-7 text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-              onClick={() => {
-                setEditedLinkUrl(linkUrl);
-                setIsEditMode(true);
-              }}
-              title="Edit link"
-            >
-              <Edit2 className="size-3.5" />
-            </Button>
-            <Button
-              size="icon"
-              variant="ghost"
-              className="size-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
-              onClick={removeLink}
-              title="Remove link"
-            >
-              <Trash2 className="size-3.5" />
-            </Button>
-          </div>
-        </div>
+        <DisplayLinkView
+          linkUrl={linkUrl}
+          displayUrl={displayUrl}
+          sanitizeUrl={sanitizeUrl}
+          setEditedLinkUrl={setEditedLinkUrl}
+          setIsEditMode={setIsEditMode}
+          removeLink={removeLink}
+        />
       )}
     </div>,
     anchorElem,

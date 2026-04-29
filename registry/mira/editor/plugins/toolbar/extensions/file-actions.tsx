@@ -1,9 +1,16 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import React, { useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { FileDown, FileUp } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   copyAsPlainText,
   exportAsHTML,

@@ -1,5 +1,7 @@
 /* oxlint-disable */
 // @ts-nocheck
+"use client";
+
 import type { JSX } from "react";
 
 import katex from "katex";
