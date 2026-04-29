@@ -1,11 +1,11 @@
-import { Editor, EditorToolbar, EditorContent, EditorPlugins } from "@/components/editor";
+"use client";
+
+import dynamic from "next/dynamic";
+
+const EditorClient = dynamic(() => import("@/components/editor-client"), {
+  ssr: false,
+});
 
 export default function Home() {
-  return (
-    <Editor>
-      <EditorToolbar enableSpeechToText={true} />
-      <EditorContent placeholder="Start typing..." />
-      <EditorPlugins showFloatingToolbar={true} enableSpeechToText={true} />
-    </Editor>
-  );
+  return <EditorClient />;
 }

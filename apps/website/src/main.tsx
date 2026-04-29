@@ -293,6 +293,34 @@ function DocsView() {
                 </p>
                 <CopyCommand command={`npx shadcn add ${SITE_URL}/r/${styleTab}/editor.json`} />
               </div>
+
+              <div>
+                <MonoLabel>03 / Next.js Usage (SSR)</MonoLabel>
+                <p className="text-sm text-muted-foreground mb-3 mt-1">
+                  Rich-text editors require browser APIs. For Next.js, wrap the compound components
+                  and load via{" "}
+                  <code className="text-[11px] bg-muted px-1 py-0.5 rounded">next/dynamic</code>:
+                </p>
+                <pre className="p-3 bg-muted/30 border border-grid text-[11px] font-mono text-muted-foreground overflow-x-auto rounded">
+                  {`// components/editor-client.tsx
+"use client";
+import { Editor, EditorToolbar, EditorContent, EditorPlugins } from "@/components/editor";
+
+export default function EditorClient() {
+  return (
+    <Editor>
+      <EditorToolbar />
+      <EditorContent />
+      <EditorPlugins />
+    </Editor>
+  );
+}
+
+// app/page.tsx
+import dynamic from "next/dynamic";
+const EditorClient = dynamic(() => import("@/components/editor-client"), { ssr: false });`}
+                </pre>
+              </div>
             </div>
           </div>
         </section>
