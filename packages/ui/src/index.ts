@@ -7,3 +7,4 @@ export * from "./components/popover";
 export * from "./components/scroll-area";
 export * from "./components/toggle";
 export * from "./components/tooltip";
+export * from "./lib/utils";

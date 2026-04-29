@@ -12,6 +12,7 @@
   "dependencies": {
     "@lana/editor": "workspace:*",
     "@lana/ui": "workspace:*",
+    "@tanstack/react-router": "catalog:",
     "next-themes": "catalog:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

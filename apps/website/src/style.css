@@ -1,1 +1,55 @@
 @import "@lana/ui/globals.css";
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap");
+
+@theme inline {
+  --color-grid: var(--grid-border-color);
+  --spacing-cross: var(--cross-size);
+}
+
+:root {
+  --grid-border-color: rgba(0, 0, 0, 0.12);
+  --border-grid: 1px solid var(--grid-border-color);
+  --cross-size: 6px;
+
+  --ff-display: "Instrument Serif", serif;
+  --ff-mono: "Geist Mono", monospace;
+  --ff-sans: "Geist Variable", sans-serif;
+}
+
+.dark {
+  --grid-border-color: rgba(255, 255, 255, 0.12);
+}
+
+@layer base {
+  .cell::before,
+  .cell::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* vertical tick at bottom-right corner */
+  .cell::before {
+    width: 1px;
+    height: var(--cross-size);
+    bottom: calc(var(--cross-size) * -1);
+    right: -1px;
+  }
+
+  /* horizontal tick at bottom-right corner */
+  .cell::after {
+    height: 1px;
+    width: var(--cross-size);
+    bottom: -1px;
+    right: calc(var(--cross-size) * -1);
+  }
+
+  @media (max-width: 768px) {
+    .cell {
+      border-right: none !important;
+    }
+  }
+}

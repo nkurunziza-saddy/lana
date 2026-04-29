@@ -8,6 +8,7 @@ catalog:
   "@hugeicons/core-free-icons": ^4.1.1
   "@hugeicons/react": ^1.1.6
   "@lana/utils": workspace:*
+  "@tanstack/react-router": ^1.168.25
   "@types/node": ^24
   autoprefixer: ^10.5.0
   class-variance-authority: ^0.7.1
