@@ -28,10 +28,10 @@ Use the built registry item directly with the CLI:
 
 ```bash
 # To install the Mira style editor
-npx shadcn@latest add http://localhost:5173/r/mira/editor.json
+npx shadcn@latest add https://lanaaa.vercel.app/r/mira/editor.json
 
 # To install the Default style editor
-npx shadcn@latest add http://localhost:5173/r/default/editor.json
+npx shadcn@latest add https://lanaaa.vercel.app/r/default/editor.json
 ```
 
 The `editor` item installs the full rich-text surface including toolbar, floating toolbar, slash commands, equations, excalidraw, and more.

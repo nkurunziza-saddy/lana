@@ -25,9 +25,3 @@ dist-ssr
 
 # AI agent worktrees
 .claude/worktrees/
-
-# Generated registry output
-apps/website/public/r/
-
-# Test project for installation
-test-project/

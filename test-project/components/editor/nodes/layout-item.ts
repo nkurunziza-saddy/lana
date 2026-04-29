@@ -1,0 +1,77 @@
+import {
+  ElementNode,
+  type LexicalNode,
+  type NodeKey,
+  type SerializedElementNode,
+  type EditorConfig,
+  $isParagraphNode,
+} from "lexical";
+
+export type SerializedLayoutItemNode = SerializedElementNode;
+
+export function $isEmptyLayoutItemNode(node: LexicalNode): boolean {
+  if (!$isLayoutItemNode(node) || node.getChildrenSize() !== 1) {
+    return false;
+  }
+  const firstChild = node.getFirstChild();
+  return $isParagraphNode(firstChild) && firstChild.isEmpty();
+}
+
+export class LayoutItemNode extends ElementNode {
+  constructor(key?: NodeKey) {
+    super(key);
+  }
+
+  static getType(): string {
+    return "layout-item";
+  }
+
+  static clone(node: LayoutItemNode): LayoutItemNode {
+    return new LayoutItemNode(node.__key);
+  }
+
+  createDOM(config: EditorConfig): HTMLElement {
+    const dom = document.createElement("div");
+    if (typeof config.theme.layoutItem === "string") {
+      dom.className = config.theme.layoutItem;
+    }
+    return dom;
+  }
+
+  updateDOM(): boolean {
+    return false;
+  }
+
+  collapseAtStart(): boolean {
+    const parent = this.getParentOrThrow();
+    if (this.is(parent.getFirstChild()) && parent.getChildren().every($isEmptyLayoutItemNode)) {
+      parent.remove();
+      return true;
+    }
+    return false;
+  }
+
+  isShadowRoot(): boolean {
+    return true;
+  }
+
+  static importJSON(): LayoutItemNode {
+    return new LayoutItemNode();
+  }
+
+  exportJSON(): SerializedLayoutItemNode {
+    return {
+      ...super.exportJSON(),
+      type: "layout-item",
+      version: 1,
+    };
+  }
+}
+
+export function $createLayoutItemNode(): LayoutItemNode {
+  return new LayoutItemNode();
+}
+
+export function $isLayoutItemNode(node: LexicalNode | null | undefined): node is LayoutItemNode {
+  return node instanceof LayoutItemNode;
+}

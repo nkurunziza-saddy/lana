@@ -59,7 +59,7 @@ function LandingView() {
           <div className="mb-8 max-w-sm">
             <MonoLabel>Quick Install (Mira Style)</MonoLabel>
             <div className="mt-3">
-              <CopyCommand command="npx shadcn add http://localhost:5173/r/mira/editor.json" />
+              <CopyCommand command="npx shadcn add https://lanaaa.vercel.app/r/mira/editor.json" />
             </div>
           </div>
 
@@ -270,7 +270,7 @@ function DocsView() {
                 <pre className="p-3 bg-muted/30 border border-grid text-[11px] font-mono text-muted-foreground overflow-x-auto rounded">
                   {`{
   "registries": {
-    "@lana": "http://localhost:5173/r/{style}"
+    "@lana": "https://lanaaa.vercel.app/r/{style}"
   }
 }`}
                 </pre>
@@ -287,7 +287,7 @@ function DocsView() {
                   {styleTab === "mira" ? "Mira" : "Default"} style:
                 </p>
                 <CopyCommand
-                  command={`npx shadcn add http://localhost:5173/r/${styleTab}/editor.json`}
+                  command={`npx shadcn add https://lanaaa.vercel.app/r/${styleTab}/editor.json`}
                 />
               </div>
             </div>

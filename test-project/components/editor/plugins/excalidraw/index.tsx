@@ -1,0 +1,83 @@
+"use client";
+
+import type { AppState, BinaryFiles } from "@excalidraw/excalidraw/types";
+import type { JSX } from "react";
+import "@excalidraw/excalidraw/index.css";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $wrapNodeInElement } from "@lexical/utils";
+import {
+  $createParagraphNode,
+  $insertNodes,
+  $isRootOrShadowRoot,
+  COMMAND_PRIORITY_EDITOR,
+} from "lexical";
+import { useEffect, useState, lazy, Suspense } from "react";
+import { $createExcalidrawNode, ExcalidrawNode } from "../../nodes/excalidraw";
+import type { ExcalidrawInitialElements } from "../../components/excalidraw-modal";
+const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
+import { INSERT_EXCALIDRAW_COMMAND } from "./commands";
+
+export default function ExcalidrawPlugin(): JSX.Element | null {
+  const [editor] = useLexicalComposerContext();
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!editor.hasNodes([ExcalidrawNode])) {
+      throw new Error("ExcalidrawPlugin: ExcalidrawNode not registered on editor");
+    }
+
+    return editor.registerCommand(
+      INSERT_EXCALIDRAW_COMMAND,
+      () => {
+        setModalOpen(true);
+        return true;
+      },
+      COMMAND_PRIORITY_EDITOR,
+    );
+  }, [editor]);
+
+  const onClose = () => {
+    setModalOpen(false);
+  };
+
+  const onDelete = () => {
+    setModalOpen(false);
+  };
+
+  const onSave = (
+    elements: ExcalidrawInitialElements,
+    appState: Partial<AppState>,
+    files: BinaryFiles,
+  ) => {
+    editor.update(() => {
+      const excalidrawNode = $createExcalidrawNode();
+      excalidrawNode.setData(
+        JSON.stringify({
+          appState,
+          elements,
+          files,
+        }),
+      );
+      $insertNodes([excalidrawNode]);
+      if ($isRootOrShadowRoot(excalidrawNode.getParentOrThrow())) {
+        $wrapNodeInElement(excalidrawNode, $createParagraphNode).selectEnd();
+      }
+    });
+    setModalOpen(false);
+  };
+
+  return isModalOpen ? (
+    <Suspense fallback={null}>
+      <ExcalidrawModal
+        initialElements={[]}
+        initialAppState={{} as AppState}
+        initialFiles={{}}
+        isShown={isModalOpen}
+        onDelete={onDelete}
+        onClose={onClose}
+        onSave={onSave}
+        closeOnClickOutside={false}
+      />
+    </Suspense>
+  ) : null;
+}
