@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import type { BaseSelection, LexicalEditor, NodeKey } from "lexical";

@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { ChevronDown } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const LAYOUTS = [
   { label: "2 columns (equal)", value: "1fr 1fr" },

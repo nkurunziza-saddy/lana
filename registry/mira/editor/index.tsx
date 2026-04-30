@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 import { TRANSFORMERS } from "@lexical/markdown";
@@ -20,7 +19,7 @@ import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } from "lexical";
 import * as React from "react";
 import { useMemo, useState, memo } from "react";
-import { useTheme } from "next-themes";
+
 import { cn } from "@/lib/utils";
 import { EDITOR_CONFIG } from "./lib/configs";
 import type { EditorProps } from "./lib/types/editor";
@@ -36,6 +35,10 @@ import DraggableBlockPlugin from "./plugins/draggable-block";
 import { LayoutPlugin } from "./plugins/layout";
 import { type SlashCommand } from "./plugins/slash-command/slash-command-items";
 import AutosavePlugin from "./plugins/autosave";
+
+export * from "./plugin-system";
+export { EquationsPluginDef } from "./plugins/equations";
+export { ExcalidrawPluginDef } from "./plugins/excalidraw";
 
 export const EditorContent = memo(function EditorContent({
   placeholder = "Start writing ...",
@@ -197,14 +200,11 @@ export function Editor({
     };
   }, [initialValue, readOnly]);
 
-  const { resolvedTheme } = useTheme();
-
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div
         className={cn(
           "relative flex h-full w-full flex-col overflow-hidden rounded-lg border border-border bg-background transition-colors duration-150",
-          resolvedTheme === "dark" && "dark",
           className,
         )}
         ref={onRef}

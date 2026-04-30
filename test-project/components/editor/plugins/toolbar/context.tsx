@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import React, { createContext, useContext, useReducer, useCallback, useEffect } from "react";

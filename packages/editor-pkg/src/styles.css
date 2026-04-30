@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-editor-primary: var(--editor-primary);
+  --color-editor-background: var(--editor-background);
+  --color-editor-foreground: var(--editor-foreground);
+  --color-editor-muted: var(--editor-muted);
+  --color-editor-muted-foreground: var(--editor-muted-foreground);
+  --color-editor-border: var(--editor-border);
+  --color-editor-link: var(--editor-link);
+}
+
+@layer base {
+  :root {
+    --editor-primary: oklch(0.57 0.17 249);
+    --editor-background: oklch(0.998 0.001 85);
+    --editor-foreground: oklch(0.235 0.008 70);
+    --editor-muted: oklch(0.976 0.004 80);
+    --editor-muted-foreground: oklch(0.54 0.01 70);
+    --editor-border: oklch(0.235 0.008 70 / 12%);
+    --editor-link: oklch(0.57 0.17 249);
+  }
+
+  .dark {
+    --editor-primary: oklch(0.74 0.12 247);
+    --editor-background: oklch(0.28 0.008 72);
+    --editor-foreground: oklch(0.93 0.004 80);
+    --editor-muted: oklch(0.315 0.008 72);
+    --editor-muted-foreground: oklch(0.73 0.008 80);
+    --editor-border: oklch(0.93 0.004 80 / 12%);
+    --editor-link: oklch(0.74 0.12 247);
+  }
+}

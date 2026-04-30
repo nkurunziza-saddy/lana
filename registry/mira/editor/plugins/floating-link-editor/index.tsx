@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 import { $isAutoLinkNode, $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";

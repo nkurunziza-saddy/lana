@@ -1,6 +1,6 @@
+/* oxlint-disable */
 "use client";
 
-import React from "react";
 import { Edit2, ExternalLink, Link2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

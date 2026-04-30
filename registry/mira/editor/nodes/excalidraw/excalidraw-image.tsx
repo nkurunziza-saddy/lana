@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 import type { ExcalidrawElement, NonDeleted } from "@excalidraw/excalidraw/element/types";

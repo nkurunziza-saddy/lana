@@ -1,5 +1,3 @@
-/* oxlint-disable */
-// @ts-nocheck
 import type { LucideIcon } from "lucide-react";
 import * as React from "react";
 import { cn } from "@lana/utils";

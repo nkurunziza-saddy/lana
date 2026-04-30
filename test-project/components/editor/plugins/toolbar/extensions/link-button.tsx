@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import { TOGGLE_LINK_COMMAND } from "@lexical/link";

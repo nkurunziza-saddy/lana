@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import type { ExcalidrawElement, NonDeleted } from "@excalidraw/excalidraw/element/types";

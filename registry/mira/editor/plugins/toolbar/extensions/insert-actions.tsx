@@ -1,22 +1,13 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
-import type { AppState, BinaryFiles } from "@excalidraw/excalidraw/types";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import { INSERT_TABLE_COMMAND } from "@lexical/table";
-import { $wrapNodeInElement } from "@lexical/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  $createParagraphNode,
-  $getSelection,
-  $insertNodes,
-  $isRangeSelection,
-  $isRootOrShadowRoot,
-} from "lexical";
+import { $getSelection, $isRangeSelection } from "lexical";
 import {
   ChevronLeft,
   ImageIcon,
@@ -27,10 +18,8 @@ import {
   Sigma,
   Table,
 } from "lucide-react";
-import React, { lazy, Suspense, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 
-import { type ExcalidrawInitialElements } from "../../../components/excalidraw-modal";
-import { $createExcalidrawNode } from "../../../nodes/excalidraw";
 import { $createImageNode } from "../../../nodes/image";
 import { INSERT_LAYOUT_COMMAND } from "../../layout/commands";
 import { ToolbarButton } from "./toolbar-button";
@@ -39,8 +28,7 @@ import { TablePopoverContent } from "./insert/table-panel";
 import { ImagePopoverContent } from "./insert/image-panel";
 import { LayoutPopoverContent } from "./insert/layout-panel";
 import { EquationPopoverContent } from "./insert/equation-panel";
-
-const ExcalidrawModal = lazy(() => import("../../../components/excalidraw-modal"));
+import { INSERT_EXCALIDRAW_COMMAND } from "../../excalidraw/commands";
 
 type View = "main" | "table" | "image" | "layout" | "equation";
 const INSERT_PANEL_WIDTH = "w-64";
@@ -49,7 +37,6 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
   const [editor] = useLexicalComposerContext();
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState<View>("main");
-  const [showExcalidrawModal, setShowExcalidrawModal] = useState(false);
 
   const close = useCallback(() => {
     setIsOpen(false);
@@ -114,17 +101,17 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
       onClick: () => setView("layout"),
     },
     {
-      label: "Drawing",
-      icon: Pencil,
-      onClick: () => {
-        setShowExcalidrawModal(true);
-        close();
-      },
-    },
-    {
       label: "Equation",
       icon: Sigma,
       onClick: () => setView("equation"),
+    },
+    {
+      label: "Drawing",
+      icon: Pencil,
+      onClick: () => {
+        editor.dispatchCommand(INSERT_EXCALIDRAW_COMMAND, undefined);
+        close();
+      },
     },
   ];
 
@@ -188,42 +175,6 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
           )}
         </PopoverContent>
       </Popover>
-
-      {showExcalidrawModal && (
-        <Suspense fallback={null}>
-          <ExcalidrawModal
-            initialElements={[]}
-            initialAppState={{} as AppState}
-            initialFiles={{}}
-            isShown={showExcalidrawModal}
-            onDelete={() => setShowExcalidrawModal(false)}
-            onClose={() => setShowExcalidrawModal(false)}
-            onSave={(
-              elements: ExcalidrawInitialElements,
-              appState: Partial<AppState>,
-              files: BinaryFiles,
-            ) => {
-              editor.update(() => {
-                const excalidrawNode = $createExcalidrawNode();
-                excalidrawNode.setData(
-                  JSON.stringify({
-                    appState,
-                    elements,
-                    files,
-                  }),
-                );
-                $insertNodes([excalidrawNode]);
-                if ($isRootOrShadowRoot(excalidrawNode.getParentOrThrow())) {
-                  $wrapNodeInElement(excalidrawNode, $createParagraphNode).selectEnd();
-                }
-              });
-
-              setShowExcalidrawModal(false);
-            }}
-            closeOnClickOutside={false}
-          />
-        </Suspense>
-      )}
     </>
   );
 });

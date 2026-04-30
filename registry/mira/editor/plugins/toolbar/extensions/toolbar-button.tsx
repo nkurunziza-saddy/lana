@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 import type { LucideIcon } from "lucide-react";

@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { $convertToMarkdownString, TRANSFORMERS } from "@lexical/markdown";
 import type { LexicalEditor } from "lexical";

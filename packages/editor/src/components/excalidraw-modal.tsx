@@ -1,5 +1,5 @@
+// Note: Excalidraw types can be problematic to resolve cleanly without strict null checks.
 "use client";
-
 import type {
   AppState,
   BinaryFiles,

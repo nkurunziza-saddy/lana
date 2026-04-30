@@ -1,3 +1,5 @@
+/* oxlint-disable */
+/** Punctuation voice commands — the transcript is replaced by the value. */
 export const PUNCTUATION_COMMANDS: Record<string, string> = {
   period: ".",
   "full stop": ".",

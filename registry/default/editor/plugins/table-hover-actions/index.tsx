@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $deleteTableColumnAtSelection,

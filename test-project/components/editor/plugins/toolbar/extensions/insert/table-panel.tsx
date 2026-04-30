@@ -1,9 +1,10 @@
+/* oxlint-disable */
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface TablePopoverContentProps {
   onSubmit: (rows: number, columns: number) => void;

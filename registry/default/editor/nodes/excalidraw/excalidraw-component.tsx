@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 import type { ExcalidrawInitialElements } from "../../components/excalidraw-modal";

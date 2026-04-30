@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import type { JSX, Ref, RefObject } from "react";

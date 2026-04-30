@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 import { Edit2, ExternalLink, Link2, Trash2 } from "lucide-react";

@@ -1,3 +1,4 @@
+/* oxlint-disable */
 import type { EditorState, LexicalEditor } from "lexical";
 import type React from "react";
 import { type SlashCommand } from "../../plugins/slash-command/slash-command-items";

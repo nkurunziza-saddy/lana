@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 export const HIGHLIGHT_COLORS = [
   { name: "Golden", value: "rgba(255, 235, 59, 0.3)" },
   { name: "Emerald", value: "rgba(16, 185, 129, 0.3)" },

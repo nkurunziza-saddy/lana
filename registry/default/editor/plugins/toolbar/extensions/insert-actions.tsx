@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import {

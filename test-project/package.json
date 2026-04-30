@@ -29,6 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "katex": "^0.16.45",
+    "lana-editor": "file:../packages/editor-pkg/lana-editor-0.3.0.tgz",
     "lexical": "^0.44.0",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",

@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 /* oxlint-disable react-refresh/only-export-components */

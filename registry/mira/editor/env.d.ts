@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 declare module "*.svg" {
   const content: string;
   export default content;

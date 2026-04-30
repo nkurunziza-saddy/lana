@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "lana",
-  "homepage": "https://lanaaa.vercel.app",
+  "homepage": "http://localhost:5173",
   "items": [
     {
       "name": "editor",
@@ -66,11 +66,6 @@
       ],
       "files": [
         {
-          "path": "registry/default/editor/index.tsx",
-          "type": "registry:component",
-          "target": "components/editor/index.tsx"
-        },
-        {
           "path": "registry/default/editor/components/equation-editor.tsx",
           "type": "registry:component",
           "target": "components/editor/components/equation-editor.tsx"
@@ -124,6 +119,11 @@
           "path": "registry/default/editor/images/image-broken.svg",
           "type": "registry:component",
           "target": "components/editor/images/image-broken.svg"
+        },
+        {
+          "path": "registry/default/editor/index.tsx",
+          "type": "registry:component",
+          "target": "components/editor/index.tsx"
         },
         {
           "path": "registry/default/editor/lib/colors.ts",
@@ -216,6 +216,26 @@
           "target": "components/editor/nodes/layout-item.ts"
         },
         {
+          "path": "registry/default/editor/plugin-system/index.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/index.ts"
+        },
+        {
+          "path": "registry/default/editor/plugin-system/registry.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/registry.ts"
+        },
+        {
+          "path": "registry/default/editor/plugin-system/types.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/types.ts"
+        },
+        {
+          "path": "registry/default/editor/plugin-system/use-plugin.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/use-plugin.ts"
+        },
+        {
           "path": "registry/default/editor/plugins/autosave/index.tsx",
           "type": "registry:component",
           "target": "components/editor/plugins/autosave/index.tsx"
@@ -244,6 +264,16 @@
           "path": "registry/default/editor/plugins/excalidraw/index.tsx",
           "type": "registry:component",
           "target": "components/editor/plugins/excalidraw/index.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/floating-link-editor/components/display-view.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/components/display-view.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/floating-link-editor/components/edit-view.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/components/edit-view.tsx"
         },
         {
           "path": "registry/default/editor/plugins/floating-link-editor/index.tsx",
@@ -361,6 +391,26 @@
           "target": "components/editor/plugins/toolbar/extensions/history-buttons.tsx"
         },
         {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/equation-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/equation-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/image-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/image-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/layout-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/layout-panel.tsx"
+        },
+        {
+          "path": "registry/default/editor/plugins/toolbar/extensions/insert/table-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/table-panel.tsx"
+        },
+        {
           "path": "registry/default/editor/plugins/toolbar/extensions/insert-actions.tsx",
           "type": "registry:component",
           "target": "components/editor/plugins/toolbar/extensions/insert-actions.tsx"
@@ -404,36 +454,6 @@
           "path": "registry/default/editor/plugins/toolbar/toolbar-items.ts",
           "type": "registry:component",
           "target": "components/editor/plugins/toolbar/toolbar-items.ts"
-        },
-        {
-          "path": "registry/default/editor/plugins/toolbar/extensions/insert/table-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/table-panel.tsx"
-        },
-        {
-          "path": "registry/default/editor/plugins/toolbar/extensions/insert/image-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/image-panel.tsx"
-        },
-        {
-          "path": "registry/default/editor/plugins/toolbar/extensions/insert/layout-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/layout-panel.tsx"
-        },
-        {
-          "path": "registry/default/editor/plugins/toolbar/extensions/insert/equation-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/equation-panel.tsx"
-        },
-        {
-          "path": "registry/default/editor/plugins/floating-link-editor/components/edit-view.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/floating-link-editor/components/edit-view.tsx"
-        },
-        {
-          "path": "registry/default/editor/plugins/floating-link-editor/components/display-view.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/floating-link-editor/components/display-view.tsx"
         }
       ]
     }

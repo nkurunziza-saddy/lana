@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 /* oxlint-disable react-refresh/only-export-components */
@@ -13,7 +14,7 @@ import type {
 } from "lexical";
 import type { JSX } from "react";
 
-import { DecoratorNode } from "lexical";
+import { $applyNodeReplacement, DecoratorNode } from "lexical";
 import * as React from "react";
 
 type Dimension = number | "inherit";
@@ -161,12 +162,14 @@ export class ExcalidrawNode extends DecoratorNode<JSX.Element> {
 
   decorate(): JSX.Element {
     return (
-      <ExcalidrawComponent
-        nodeKey={this.getKey()}
-        data={this.__data}
-        width={this.__width}
-        height={this.__height}
-      />
+      <React.Suspense fallback={null}>
+        <ExcalidrawComponent
+          nodeKey={this.getKey()}
+          data={this.__data}
+          width={this.__width}
+          height={this.__height}
+        />
+      </React.Suspense>
     );
   }
 }
@@ -175,8 +178,8 @@ export function $createExcalidrawNode(
   data: string = "[]",
   width: Dimension = "inherit",
   height: Dimension = "inherit",
-): ExcalidrawNode {
-  return new ExcalidrawNode(data, width, height);
+) {
+  return $applyNodeReplacement(new ExcalidrawNode(data, width, height));
 }
 
 export function $isExcalidrawNode(node: LexicalNode | null | undefined): node is ExcalidrawNode {

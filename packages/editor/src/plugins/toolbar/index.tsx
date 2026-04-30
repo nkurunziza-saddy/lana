@@ -44,7 +44,7 @@ export function ToolbarRoot({
   );
 }
 
-function ToolbarInternal({
+const ToolbarInternal = React.memo(function ToolbarInternal({
   enableSpeechToText = false,
   children,
 }: {
@@ -116,7 +116,7 @@ function ToolbarInternal({
       )}
     </ToolbarRoot>
   );
-}
+});
 
 export interface ToolbarComponent extends React.FC<{
   enableSpeechToText?: boolean;

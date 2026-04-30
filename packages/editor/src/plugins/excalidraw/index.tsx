@@ -16,6 +16,17 @@ import { $createExcalidrawNode, ExcalidrawNode } from "../../nodes/excalidraw";
 import type { ExcalidrawInitialElements } from "../../components/excalidraw-modal";
 const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
 import { INSERT_EXCALIDRAW_COMMAND } from "./commands";
+import type { EditorPlugin } from "../../plugin-system/types";
+
+export const ExcalidrawPluginDef: EditorPlugin = {
+  id: "excalidraw",
+  name: "Excalidraw",
+  nodes: [ExcalidrawNode],
+  load: async () => {
+    // Dynamic import to keep main bundle small
+    await import("@excalidraw/excalidraw");
+  },
+};
 
 export default function ExcalidrawPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();

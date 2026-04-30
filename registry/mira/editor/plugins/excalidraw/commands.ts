@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 import { createCommand, type LexicalCommand } from "lexical";
 
 export const INSERT_EXCALIDRAW_COMMAND: LexicalCommand<void> = createCommand(

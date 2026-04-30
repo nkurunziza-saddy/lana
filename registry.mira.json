@@ -66,11 +66,6 @@
       ],
       "files": [
         {
-          "path": "registry/mira/editor/index.tsx",
-          "type": "registry:component",
-          "target": "components/editor/index.tsx"
-        },
-        {
           "path": "registry/mira/editor/components/equation-editor.tsx",
           "type": "registry:component",
           "target": "components/editor/components/equation-editor.tsx"
@@ -124,6 +119,11 @@
           "path": "registry/mira/editor/images/image-broken.svg",
           "type": "registry:component",
           "target": "components/editor/images/image-broken.svg"
+        },
+        {
+          "path": "registry/mira/editor/index.tsx",
+          "type": "registry:component",
+          "target": "components/editor/index.tsx"
         },
         {
           "path": "registry/mira/editor/lib/colors.ts",
@@ -216,6 +216,26 @@
           "target": "components/editor/nodes/layout-item.ts"
         },
         {
+          "path": "registry/mira/editor/plugin-system/index.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/index.ts"
+        },
+        {
+          "path": "registry/mira/editor/plugin-system/registry.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/registry.ts"
+        },
+        {
+          "path": "registry/mira/editor/plugin-system/types.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/types.ts"
+        },
+        {
+          "path": "registry/mira/editor/plugin-system/use-plugin.ts",
+          "type": "registry:component",
+          "target": "components/editor/plugin-system/use-plugin.ts"
+        },
+        {
           "path": "registry/mira/editor/plugins/autosave/index.tsx",
           "type": "registry:component",
           "target": "components/editor/plugins/autosave/index.tsx"
@@ -244,6 +264,16 @@
           "path": "registry/mira/editor/plugins/excalidraw/index.tsx",
           "type": "registry:component",
           "target": "components/editor/plugins/excalidraw/index.tsx"
+        },
+        {
+          "path": "registry/mira/editor/plugins/floating-link-editor/components/display-view.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/components/display-view.tsx"
+        },
+        {
+          "path": "registry/mira/editor/plugins/floating-link-editor/components/edit-view.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/floating-link-editor/components/edit-view.tsx"
         },
         {
           "path": "registry/mira/editor/plugins/floating-link-editor/index.tsx",
@@ -361,6 +391,26 @@
           "target": "components/editor/plugins/toolbar/extensions/history-buttons.tsx"
         },
         {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/equation-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/equation-panel.tsx"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/image-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/image-panel.tsx"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/layout-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/layout-panel.tsx"
+        },
+        {
+          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/table-panel.tsx",
+          "type": "registry:component",
+          "target": "components/editor/plugins/toolbar/extensions/insert/table-panel.tsx"
+        },
+        {
           "path": "registry/mira/editor/plugins/toolbar/extensions/insert-actions.tsx",
           "type": "registry:component",
           "target": "components/editor/plugins/toolbar/extensions/insert-actions.tsx"
@@ -404,36 +454,6 @@
           "path": "registry/mira/editor/plugins/toolbar/toolbar-items.ts",
           "type": "registry:component",
           "target": "components/editor/plugins/toolbar/toolbar-items.ts"
-        },
-        {
-          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/table-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/table-panel.tsx"
-        },
-        {
-          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/image-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/image-panel.tsx"
-        },
-        {
-          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/layout-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/layout-panel.tsx"
-        },
-        {
-          "path": "registry/mira/editor/plugins/toolbar/extensions/insert/equation-panel.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/toolbar/extensions/insert/equation-panel.tsx"
-        },
-        {
-          "path": "registry/mira/editor/plugins/floating-link-editor/components/edit-view.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/floating-link-editor/components/edit-view.tsx"
-        },
-        {
-          "path": "registry/mira/editor/plugins/floating-link-editor/components/display-view.tsx",
-          "type": "registry:component",
-          "target": "components/editor/plugins/floating-link-editor/components/display-view.tsx"
         }
       ]
     }

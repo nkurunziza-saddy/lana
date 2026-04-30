@@ -1,3 +1,4 @@
+/* oxlint-disable */
 export function debounce<T extends (...args: any[]) => any>(
   fn: T,
   ms: number,

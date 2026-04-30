@@ -1,3 +1,4 @@
+/* oxlint-disable */
 "use client";
 
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";

@@ -1,5 +1,3 @@
-/* oxlint-disable */
-// @ts-nocheck
 import React from "react";
 import { $getSelectionStyleValueForProperty, $patchStyleText } from "@lexical/selection";
 import {

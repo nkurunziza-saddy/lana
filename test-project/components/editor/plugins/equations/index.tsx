@@ -1,9 +1,8 @@
+/* oxlint-disable */
 "use client";
 
 import type { JSX } from "react";
-
-import "katex/dist/katex.css";
-
+import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $wrapNodeInElement } from "@lexical/utils";
 import {
@@ -12,9 +11,20 @@ import {
   $isRootOrShadowRoot,
   COMMAND_PRIORITY_EDITOR,
 } from "lexical";
-import { useEffect } from "react";
 import { $createEquationNode, EquationNode } from "../../nodes/equation/equation-node";
 import { INSERT_EQUATION_COMMAND, type INSERT_EQUATION_COMMAND_PAYLOAD } from "./commands";
+import type { EditorPlugin } from "../../plugin-system/types";
+
+export const EquationsPluginDef: EditorPlugin = {
+  id: "equations",
+  name: "Equations",
+  nodes: [EquationNode],
+  load: async () => {
+    // Use a variable to bypass Tailwind v4 static analysis and avoid bundling KaTeX fonts
+    const katexCss = "katex/dist/katex.css";
+    await import(/* @vite-ignore */ katexCss);
+  },
+};
 
 export default function EquationsPlugin(): JSX.Element | null {
   const [editor] = useLexicalComposerContext();

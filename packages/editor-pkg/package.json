@@ -1,0 +1,73 @@
+{
+  "name": "lana-editor",
+  "version": "0.3.0",
+  "description": "Rich text editor built with Lexical and shadcn/ui",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./src/styles.css -o ./dist/styles.css --minify",
+    "build": "vp build && npm run build:css",
+    "dev": "vp build --watch",
+    "check": "vp check"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.8",
+    "@types/node": "catalog:",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "@excalidraw/excalidraw": "^0.18.0",
+    "@lexical/code": "^0.43.0",
+    "@lexical/dragon": "^0.43.0",
+    "@lexical/hashtag": "^0.43.0",
+    "@lexical/history": "^0.43.0",
+    "@lexical/html": "^0.43.0",
+    "@lexical/link": "^0.43.0",
+    "@lexical/list": "^0.43.0",
+    "@lexical/markdown": "^0.43.0",
+    "@lexical/overflow": "^0.43.0",
+    "@lexical/plain-text": "^0.43.0",
+    "@lexical/react": "^0.43.0",
+    "@lexical/rich-text": "^0.43.0",
+    "@lexical/selection": "^0.43.0",
+    "@lexical/table": "^0.43.0",
+    "@lexical/utils": "^0.43.0",
+    "katex": "^0.16.11",
+    "lexical": "^0.43.0",
+    "lucide-react": "^0.479.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-error-boundary": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "katex": {
+      "optional": true
+    },
+    "@excalidraw/excalidraw": {
+      "optional": true
+    }
+  }
+}

@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 let state = { isListening: false, isProcessing: false };
 const listeners = new Set<() => void>();
 

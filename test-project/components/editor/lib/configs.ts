@@ -1,3 +1,4 @@
+/* oxlint-disable */
 import EditorTheme from "./editor-theme";
 import { nodes } from "./nodes";
 

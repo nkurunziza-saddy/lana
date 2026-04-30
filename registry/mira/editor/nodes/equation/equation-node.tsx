@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 "use client";
 
 /* oxlint-disable react-refresh/only-export-components */
@@ -13,7 +12,6 @@ import type {
 } from "lexical";
 import type { JSX } from "react";
 
-import katex from "katex";
 import { $applyNodeReplacement, DecoratorNode } from "lexical";
 import * as React from "react";
 
@@ -85,14 +83,9 @@ export class EquationNode extends DecoratorNode<JSX.Element> {
     const equation = btoa(this.__equation);
     element.setAttribute("data-lexical-equation", equation);
     element.setAttribute("data-lexical-inline", `${this.__inline}`);
-    katex.render(this.__equation, element, {
-      displayMode: !this.__inline, // true === block display //
-      errorColor: "#cc0000",
-      output: "html",
-      strict: "warn",
-      throwOnError: false,
-      trust: false,
-    });
+    // Note: We skip synchronous katex.render here to keep the node lazy.
+    // The data attributes are sufficient for importDOM serialization.
+    element.textContent = `$$${this.__equation}$$`;
     return { element };
   }
 

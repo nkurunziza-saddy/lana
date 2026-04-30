@@ -19,5 +19,5 @@
     }
   },
   "include": ["apps/**/*", "packages/**/*", "scripts/**/*", "tests/**/*"],
-  "exclude": ["node_modules", "registry", "apps/**/public/r"]
+  "exclude": ["node_modules", "registry", "test-project", "apps/**/public/r", "dist"]
 }

@@ -1,3 +1,4 @@
+/* oxlint-disable */
 import { createCommand, type LexicalCommand } from "lexical";
 
 export type INSERT_EQUATION_COMMAND_PAYLOAD = {

@@ -1,3 +1,4 @@
+/* oxlint-disable */
 import { type LexicalCommand, createCommand } from "lexical";
 
 export const RIGHT_CLICK_IMAGE_COMMAND: LexicalCommand<MouseEvent> = createCommand(

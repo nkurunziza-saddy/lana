@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 import { createCommand, type LexicalCommand, type NodeKey } from "lexical";
 
 export const INSERT_LAYOUT_COMMAND: LexicalCommand<string> =

@@ -4,13 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "ready": "vp check && vp run -r test && vp run -r build",
     "dev": "vp run website#dev",
+    "build": "pnpm run registry:build && vp run -r build",
+    "test": "vp run -r test",
+    "check": "vp check",
     "prepare": "vp config",
-    "registry:build": "node ./scripts/sync-registry.mjs && node ./scripts/build-registry.mjs",
-    "test": "vp test"
+    "registry:sync": "node ./scripts/sync-registry.mjs",
+    "registry:config": "node ./scripts/update-registry-config.mjs",
+    "registry:generate": "node ./scripts/build-registry.mjs",
+    "registry:build": "pnpm run registry:sync && pnpm run registry:config && pnpm run registry:generate",
+    "version": "changeset version && pnpm install --no-frozen-lockfile",
+    "release": "pnpm run build && changeset publish",
+    "changeset": "changeset"
   },
   "devDependencies": {
+    "@changesets/cli": "catalog:",
     "vite-plus": "catalog:"
   },
   "engines": {

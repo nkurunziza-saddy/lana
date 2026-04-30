@@ -1,5 +1,3 @@
-/* oxlint-disable */
-// @ts-nocheck
 import React from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createHeadingNode } from "@lexical/rich-text";

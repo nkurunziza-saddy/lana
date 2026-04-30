@@ -218,7 +218,7 @@ export default function ExcalidrawComponent({
           />
 
           {isHovered && isEditable && (
-            <div className="absolute top-3 right-3 flex gap-2">
+            <div className="absolute top-3 end-3 flex gap-2">
               <Button
                 type="button"
                 variant={"outline"}

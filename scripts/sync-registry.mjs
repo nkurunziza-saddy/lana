@@ -96,8 +96,8 @@ function copyRecursive(src, dest, style) {
 }
 
 function transformContent(content, filePath) {
-  // 0. Disable checks for generated registry files
-  const header = "/* oxlint-disable */\n// @ts-nocheck\n";
+  // 0. Disable oxlint for generated registry files
+  const header = "/* oxlint-disable */\n";
   if (!content.startsWith(header)) {
     content = header + content;
   }

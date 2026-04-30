@@ -1,5 +1,4 @@
 /* oxlint-disable */
-// @ts-nocheck
 import React, { useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { FileDown, FileUp } from "lucide-react";

@@ -1,6 +1,7 @@
+/* oxlint-disable */
 "use client";
 
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import KatexEquationAlterer from "../../../../components/katex-equation-editor";
 import { INSERT_EQUATION_COMMAND } from "../../../equations/commands";
 
