@@ -1,7 +1,21 @@
 {
   "name": "andi-editor",
-  "version": "0.3.0",
-  "description": "Rich text editor built with Lexical and shadcn/ui",
+  "version": "0.3.1",
+  "description": "A flexible, performance-optimized rich text editor built on top of Lexical and shadcn/ui",
+  "keywords": [
+    "andi-editor",
+    "editor",
+    "lexical",
+    "react",
+    "rich-text",
+    "shadcn-ui"
+  ],
+  "license": "MIT",
+  "author": "Andi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkurunziza-saddy/andi.git"
+  },
   "files": [
     "dist"
   ],
