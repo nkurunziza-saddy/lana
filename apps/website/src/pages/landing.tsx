@@ -24,7 +24,7 @@ export function LandingView() {
     <>
       <Row cols="3-1">
         <Cell className="py-16 md:py-24">
-          <Tag>v0.3.0</Tag>
+          <Tag>v0.3.1</Tag>
           <Display>
             The editor is
             <br />
@@ -38,10 +38,18 @@ export function LandingView() {
             lazy-loaded plugins.
           </Lead>
 
-          <div className="mb-8 max-w-sm">
-            <MonoLabel>Quick Install (Mira Style)</MonoLabel>
-            <div className="mt-3">
-              <CopyCommand command={`npx shadcn add ${SITE_URL}/r/mira/editor.json`} />
+          <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
+            <div>
+              <MonoLabel>Registry (Recommended)</MonoLabel>
+              <div className="mt-3">
+                <CopyCommand command={`npx shadcn add ${SITE_URL}/r/mira/editor.json`} />
+              </div>
+            </div>
+            <div>
+              <MonoLabel>NPM Package</MonoLabel>
+              <div className="mt-3">
+                <CopyCommand command="npm install andi-editor" />
+              </div>
             </div>
           </div>
 
@@ -66,11 +74,11 @@ export function LandingView() {
             <StatN>100%</StatN>
             <StatL>TypeScript</StatL>
             <Divider />
-            <StatN>45KB</StatN>
-            <StatL>NPM Bundle</StatL>
+            <StatN>153KB</StatN>
+            <StatL>NPM Package</StatL>
             <Divider />
-            <StatN>4.6KB</StatN>
-            <StatL>Core CSS</StatL>
+            <StatN>250KB</StatN>
+            <StatL>Total CSS</StatL>
           </div>
         </Cell>
       </Row>
@@ -141,13 +149,15 @@ export function LandingView() {
           </FeatDesc>
         </Cell>
         <Cell noBorderRight className="py-12 md:py-16">
-          <FeatNum>04 / ownership</FeatNum>
-          <FeatTitle>100% Yours</FeatTitle>
+          <FeatNum>04 / flexibility</FeatNum>
+          <FeatTitle>Two Ways to Play</FeatTitle>
           <Divider />
           <FeatDesc>
-            Not a black-box NPM package. Installed directly into your{" "}
+            Install as a standalone{" "}
+            <code className="text-xs bg-muted px-1 py-0.5 rounded">andi-editor</code> package for
+            speed, or via the shadcn registry to own the source code in your{" "}
             <code className="text-xs bg-muted px-1 py-0.5 rounded">components/editor</code>{" "}
-            directory. You own the code, you tweak the styling.
+            directory.
           </FeatDesc>
         </Cell>
       </Row>

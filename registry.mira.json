@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "andi",
-  "homepage": "https://andiaa.vercel.app",
+  "homepage": "https://andi-editor.vercel.app",
   "items": [
     {
       "name": "editor",

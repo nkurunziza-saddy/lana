@@ -37,9 +37,28 @@ export function DocsView() {
           <Divider />
           <h3 className="text-xl mb-4">Quick Setup</h3>
           <p className="text-muted-foreground text-sm mb-6">
-            Andi is designed to be added to your project via shadcn/ui registry. This gives you full
-            control over the source code.
+            Choose the method that best fits your workflow. Use the <strong>Registry</strong> if you
+            want full control over the source code, or the <strong>NPM Package</strong> if you want
+            the fastest setup.
           </p>
+
+          <div className="mb-8 p-4 border border-grid bg-muted/20 flex flex-col md:flex-row gap-8">
+            <div>
+              <MonoLabel>Method A: NPM Package</MonoLabel>
+              <p className="text-xs text-muted-foreground mt-1 mb-3">
+                Standalone package. Quickest setup, easiest updates.
+              </p>
+              <CopyCommand command="npm install andi-editor" />
+            </div>
+            <div className="hidden md:block w-[1px] bg-grid" />
+            <div>
+              <MonoLabel>Method B: Shadcn Registry</MonoLabel>
+              <p className="text-xs text-muted-foreground mt-1 mb-3">
+                Directly in your components folder. Fully customizable.
+              </p>
+              <CopyCommand command="npx shadcn add @andi/editor" />
+            </div>
+          </div>
 
           <div className="mb-8 border border-grid bg-card overflow-hidden max-w-2xl">
             <div className="flex border-b border-grid bg-muted/30">
@@ -100,9 +119,28 @@ export function DocsView() {
               <div>
                 <MonoLabel>03 / Next.js Usage (SSR)</MonoLabel>
                 <p className="text-sm text-muted-foreground mb-3 mt-1">
-                  Rich-text editors require browser APIs. For Next.js, wrap the compound components
-                  and load via{" "}
-                  <code className="text-[11px] bg-muted px-1 py-0.5 rounded">next/dynamic</code>:
+                  Rich-text editors require browser APIs. For Next.js, wrap the editor and load via{" "}
+                  <code className="text-[11px] bg-muted px-1 py-0.5 rounded">next/dynamic</code>.
+                </p>
+                <p className="text-[11px] text-muted-foreground font-mono mb-2">
+                  // Example with andi-editor package
+                </p>
+                <pre className="p-3 bg-muted/30 border border-grid text-[11px] font-mono text-muted-foreground overflow-x-auto rounded mb-6">
+                  {`// components/editor-client.tsx
+"use client";
+import { Editor } from "andi-editor";
+import "andi-editor/dist/andi-editor.css";
+
+export default function EditorClient() {
+  return <Editor showToolbar placeholder="Start typing..." />;
+}
+
+// app/page.tsx
+import dynamic from "next/dynamic";
+const EditorClient = dynamic(() => import("@/components/editor-client"), { ssr: false });`}
+                </pre>
+                <p className="text-[11px] text-muted-foreground font-mono mb-2">
+                  // Example with Registry (Local Components)
                 </p>
                 <pre className="p-3 bg-muted/30 border border-grid text-[11px] font-mono text-muted-foreground overflow-x-auto rounded">
                   {`// components/editor-client.tsx
