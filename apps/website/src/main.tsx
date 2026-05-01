@@ -26,7 +26,12 @@ const rootRoute = createRootRoute({
 });
 
 import { LandingView } from "./pages/landing";
-import { DocsView } from "./pages/docs";
+import { DocsLayout } from "./components/docs-layout";
+import { IntroductionPage } from "./pages/docs/introduction";
+import { InstallationPage } from "./pages/docs/installation";
+import { ComponentsPage } from "./pages/docs/components";
+import { PluginsPage } from "./pages/docs/plugins";
+import { ArchitecturePage } from "./pages/docs/architecture";
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -34,13 +39,52 @@ const indexRoute = createRoute({
   component: LandingView,
 });
 
-const docsRoute = createRoute({
+const docsLayoutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/docs",
-  component: DocsView,
+  component: DocsLayout,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, docsRoute]);
+const docsIndexRoute = createRoute({
+  getParentRoute: () => docsLayoutRoute,
+  path: "/",
+  component: IntroductionPage,
+});
+
+const docsInstallationRoute = createRoute({
+  getParentRoute: () => docsLayoutRoute,
+  path: "/installation",
+  component: InstallationPage,
+});
+
+const docsComponentsRoute = createRoute({
+  getParentRoute: () => docsLayoutRoute,
+  path: "/components",
+  component: ComponentsPage,
+});
+
+const docsPluginsRoute = createRoute({
+  getParentRoute: () => docsLayoutRoute,
+  path: "/plugins",
+  component: PluginsPage,
+});
+
+const docsArchitectureRoute = createRoute({
+  getParentRoute: () => docsLayoutRoute,
+  path: "/architecture",
+  component: ArchitecturePage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  docsLayoutRoute.addChildren([
+    docsIndexRoute,
+    docsInstallationRoute,
+    docsComponentsRoute,
+    docsPluginsRoute,
+    docsArchitectureRoute,
+  ]),
+]);
 const router = createRouter({ routeTree });
 
 declare module "@tanstack/react-router" {
