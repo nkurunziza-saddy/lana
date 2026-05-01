@@ -16,7 +16,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from "@lana/ui";
+} from "@andi/ui";
 import { HIGHLIGHT_COLORS } from "../../../lib/colors";
 import { ToolbarButton } from "./toolbar-button";
 

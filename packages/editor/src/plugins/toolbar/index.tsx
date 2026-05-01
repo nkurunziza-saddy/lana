@@ -1,7 +1,7 @@
 "use client";
 
 import { Mic, MicOff } from "lucide-react";
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import React from "react";
 import { Separator } from "../../components/toolbar-separator";
 import { AlignButtons } from "./extensions/align-buttons";

@@ -1,7 +1,7 @@
 {
-  "name": "Lanaa",
-  "short_name": "Lanaa",
-  "description": "Lana — A minimal rich-text editor canvas.",
+  "name": "Andia",
+  "short_name": "Andia",
+  "description": "Andi — A minimal rich-text editor canvas.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#164e63",

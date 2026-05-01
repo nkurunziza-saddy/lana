@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { cn } from "@lana/ui";
+import { cn } from "@andi/ui";
 
 export function Tag({ children, className }: { children: ReactNode; className?: string }) {
   return (

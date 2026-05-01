@@ -5,7 +5,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 
 import { FORMAT_ELEMENT_COMMAND } from "lexical";
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@andi/ui";
 import { ToolbarButton } from "./toolbar-button";
 
 export const AlignButtons = React.memo(function AlignButtons() {

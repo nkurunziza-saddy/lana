@@ -1,14 +1,14 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "lana",
+  "name": "andi",
   "homepage": "http://localhost:5173",
   "items": [
     {
       "name": "editor",
       "type": "registry:block",
-      "title": "Lana Editor",
+      "title": "Andi Editor",
       "description": "Rich text editor built with Lexical. Includes toolbar, floating toolbar, slash commands, equations, excalidraw, tables, drag-and-drop blocks, and more.",
-      "author": "Lana",
+      "author": "Andi",
       "cssVars": {
         "light": {
           "editor-primary": "oklch(0.57 0.17 249)",

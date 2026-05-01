@@ -20,7 +20,7 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@lana/ui";
+} from "@andi/ui";
 
 export default function TableHoverActionsPlugin({
   anchorElem = document.body,

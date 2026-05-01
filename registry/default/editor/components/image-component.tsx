@@ -23,7 +23,9 @@ import {
 } from "lexical";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 
-import brokenImage from "../images/image-broken.svg";
+const BROKEN_IMAGE_SVG =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWltYWdlLW9mZiI+PGxpbmUgeDE9IjMiIHgyPSIyMSIgeTE9IjMiIHkyPSIyMSIvPjxwYXRoIGQ9Ik0xMC41IDEwLjUgMTUuNSAxNS41Ii8+PHBhdGggZD0ibTIxIDE1LTMuMDg2LTMuMDg2YTIgMiAwIDAgMC0yLjgyOCAwTDEyLjQ0OSAxNC41NTIiLz48cGF0aCBkPSJtMTEuMzYgMTUuNjAyLTEuOTQ2LTEuOTQ2YTIgMiAwIDAgMC0yLjgyOCAwTDMgMTcuMjUiLz48cGF0aCBkPSJtMTYuMjk5IDE1LjcwMyAxLjI1OC0zLjE1NWEuNS41IDAgMCAxIC40NTQtLjMxNmguNjM0YS41LjUgMCAwIDEgLjQ0Mi4yNjhsMS40NTUgMy4yMiIvPjxwYXRoIGQ9Ik03IDdoMTBjMS4xIDAgMiAuOSAyIDJ2MTBjMCAxLjEtLjkgMi0yIDJIN2MtMS4xIDAtMi0uOS0yLTJWOWMwLTEuMS45LTIgMi0yWiIvPjwvc3ZnPg==";
+
 import { $isImageNode } from "../nodes/image";
 import { RIGHT_CLICK_IMAGE_COMMAND } from "./image-commands";
 import ImageResizer from "./image-resizer";
@@ -163,7 +165,7 @@ function LazyImage({
 function BrokenImage(): JSX.Element {
   return (
     <img
-      src={brokenImage}
+      src={BROKEN_IMAGE_SVG}
       style={{
         height: 200,
         opacity: 0.2,

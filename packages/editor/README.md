@@ -1,11 +1,11 @@
-# Lana Editor Documentation
+# Andi Editor Documentation
 
-`@lana/editor` is a flexible, performance-optimized rich text editor built on top of [Lexical](https://lexical.dev). It follows modern React best practices, supporting both a simple "plug-and-play" mode and a highly customizable "compound component" architecture.
+`@andi/editor` is a flexible, performance-optimized rich text editor built on top of [Lexical](https://lexical.dev). It follows modern React best practices, supporting both a simple "plug-and-play" mode and a highly customizable "compound component" architecture.
 
 ## Installation
 
 ```bash
-pnpm add @lana/editor
+pnpm add @andi/editor
 ```
 
 ## Core Patterns
@@ -15,7 +15,7 @@ pnpm add @lana/editor
 Best for quick implementations where the default layout is sufficient.
 
 ```tsx
-import { Editor } from "@lana/editor";
+import { Editor } from "@andi/editor";
 
 function MyPage() {
   return (
@@ -34,7 +34,7 @@ function MyPage() {
 Best for custom layouts, selective feature sets, and better tree-shaking.
 
 ```tsx
-import { Editor } from "@lana/editor";
+import { Editor } from "@andi/editor";
 
 function CustomEditor() {
   return (

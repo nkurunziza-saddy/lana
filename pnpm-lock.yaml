@@ -72,13 +72,13 @@ importers:
       '@fontsource/instrument-serif':
         specifier: 'catalog:'
         version: 5.2.8
-      '@lana/editor':
+      '@andi/editor':
         specifier: workspace:*
         version: link:../../packages/editor
-      '@lana/ui':
+      '@andi/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@lana/utils':
+      '@andi/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       '@tanstack/react-router':
@@ -124,10 +124,10 @@ importers:
       '@excalidraw/excalidraw':
         specifier: ^0.18.0
         version: 0.18.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@lana/ui':
+      '@andi/ui':
         specifier: workspace:*
         version: link:../ui
-      '@lana/utils':
+      '@andi/utils':
         specifier: workspace:*
         version: link:../utils
       '@lexical/code':
@@ -336,7 +336,7 @@ importers:
       '@fontsource-variable/geist':
         specifier: ^5.2.8
         version: 5.2.8
-      '@lana/utils':
+      '@andi/utils':
         specifier: workspace:*
         version: link:../utils
       class-variance-authority:

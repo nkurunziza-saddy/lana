@@ -11,11 +11,11 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@lana/ui/components",
-    "utils": "@lana/ui/lib/utils",
-    "hooks": "@lana/ui/hooks",
-    "lib": "@lana/ui/lib",
-    "ui": "@lana/ui/components"
+    "components": "@andi/ui/components",
+    "utils": "@andi/ui/lib/utils",
+    "hooks": "@andi/ui/hooks",
+    "lib": "@andi/ui/lib",
+    "ui": "@andi/ui/components"
   },
   "rtl": true,
   "menuColor": "default-translucent",

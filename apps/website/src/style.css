@@ -1,4 +1,4 @@
-@import "@lana/ui/globals.css";
+@import "@andi/ui/globals.css";
 
 @theme inline {
   --color-grid: var(--grid-border-color);

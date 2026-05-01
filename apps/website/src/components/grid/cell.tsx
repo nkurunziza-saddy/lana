@@ -1,5 +1,5 @@
 import type { ReactNode, CSSProperties } from "react";
-import { cn } from "@lana/ui";
+import { cn } from "@andi/ui";
 
 interface CellProps {
   children?: ReactNode;

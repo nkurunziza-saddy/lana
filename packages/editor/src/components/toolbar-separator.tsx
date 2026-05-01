@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 
 interface Props {
   orientation?: "vertical" | "horizontal";

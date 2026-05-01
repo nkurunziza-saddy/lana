@@ -115,14 +115,14 @@ function transformContent(content, filePath) {
     content = content.replace(/\btext-right\b/g, "text-end");
   }
 
-  // 2. Transform @lana/utils -> @/lib/utils
-  if (content.includes("@lana/utils")) {
-    content = content.replace(/['"]@lana\/utils['"]/g, "'@/lib/utils'");
+  // 2. Transform @andi/utils -> @/lib/utils
+  if (content.includes("@andi/utils")) {
+    content = content.replace(/['"]@andi\/utils['"]/g, "'@/lib/utils'");
   }
 
-  // 3. Transform @lana/ui imports
-  const lanaUiRegex = /import\s+\{([^}]+)\}\s+from\s+['"]@lana\/ui['"]/g;
-  content = content.replace(lanaUiRegex, (match, importsStr) => {
+  // 3. Transform @andi/ui imports
+  const andiUiRegex = /import\s+\{([^}]+)\}\s+from\s+['"]@andi\/ui['"]/g;
+  content = content.replace(andiUiRegex, (match, importsStr) => {
     const imports = importsStr
       .split(",")
       .map((i) => i.trim())
@@ -137,7 +137,7 @@ function transformContent(content, filePath) {
       } else {
         if (!componentImports["unknown"]) componentImports["unknown"] = [];
         componentImports["unknown"].push(name);
-        console.warn(`⚠ Unknown @lana/ui import: "${name}" — add to COMPONENT_MAP`);
+        console.warn(`⚠ Unknown @andi/ui import: "${name}" — add to COMPONENT_MAP`);
       }
     });
 

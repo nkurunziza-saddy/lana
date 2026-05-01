@@ -10,7 +10,7 @@ import {
   Table,
   ChevronLeft,
 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger, Button } from "@lana/ui";
+import { Popover, PopoverContent, PopoverTrigger, Button } from "@andi/ui";
 import { ToolbarButton } from "./toolbar-button";
 import React, { useState, lazy, Suspense, useCallback } from "react";
 import { INSERT_TABLE_COMMAND } from "@lexical/table";
@@ -27,7 +27,7 @@ import { $createExcalidrawNode } from "../../../nodes/excalidraw";
 import { $wrapNodeInElement } from "@lexical/utils";
 import type { AppState, BinaryFiles } from "@excalidraw/excalidraw/types";
 import { type ExcalidrawInitialElements } from "../../../components/excalidraw-modal";
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import KatexEquationAlterer from "../../../components/katex-equation-editor";
 import { INSERT_EQUATION_COMMAND } from "../../equations/commands";
 
@@ -218,9 +218,9 @@ export const InsertDropDown = React.memo(function InsertDropDown() {
 });
 
 // Internal sub-view components for cleaner code
-import { Label } from "@lana/ui";
-import { Input } from "@lana/ui";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@lana/ui";
+import { Label } from "@andi/ui";
+import { Input } from "@andi/ui";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@andi/ui";
 import { ChevronDown, Upload } from "lucide-react";
 
 function TablePopoverContent({

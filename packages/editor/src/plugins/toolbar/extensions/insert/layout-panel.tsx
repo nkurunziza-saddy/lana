@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   Label,
-} from "@lana/ui";
+} from "@andi/ui";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 

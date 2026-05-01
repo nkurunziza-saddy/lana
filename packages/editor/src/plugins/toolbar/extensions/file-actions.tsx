@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { FileDown, FileUp } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@andi/ui";
 import {
   copyAsPlainText,
   exportAsHTML,

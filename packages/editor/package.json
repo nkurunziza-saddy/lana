@@ -1,5 +1,5 @@
 {
-  "name": "@lana/editor",
+  "name": "@andi/editor",
   "version": "0.0.0",
   "description": "Rich text editor built with Lexical and shadcn/ui",
   "type": "module",
@@ -8,15 +8,15 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "vp pack",
+    "build": "vp pack src/index.tsx",
     "dev": "vp pack --watch",
     "test": "vp test",
     "check": "vp check"
   },
   "dependencies": {
+    "@andi/ui": "workspace:*",
+    "@andi/utils": "workspace:*",
     "@excalidraw/excalidraw": "^0.18.0",
-    "@lana/ui": "workspace:*",
-    "@lana/utils": "workspace:*",
     "@lexical/code": "^0.43.0",
     "@lexical/dragon": "^0.43.0",
     "@lexical/hashtag": "^0.43.0",

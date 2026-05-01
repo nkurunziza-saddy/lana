@@ -3,8 +3,8 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import { INSERT_TABLE_COMMAND } from "@lexical/table";
-import { Popover, PopoverContent, PopoverTrigger, Button } from "@lana/ui";
-import { cn } from "@lana/utils";
+import { Popover, PopoverContent, PopoverTrigger, Button } from "@andi/ui";
+import { cn } from "@andi/utils";
 import { $getSelection, $isRangeSelection } from "lexical";
 import {
   ChevronLeft,

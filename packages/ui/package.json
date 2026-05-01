@@ -1,5 +1,5 @@
 {
-  "name": "@lana/ui",
+  "name": "@andi/ui",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -15,9 +15,9 @@
     "check": "vp check"
   },
   "dependencies": {
+    "@andi/utils": "workspace:*",
     "@base-ui/react": "catalog:",
     "@fontsource-variable/geist": "^5.2.8",
-    "@lana/utils": "workspace:*",
     "class-variance-authority": "catalog:",
     "clsx": "^2.1.1",
     "lucide-react": "^0.479.0",

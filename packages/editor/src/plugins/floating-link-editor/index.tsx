@@ -17,7 +17,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type React from "react";
 import { createPortal } from "react-dom";
 
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import { EditLinkView } from "./components/edit-view";
 import { DisplayLinkView } from "./components/display-view";
 

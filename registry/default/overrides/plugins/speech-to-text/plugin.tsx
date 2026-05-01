@@ -2,7 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { Mic, MicOff, Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@lana/ui";
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@andi/ui";
 import { useSpeechToText, useSpeechToTextState } from "./hooks";
 
 export default function SpeechToTextPlugin({

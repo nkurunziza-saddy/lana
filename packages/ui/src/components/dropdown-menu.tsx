@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import { Check, ChevronRight } from "lucide-react";
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {

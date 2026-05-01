@@ -1,7 +1,7 @@
 "use client";
 
-import { Editor, EditorToolbar, EditorContent, EditorPlugins } from "lana-editor";
-import "lana-editor/styles.css";
+import { Editor, EditorToolbar, EditorContent, EditorPlugins } from "andi-editor";
+import "andi-editor/styles.css";
 
 export default function NpmEditorClient() {
   return (

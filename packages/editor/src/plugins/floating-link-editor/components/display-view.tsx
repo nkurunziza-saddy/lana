@@ -1,7 +1,7 @@
 "use client";
 
 import { Edit2, ExternalLink, Link2, Trash2 } from "lucide-react";
-import { Button } from "@lana/ui";
+import { Button } from "@andi/ui";
 
 interface DisplayLinkViewProps {
   linkUrl: string;

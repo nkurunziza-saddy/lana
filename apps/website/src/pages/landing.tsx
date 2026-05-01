@@ -14,8 +14,8 @@ import {
   Blockquote,
 } from "../components/typography";
 import { CopyCommand } from "../components/layout";
-import { SITE_URL } from "@lana/utils";
-import { Editor, EditorContent, EditorToolbar, EditorPlugins } from "@lana/editor";
+import { SITE_URL } from "@andi/utils";
+import { Editor, EditorContent, EditorToolbar, EditorPlugins } from "@andi/editor";
 
 export function LandingView() {
   const [view, setView] = React.useState<"toolbar" | "minimal" | "speech">("toolbar");
@@ -163,7 +163,7 @@ export function LandingView() {
               className="text-[11px] text-muted-foreground uppercase tracking-widest"
               style={{ fontFamily: "var(--ff-mono)" }}
             >
-              — Lana Design System
+              — Andi Design System
             </p>
           </div>
         </Cell>

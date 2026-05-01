@@ -5,9 +5,9 @@ import type { JSX } from "react";
 import { useCallback, useState, lazy, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 const KatexRenderer = lazy(() => import("./katex-renderer"));
-import { Button } from "@lana/ui";
-import { Label } from "@lana/ui";
-import { Input } from "@lana/ui";
+import { Button } from "@andi/ui";
+import { Label } from "@andi/ui";
+import { Input } from "@andi/ui";
 
 type Props = {
   initialEquation?: string;

@@ -28,7 +28,7 @@ export function Layout({ children }: { children: ReactNode }) {
             className="px-8 py-4.5 text-[11px] text-muted-foreground border-b border-grid md:border-b-0 border-r border-grid"
             style={{ fontFamily: "var(--ff-mono)" }}
           >
-            © 2026 lana/editor
+            © 2026 andi/editor
           </div>
           <div
             className="flex gap-5 px-8 py-4.5 text-[11px] text-muted-foreground border-b border-grid md:border-b-0 border-r border-grid"

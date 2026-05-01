@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "@lana/utils";
-import { Button, Toggle, Tooltip, TooltipContent, TooltipTrigger } from "@lana/ui";
+import { cn } from "@andi/utils";
+import { Button, Toggle, Tooltip, TooltipContent, TooltipTrigger } from "@andi/ui";
 
 // Shared token — change here to resize both button types together
 const BTN_SIZE = "size-8";

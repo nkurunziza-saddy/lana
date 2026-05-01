@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import type { SlashCommand } from "./slash-command-items";
 
 interface SlashCommandDropdownMenuItemProps {

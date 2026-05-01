@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "@lana/ui/src/styles/globals.css",
+    "css": "@andi/ui/src/styles/globals.css",
     "baseColor": "neutral",
     "cssVariables": true
   },
@@ -14,8 +14,8 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@lana/ui/lib/utils",
-    "ui": "@lana/ui/components"
+    "utils": "@andi/ui/lib/utils",
+    "ui": "@andi/ui/components"
   },
   "rtl": true,
   "menuColor": "default-translucent",

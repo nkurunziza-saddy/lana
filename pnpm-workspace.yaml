@@ -8,13 +8,13 @@ catalog:
   "@changesets/cli": ^2.31.0
   "@fontsource/geist-mono": ^5.2.7
   "@fontsource/instrument-serif": ^5.2.8
-  "@lana/utils": workspace:*
+  "@andi/utils": workspace:*
   "@tanstack/react-router": ^1.168.25
   "@types/node": ^24
   autoprefixer: ^10.5.0
   class-variance-authority: ^0.7.1
   katex: ^0.16.45
-  lana-editor: file:../packages/editor-pkg/lana-editor-0.1.0.tgz
+  andi-editor: file:../packages/editor-pkg/andi-editor-0.3.0.tgz
   next-themes: ^0.4.6
   postcss: ^8.5.10
   react-error-boundary: ^6.1.1

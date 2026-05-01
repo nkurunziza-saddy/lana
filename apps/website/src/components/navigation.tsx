@@ -16,7 +16,7 @@ export function Nav() {
         className="text-[13px] font-medium tracking-[-0.02em]"
         style={{ fontFamily: "var(--ff-mono)" }}
       >
-        lana<span className="opacity-40">/</span>editor
+        andi<span className="opacity-40">/</span>editor
       </Link>
       <div className="hidden gap-7 md:flex">
         <Link

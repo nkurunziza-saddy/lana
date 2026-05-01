@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const SITE_URL = "https://lanaaa.vercel.app";
+export const SITE_URL = "https://andiaa.vercel.app";
 export const DEV_URL = "http://localhost:5173";
 
 export const getBaseUrl = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Cell } from "../components/grid";
 import { Tag, Display, Lead, MonoLabel, Divider, Blockquote } from "../components/typography";
 import { CopyCommand } from "../components/layout";
-import { SITE_URL } from "@lana/utils";
+import { SITE_URL } from "@andi/utils";
 
 export function DocsView() {
   const [styleTab, setStyleTab] = React.useState<"mira" | "default">("mira");
@@ -37,7 +37,7 @@ export function DocsView() {
           <Divider />
           <h3 className="text-xl mb-4">Quick Setup</h3>
           <p className="text-muted-foreground text-sm mb-6">
-            Lana is designed to be added to your project via shadcn/ui registry. This gives you full
+            Andi is designed to be added to your project via shadcn/ui registry. This gives you full
             control over the source code.
           </p>
 
@@ -78,14 +78,14 @@ export function DocsView() {
                 <pre className="p-3 bg-muted/30 border border-grid text-[11px] font-mono text-muted-foreground overflow-x-auto rounded">
                   {`{
   "registries": {
-    "@lana": "${SITE_URL}/r/{style}"
+    "@andi": "${SITE_URL}/r/{style}"
   }
 }`}
                 </pre>
                 <p className="text-sm text-muted-foreground mt-3 mb-2">
                   Then install using the namespace:
                 </p>
-                <CopyCommand command="npx shadcn add @lana/editor" />
+                <CopyCommand command="npx shadcn add @andi/editor" />
               </div>
 
               <div>

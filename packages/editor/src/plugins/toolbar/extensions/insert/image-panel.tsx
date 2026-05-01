@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Label } from "@lana/ui";
+import { Button, Input, Label } from "@andi/ui";
 import { Upload } from "lucide-react";
 import React, { useState } from "react";
 

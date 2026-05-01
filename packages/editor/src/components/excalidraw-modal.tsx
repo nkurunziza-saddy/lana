@@ -9,7 +9,7 @@ import type {
 import { Excalidraw, THEME, exportToBlob } from "@excalidraw/excalidraw";
 import { type ReactPortal, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "@lana/ui";
+import { Button } from "@andi/ui";
 import { useTheme } from "next-themes";
 import { Download } from "lucide-react";
 

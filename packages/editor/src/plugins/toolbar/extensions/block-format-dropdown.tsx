@@ -6,7 +6,7 @@ import { $createHeadingNode } from "@lexical/rich-text";
 import { $setBlocksType } from "@lexical/selection";
 import { $createParagraphNode, $getSelection } from "lexical";
 import { Check, Heading, Heading1, Heading2, Heading3, Heading4 } from "lucide-react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@andi/ui";
 import { ToolbarButton } from "./toolbar-button";
 import { useToolbar } from "../context";
 

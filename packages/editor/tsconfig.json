@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@lana/editor/*": ["./src/*"]
+      "@andi/editor/*": ["./src/*"]
     }
   },
   "include": ["."],

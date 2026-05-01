@@ -20,14 +20,14 @@ import {
 } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@lana/ui";
+} from "@andi/ui";
 import { Separator } from "../../components/toolbar-separator";
 import { HIGHLIGHT_COLORS } from "../../lib/colors";
 import { useFloatingToolbar } from "../../lib/hooks/use-floating-toolbar";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Label } from "@lana/ui";
+import { Button, Input, Label } from "@andi/ui";
 import { useState } from "react";
 
 interface TablePopoverContentProps {

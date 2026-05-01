@@ -10,11 +10,11 @@
     "check": "vp check"
   },
   "dependencies": {
+    "@andi/editor": "workspace:*",
+    "@andi/ui": "workspace:*",
+    "@andi/utils": "workspace:*",
     "@fontsource/geist-mono": "catalog:",
     "@fontsource/instrument-serif": "catalog:",
-    "@lana/editor": "workspace:*",
-    "@lana/ui": "workspace:*",
-    "@lana/utils": "workspace:*",
     "@tanstack/react-router": "catalog:",
     "next-themes": "catalog:",
     "react": "^19.0.0",

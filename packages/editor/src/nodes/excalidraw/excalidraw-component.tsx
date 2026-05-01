@@ -18,7 +18,7 @@ const ExcalidrawModal = lazy(() => import("../../components/excalidraw-modal"));
 import ImageResizer from "../../components/image-resizer";
 import { $isExcalidrawNode } from ".";
 import ExcalidrawImage from "./excalidraw-image";
-import { Button } from "@lana/ui";
+import { Button } from "@andi/ui";
 
 export default function ExcalidrawComponent({
   nodeKey,

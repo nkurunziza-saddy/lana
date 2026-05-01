@@ -19,7 +19,7 @@ import { $createParagraphNode, $getRoot, type EditorState, type LexicalEditor } 
 import * as React from "react";
 import { useMemo, useState, memo } from "react";
 
-import { cn } from "@lana/utils";
+import { cn } from "@andi/utils";
 import { EDITOR_CONFIG } from "./lib/configs";
 import type { EditorProps } from "./lib/types/editor";
 import { FloatingToolbar } from "./plugins/floating-toolbar";

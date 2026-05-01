@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Check, Link2, X } from "lucide-react";
-import { Button, Input } from "@lana/ui";
+import { Button, Input } from "@andi/ui";
 
 interface EditLinkViewProps {
   editedLinkUrl: string;

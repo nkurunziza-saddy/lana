@@ -1,4 +1,4 @@
-# Lana Workflow
+# Andi Workflow
 
 This repository uses [Changesets](https://github.com/changesets/changesets) for versioning and changelogs.
 

@@ -3,7 +3,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { FORMAT_TEXT_COMMAND } from "lexical";
 import { CaseLower, CaseUpper, type LucideIcon } from "lucide-react";
 import { useCallback } from "react";
-import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@lana/ui";
+import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from "@andi/ui";
 import { ToolbarButton } from "./toolbar-button";
 import { useToolbar } from "../context";
 
